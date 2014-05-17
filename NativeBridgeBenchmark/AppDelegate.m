@@ -14,7 +14,22 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.window.backgroundColor = [UIColor whiteColor];
+
+    self.window.backgroundColor = [UIColor redColor];
+
+    UIViewController *viewController = [[UIViewController alloc] init];
+
+
+    UIWebView *webView = [[UIWebView alloc] init];
+
+    NSURL *url = [NSURL URLWithString: @"http://localhost:8000"];
+    NSURLRequest *request = [NSURLRequest requestWithURL: url];
+
+    [webView loadRequest: request ];
+
+    [viewController setView: webView];
+
+    [self.window setRootViewController:viewController];
     [self.window makeKeyAndVisible];
     return YES;
 }
