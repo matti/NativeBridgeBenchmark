@@ -7,29 +7,17 @@
 //
 
 #import "AppDelegate.h"
+#import "BenchmarkViewController.h"
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
-
     self.window.backgroundColor = [UIColor redColor];
 
-    UIViewController *viewController = [[UIViewController alloc] init];
-
-
-    UIWebView *webView = [[UIWebView alloc] init];
-
-    NSURL *url = [NSURL URLWithString: @"http://localhost:8000"];
-    NSURLRequest *request = [NSURLRequest requestWithURL: url];
-
-    [webView loadRequest: request ];
-
-    [viewController setView: webView];
-
-    [self.window setRootViewController:viewController];
+    [self.window setRootViewController: [BenchmarkViewController new]];
+    
     [self.window makeKeyAndVisible];
     return YES;
 }

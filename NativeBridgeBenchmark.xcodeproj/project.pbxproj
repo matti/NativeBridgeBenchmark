@@ -19,6 +19,8 @@
 		ED0E98C3192772D200669AB6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0E98AB192772D200669AB6 /* UIKit.framework */; };
 		ED0E98CB192772D200669AB6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED0E98C9192772D200669AB6 /* InfoPlist.strings */; };
 		ED0E98CD192772D200669AB6 /* NativeBridgeBenchmarkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ED0E98CC192772D200669AB6 /* NativeBridgeBenchmarkTests.m */; };
+		ED9241AC192A6B0E004164FE /* BenchmarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9241AB192A6B0E004164FE /* BenchmarkViewController.m */; };
+		ED9241AE192A7458004164FE /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = ED9241AD192A7458004164FE /* index.html */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,9 @@
 		ED0E98C8192772D200669AB6 /* NativeBridgeBenchmarkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NativeBridgeBenchmarkTests-Info.plist"; sourceTree = "<group>"; };
 		ED0E98CA192772D200669AB6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ED0E98CC192772D200669AB6 /* NativeBridgeBenchmarkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NativeBridgeBenchmarkTests.m; sourceTree = "<group>"; };
+		ED9241AA192A6B0E004164FE /* BenchmarkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BenchmarkViewController.h; sourceTree = "<group>"; };
+		ED9241AB192A6B0E004164FE /* BenchmarkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BenchmarkViewController.m; sourceTree = "<group>"; };
+		ED9241AD192A7458004164FE /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +82,7 @@
 		ED0E989B192772D100669AB6 = {
 			isa = PBXGroup;
 			children = (
+				ED9241AD192A7458004164FE /* index.html */,
 				ED0E98AD192772D200669AB6 /* NativeBridgeBenchmark */,
 				ED0E98C6192772D200669AB6 /* NativeBridgeBenchmarkTests */,
 				ED0E98A6192772D200669AB6 /* Frameworks */,
@@ -111,6 +117,8 @@
 				ED0E98B7192772D200669AB6 /* AppDelegate.m */,
 				ED0E98B9192772D200669AB6 /* Images.xcassets */,
 				ED0E98AE192772D200669AB6 /* Supporting Files */,
+				ED9241AA192A6B0E004164FE /* BenchmarkViewController.h */,
+				ED9241AB192A6B0E004164FE /* BenchmarkViewController.m */,
 			);
 			path = NativeBridgeBenchmark;
 			sourceTree = "<group>";
@@ -218,6 +226,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED9241AE192A7458004164FE /* index.html in Resources */,
 				ED0E98B2192772D200669AB6 /* InfoPlist.strings in Resources */,
 				ED0E98BA192772D200669AB6 /* Images.xcassets in Resources */,
 			);
@@ -240,6 +249,7 @@
 			files = (
 				ED0E98B8192772D200669AB6 /* AppDelegate.m in Sources */,
 				ED0E98B4192772D200669AB6 /* main.m in Sources */,
+				ED9241AC192A6B0E004164FE /* BenchmarkViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,6 +448,7 @@
 				ED0E98D2192772D200669AB6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		ED0E98D3192772D200669AB6 /* Build configuration list for PBXNativeTarget "NativeBridgeBenchmarkTests" */ = {
 			isa = XCConfigurationList;
@@ -446,6 +457,7 @@
 				ED0E98D5192772D200669AB6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
