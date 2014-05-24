@@ -21,9 +21,67 @@
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 
-    NSLog(@"shouldStartLoad: %@", request.URL.absoluteString);
+    NSString *targetURLString = request.URL.absoluteString;
+    NSString *targetURLQueryString = request.URL.query;
 
-    return YES;
+    NSLog(@"shouldStartLoad: %@", targetURLString);
+
+
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+
+    for (NSString *param in [ targetURLQueryString componentsSeparatedByString:@"&"]) {
+        NSArray *elts = [param componentsSeparatedByString:@"="];
+        if([elts count] < 2) continue;
+
+        [params setObject:[elts objectAtIndex:1] forKey:[elts objectAtIndex:0]];
+    }
+
+    NSLog(@"TIME WHEN WEBVIEW SENT: %@", [params valueForKey:@"webview_started_at"]);
+
+
+    if ([ targetURLString hasPrefix:@"nativebridge://" ]) {
+        NSLog(@"nativebridge:// captured");
+
+
+        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+        [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS"];
+
+        NSDate *dateNow = [NSDate new];
+
+        NSString *dateNowString = [dateFormat stringFromDate: dateNow];
+        NSLog(@"TIME WHEN HIT NATIVE: %@", dateNowString);
+
+        NSString *responseURLString = self.webView.request.URL.absoluteString;
+
+        // [NSString stringWithFormat: @"%@/%@", self.webView.request.URL.absoluteString, @"results"];
+        NSLog(@"posting to %@", responseURLString);
+
+        DCHTTPTask *task = [DCHTTPTask POST: responseURLString
+                                 parameters:@{
+                                              @"result": @{
+                                                      @"webview_started_at": [params valueForKey:@"webview_started_at"],
+                                                      @"native_received_at": dateNowString,
+                                                      @"native_started_at": dateNowString,
+                                                      },
+                                            }];
+
+//        [task.requestSerializer setValue:[NSString stringWithFormat:@"Token token=\"%@\"", API_TOKEN] forHTTPHeaderField:@"Authorization"];
+
+        task.responseSerializer = [DCJSONResponseSerializer new];
+
+        task.thenMain(^(DCHTTPResponse *response){
+            NSLog(@"payload: %@",response.responseObject);
+            NSLog(@"finished POST task");
+        }).catch(^(NSError *error){
+            NSLog(@"failed to upload file: %@",[error localizedDescription]);
+        });
+        [task start];
+
+
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 -(void)webViewDidStartLoad:(UIWebView *)webView {
@@ -42,12 +100,18 @@
     [self setWebView:[UIWebView new]];
     [self setView: self.webView ];
 
+    // fix ios7
+    [self.webView.scrollView setContentInset:UIEdgeInsetsMake(44, 0, 0, 0)];
+    [self.webView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(44, 0, 0, 0)];
+    [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
+
+
     [ self.webView setDelegate:self];
 
     [self restart];
 
     [self addNavigationBar];
-    
+
 }
 
 -(void)addNavigationBar
@@ -75,15 +139,6 @@
 
 -(void)reload
 {
-    DCHTTPTask *task = [DCHTTPTask GET: self.webView.request.URL.absoluteString];
-
-    task.thenMain(^(DCHTTPResponse *response){
-        NSString *str = [[NSString alloc] initWithData:response.responseObject encoding:NSUTF8StringEncoding];
-        NSLog(@"web request finished: %@",str);
-    }).catch(^(NSError *error){
-        NSLog(@"failed to load Request: %@",[error localizedDescription]);
-    });
-    [task start];
 
     [[ self webView ] stringByEvaluatingJavaScriptFromString:@"window.location.reload();"];
 
