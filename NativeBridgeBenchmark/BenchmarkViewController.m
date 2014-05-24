@@ -43,27 +43,35 @@
         NSLog(@"nativebridge:// captured");
 
 
-        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-        [dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS"];
+        // "2014-05-24T18:58:15.005Z"
+
 
         NSDate *dateNow = [NSDate new];
 
-        NSString *dateNowString = [dateFormat stringFromDate: dateNow];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+        [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'"];
+
+        NSString *dateNowString = [dateFormatter stringFromDate: dateNow];
         NSLog(@"TIME WHEN HIT NATIVE: %@", dateNowString);
 
         NSString *responseURLString = self.webView.request.URL.absoluteString;
 
+
+
         // [NSString stringWithFormat: @"%@/%@", self.webView.request.URL.absoluteString, @"results"];
         NSLog(@"posting to %@", responseURLString);
 
+        NSDictionary *benchmarkResult = @{
+                                @"result": @{
+                                        @"webview_started_at": [params valueForKey:@"webview_started_at"],
+                                        @"native_received_at": dateNowString,
+                                        @"native_started_at": dateNowString,
+                                        },
+                                };
+
         DCHTTPTask *task = [DCHTTPTask POST: responseURLString
-                                 parameters:@{
-                                              @"result": @{
-                                                      @"webview_started_at": [params valueForKey:@"webview_started_at"],
-                                                      @"native_received_at": dateNowString,
-                                                      @"native_started_at": dateNowString,
-                                                      },
-                                            }];
+                                 parameters: benchmarkResult];
 
 //        [task.requestSerializer setValue:[NSString stringWithFormat:@"Token token=\"%@\"", API_TOKEN] forHTTPHeaderField:@"Authorization"];
 
@@ -77,6 +85,18 @@
         });
         [task start];
 
+        // lol
+
+        NSData *jsonData = [ NSJSONSerialization dataWithJSONObject:benchmarkResult options:0 error: nil];
+        NSString *jsonDataString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
+
+        NSLog(@"About to pong with:\n%@", jsonDataString);
+
+        NSString *evalString = [NSString stringWithFormat:@"pong('%@');", jsonDataString ];
+        NSLog(@"eval:\n%@", evalString);
+
+        NSString *evalResultString = [self.webView stringByEvaluatingJavaScriptFromString:evalString];
+        NSLog(@"eval result: %@", evalResultString);
 
         return NO;
     } else {
