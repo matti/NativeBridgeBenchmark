@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BenchmarkViewController : UIViewController
 
+@interface BenchmarkViewController : UIViewController <UIWebViewDelegate>
 @end

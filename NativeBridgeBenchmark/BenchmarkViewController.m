@@ -17,10 +17,32 @@
 
 @implementation BenchmarkViewController
 
+#pragma mark - WebViewDelegate
+
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+
+    NSLog(@"shouldStartLoad: %@", request.URL.absoluteString);
+
+    return YES;
+}
+
+-(void)webViewDidStartLoad:(UIWebView *)webView {
+    NSLog(@"didStart: %@", webView.request.URL.absoluteString);
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView {
+    NSLog(@"didFinish: %@", webView.request.URL.absoluteString);
+}
+
+
+#pragma mark - ViewController
+
 - (void)loadView
 {
     [self setWebView:[UIWebView new]];
     [self setView: self.webView ];
+
+    [ self.webView setDelegate:self];
 
     [self restart];
 
@@ -53,9 +75,7 @@
 
 -(void)reload
 {
-    [[ self webView ] stringByEvaluatingJavaScriptFromString:@"window.location.reload();"];
-
-    DCHTTPTask *task = [DCHTTPTask GET:@"http://cs.helsinki.fi"];
+    DCHTTPTask *task = [DCHTTPTask GET: self.webView.request.URL.absoluteString];
 
     task.thenMain(^(DCHTTPResponse *response){
         NSString *str = [[NSString alloc] initWithData:response.responseObject encoding:NSUTF8StringEncoding];
@@ -64,6 +84,8 @@
         NSLog(@"failed to load Request: %@",[error localizedDescription]);
     });
     [task start];
+
+    [[ self webView ] stringByEvaluatingJavaScriptFromString:@"window.location.reload();"];
 
 }
 
