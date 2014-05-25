@@ -10,6 +10,7 @@
 
 #import <HTTPKit/DCHTTPTask.h>
 
+#import "NSDictionary+Merge.h"
 
 @interface BenchmarkViewController ()
 @property(nonatomic, retain) UIWebView *webView;
@@ -24,23 +25,25 @@
     NSString *targetURLString = request.URL.absoluteString;
     NSString *targetURLQueryString = request.URL.query;
 
-    NSLog(@"shouldStartLoad: %@", targetURLString);
-
-
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-
-    for (NSString *param in [ targetURLQueryString componentsSeparatedByString:@"&"]) {
-        NSArray *elts = [param componentsSeparatedByString:@"="];
-        if([elts count] < 2) continue;
-
-        [params setObject:[elts objectAtIndex:1] forKey:[elts objectAtIndex:0]];
-    }
-
-    NSLog(@"TIME WHEN WEBVIEW SENT: %@", [params valueForKey:@"webview_started_at"]);
-
 
     if ([ targetURLString hasPrefix:@"nativebridge://" ]) {
         NSLog(@"nativebridge:// captured");
+
+        // get params
+        NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+
+        for (NSString *param in [ targetURLQueryString componentsSeparatedByString:@"&"]) {
+            NSArray *elts = [param componentsSeparatedByString:@"="];
+            if([elts count] < 2) continue;
+
+            [params setObject:[elts objectAtIndex:1] forKey:[elts objectAtIndex:0]];
+        }
+
+        NSLog(@"TIME WHEN WEBVIEW SENT: %@", [params valueForKey:@"webview_started_at"]);
+        NSUInteger payloadLength = [[params valueForKey:@"payload"] length];
+        NSString *payloadLengthString = [NSString stringWithFormat:@"%lu", (unsigned long)payloadLength];
+
+        NSLog(@"WebView payload length was %@", payloadLengthString);
 
 
         // "2014-05-24T18:58:15.005Z"
@@ -63,40 +66,65 @@
         NSLog(@"posting to %@", responseURLString);
 
         NSDictionary *benchmarkResult = @{
-                                @"result": @{
-                                        @"webview_started_at": [params valueForKey:@"webview_started_at"],
-                                        @"native_received_at": dateNowString,
-                                        @"native_started_at": dateNowString,
-                                        },
-                                };
+                                          @"webview_started_at": [params valueForKey:@"webview_started_at"],
+                                          @"native_received_at": dateNowString,
+                                          @"native_started_at": dateNowString,
+                                          @"webview_payload_length": payloadLengthString,
+                                          @"from": @"native"
+                                        };
 
-        DCHTTPTask *task = [DCHTTPTask POST: responseURLString
-                                 parameters: benchmarkResult];
 
-//        [task.requestSerializer setValue:[NSString stringWithFormat:@"Token token=\"%@\"", API_TOKEN] forHTTPHeaderField:@"Authorization"];
+        if ( [params objectForKey:@"pong"] ) {
 
-        task.responseSerializer = [DCJSONResponseSerializer new];
+            NSInteger pongPayloadLength = [[ params objectForKey:@"pongPayloadLength" ] integerValue];
 
-        task.thenMain(^(DCHTTPResponse *response){
-            NSLog(@"payload: %@",response.responseObject);
-            NSLog(@"finished POST task");
-        }).catch(^(NSError *error){
-            NSLog(@"failed to upload file: %@",[error localizedDescription]);
-        });
-        [task start];
+            NSString *alphabet  = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXZY0123456789";
+            NSMutableString *pongPayload = [NSMutableString stringWithCapacity:pongPayloadLength];
+            for (NSUInteger i = 0U; i < pongPayloadLength; i++) {
+                u_int32_t r = arc4random() % [alphabet length];
+                unichar c = [alphabet characterAtIndex:r];
+                [pongPayload appendFormat:@"%C", c];
+            }
 
-        // lol
+            NSDictionary *payloadedBenchmarkResult = [ NSDictionary dictionaryByMerging:benchmarkResult with:@{
+                                                                                                               @"pongPayload": pongPayload
+                                                                                                               }];
 
-        NSData *jsonData = [ NSJSONSerialization dataWithJSONObject:benchmarkResult options:0 error: nil];
-        NSString *jsonDataString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            NSData *jsonData = [ NSJSONSerialization dataWithJSONObject:payloadedBenchmarkResult options:0 error: nil];
+            NSString *jsonDataString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
 
-        NSLog(@"About to pong with:\n%@", jsonDataString);
 
-        NSString *evalString = [NSString stringWithFormat:@"pong('%@');", jsonDataString ];
-        NSLog(@"eval:\n%@", evalString);
+            NSString *evalString = [NSString stringWithFormat:@"pong('%@');", jsonDataString ];
 
-        NSString *evalResultString = [self.webView stringByEvaluatingJavaScriptFromString:evalString];
-        NSLog(@"eval result: %@", evalResultString);
+            [self.webView stringByEvaluatingJavaScriptFromString:evalString];
+
+            NSLog(@"ponged!");
+
+        } else {
+
+            NSString *currentFps = [self.webView stringByEvaluatingJavaScriptFromString:@"parseInt(stats.domElement.firstChild.textContent);"];
+
+
+            NSDictionary *fpssedBenchmarkResult = [NSDictionary dictionaryByMerging:benchmarkResult with:@{
+                                                                                                           @"fps": currentFps
+                                                                                                           }];
+
+            DCHTTPTask *task = [DCHTTPTask POST: responseURLString
+                                     parameters: @{ @"result": fpssedBenchmarkResult }];
+
+            //        [task.requestSerializer setValue:[NSString stringWithFormat:@"Token token=\"%@\"", API_TOKEN] forHTTPHeaderField:@"Authorization"];
+
+            task.responseSerializer = [DCJSONResponseSerializer new];
+
+            task.thenMain(^(DCHTTPResponse *response){
+                NSLog(@"payload: %@",response.responseObject);
+                NSLog(@"finished POST task");
+            }).catch(^(NSError *error){
+                NSLog(@"failed to upload file: %@",[error localizedDescription]);
+            });
+            [task start];
+
+        }
 
         return NO;
     } else {

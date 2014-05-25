@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		487DC5F5BBAA4192A8EB6DB7 /* libPods-NativeBridgeBenchmark.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FFEAD3DAC6964C739C50B50E /* libPods-NativeBridgeBenchmark.a */; };
+		ED07A5B91932023600792C4C /* NSDictionary+Merge.m in Sources */ = {isa = PBXBuildFile; fileRef = ED07A5B81932023600792C4C /* NSDictionary+Merge.m */; };
 		ED0E98A8192772D200669AB6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0E98A7192772D200669AB6 /* Foundation.framework */; };
 		ED0E98AA192772D200669AB6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0E98A9192772D200669AB6 /* CoreGraphics.framework */; };
 		ED0E98AC192772D200669AB6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0E98AB192772D200669AB6 /* UIKit.framework */; };
@@ -35,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		ED07A5B71932023600792C4C /* NSDictionary+Merge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+Merge.h"; sourceTree = "<group>"; };
+		ED07A5B81932023600792C4C /* NSDictionary+Merge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+Merge.m"; sourceTree = "<group>"; };
 		ED0E98A4192772D200669AB6 /* NativeBridgeBenchmark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeBridgeBenchmark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED0E98A7192772D200669AB6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		ED0E98A9192772D200669AB6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -125,6 +128,8 @@
 				ED0E98AE192772D200669AB6 /* Supporting Files */,
 				ED9241AA192A6B0E004164FE /* BenchmarkViewController.h */,
 				ED9241AB192A6B0E004164FE /* BenchmarkViewController.m */,
+				ED07A5B71932023600792C4C /* NSDictionary+Merge.h */,
+				ED07A5B81932023600792C4C /* NSDictionary+Merge.m */,
 			);
 			path = NativeBridgeBenchmark;
 			sourceTree = "<group>";
@@ -289,6 +294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED0E98B8192772D200669AB6 /* AppDelegate.m in Sources */,
+				ED07A5B91932023600792C4C /* NSDictionary+Merge.m in Sources */,
 				ED0E98B4192772D200669AB6 /* main.m in Sources */,
 				ED9241AC192A6B0E004164FE /* BenchmarkViewController.m in Sources */,
 			);
