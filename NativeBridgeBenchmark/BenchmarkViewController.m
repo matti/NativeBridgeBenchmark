@@ -102,12 +102,22 @@
 
         } else {
 
-            NSString *currentFps = [self.webView stringByEvaluatingJavaScriptFromString:@"parseInt(stats.domElement.firstChild.textContent);"];
+            NSString *currentFps = [self.webView stringByEvaluatingJavaScriptFromString:@"if (window.COULD_NOT_ANIMATE_EVEN_ONCE) { 0 } else { window.COULD_NOT_ANIMATE_EVEN_ONCE = true; parseInt(window.stats.domElement.firstChild.textContent); }"];
 
 
             NSDictionary *fpssedBenchmarkResult = [NSDictionary dictionaryByMerging:benchmarkResult with:@{
                                                                                                            @"fps": currentFps
                                                                                                            }];
+
+            if ( [ params objectForKey:@"callback"] ) {
+                NSString *callbackName = [ params objectForKey:@"callback" ];
+                NSString *callbackTrigger = [ NSString stringWithFormat:@"window.%@()", callbackName];
+
+                NSLog(@"triggering callback: %@", callbackTrigger);
+
+                [ self.webView stringByEvaluatingJavaScriptFromString:callbackTrigger];
+            }
+
 
             DCHTTPTask *task = [DCHTTPTask POST: responseURLString
                                      parameters: @{ @"result": fpssedBenchmarkResult }];
