@@ -22,24 +22,25 @@
 #pragma mark - WebViewDelegate
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-
+    
 
     NSString *messageURLString = @"";
 
-    if ( [request.URL.absoluteString hasPrefix:@"nativeBridge://"] ) {
+    if ( [request.URL.absoluteString hasPrefix:@"nativebridge://"] ) {
         messageURLString = request.URL.absoluteString;
     }
 
-    if ( [request.URL.fragment hasPrefix:@"nativeBridge://"]) {
+    if ( [request.URL.fragment hasPrefix:@"nativebridge://"]) {
         messageURLString = request.URL.fragment;
     }
+
 
     if ( [messageURLString isEqualToString:@""] ) {
         return YES;
     }
 
 
-    NSLog(@"nativeBridge:// captured");
+    NSLog(@"nativebridge:// captured");
 
     NSDictionary *params = [messageURLString URLQueryParameters];
 
@@ -65,7 +66,8 @@
                                       @"native_received_at": dateNowString,
                                       @"native_started_at": dateNowString,
                                       @"webview_payload_length": payloadLengthString,
-                                      @"from": @"native"
+                                      @"from": @"native",
+                                      @"method_name": [params valueForKey:@"method_name"]
                                     };
 
     // This if is legacy
