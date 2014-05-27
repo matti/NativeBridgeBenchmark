@@ -9,6 +9,7 @@
 #import "BenchmarkViewController.h"
 
 #import <HTTPKit/DCHTTPTask.h>
+#import <RequestUtils/RequestUtils.h>
 
 #import "NSDictionary+Merge.h"
 
@@ -22,25 +23,25 @@
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 
-    NSString *targetURLString = request.URL.absoluteString;
-    NSString *targetURLQueryString = request.URL.query;
 
-    if (![ targetURLString hasPrefix:@"nativebridge://" ]) {
+    NSString *messageURLString = @"";
+
+    if ( [request.URL.absoluteString hasPrefix:@"nativeBridge://"] ) {
+        messageURLString = request.URL.absoluteString;
+    }
+
+    if ( [request.URL.fragment hasPrefix:@"nativeBridge://"]) {
+        messageURLString = request.URL.fragment;
+    }
+
+    if ( [messageURLString isEqualToString:@""] ) {
         return YES;
     }
 
 
-    NSLog(@"nativebridge:// captured");
+    NSLog(@"nativeBridge:// captured");
 
-    // get params
-    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
-
-    for (NSString *param in [ targetURLQueryString componentsSeparatedByString:@"&"]) {
-        NSArray *elts = [param componentsSeparatedByString:@"="];
-        if([elts count] < 2) continue;
-
-        [params setObject:[elts objectAtIndex:1] forKey:[elts objectAtIndex:0]];
-    }
+    NSDictionary *params = [messageURLString URLQueryParameters];
 
     NSLog(@"TIME WHEN WEBVIEW SENT: %@", [params valueForKey:@"webview_started_at"]);
     NSUInteger payloadLength = [[params valueForKey:@"payload"] length];

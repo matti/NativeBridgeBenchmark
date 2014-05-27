@@ -2,12 +2,15 @@ PODS:
   - ConcurrentKit (0.1.0)
   - HTTPKit (0.1.2):
     - ConcurrentKit
+  - RequestUtils (1.0.2)
 
 DEPENDENCIES:
   - HTTPKit
+  - RequestUtils
 
 SPEC CHECKSUMS:
   ConcurrentKit: 06f0a42b6a2617a777eb80655a31a3f0704356f8
   HTTPKit: 61e41215f424f11a2e30ca8077ece5879706eb67
+  RequestUtils: 82b66f926bc11ef761fedc6dcc3613d6f74f4f3a
 
 COCOAPODS: 0.33.1

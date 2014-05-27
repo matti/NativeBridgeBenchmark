@@ -3,6 +3,7 @@
 
 target "NativeBridgeBenchmark" do
   pod 'HTTPKit'
+  pod 'RequestUtils'
 end
 
 target "NativeBridgeBenchmarkTests" do
