@@ -41,6 +41,7 @@
 
 
     NSLog(@"nativebridge:// captured");
+//    NSLog(messageURLString);
 
     NSDictionary *params = [messageURLString URLQueryParameters];
 
@@ -67,7 +68,8 @@
                                       @"native_started_at": dateNowString,
                                       @"webview_payload_length": payloadLengthString,
                                       @"from": @"native",
-                                      @"method_name": [params valueForKey:@"method_name"]
+                                      @"method_name": [params valueForKey:@"method_name"],
+                                      @"fps": [params valueForKey:@"fps"]
                                     };
 
     // This if is legacy
@@ -107,13 +109,13 @@
         NSString *responseURLString = [NSString stringWithFormat:@"%@.json", self.webView.request.URL.absoluteString];
         NSLog(@"posting to %@", responseURLString);
 
-        if ( [params objectForKey:@"fps"]) {
-            NSString *currentFps = [self.webView stringByEvaluatingJavaScriptFromString:@"if (window.COULD_NOT_ANIMATE_EVEN_ONCE) { 0 } else { window.COULD_NOT_ANIMATE_EVEN_ONCE = true; parseInt(window.stats.domElement.firstChild.textContent); }"];
-
-            benchmarkResult = [NSDictionary dictionaryByMerging:benchmarkResult with:@{
-                                                                                       @"fps": currentFps
-                                                                                      }];
-        }
+//        if ( [params objectForKey:@"fps"]) {
+//            NSString *currentFps = [self.webView stringByEvaluatingJavaScriptFromString:@"if (window.COULD_NOT_ANIMATE_EVEN_ONCE) { 0 } else { window.COULD_NOT_ANIMATE_EVEN_ONCE = true; parseInt(window.stats.domElement.firstChild.textContent); }"];
+//
+//            benchmarkResult = [NSDictionary dictionaryByMerging:benchmarkResult with:@{
+//                                                                                       @"fps": currentFps
+//                                                                                      }];
+//        }
 
 
         DCHTTPTask *task = [DCHTTPTask POST: responseURLString
