@@ -17,6 +17,36 @@
 @property(nonatomic, retain) UIWebView *webView;
 @end
 
+BenchmarkViewController* gController;
+
+@interface PongUrlProtocol : NSURLProtocol
+
+@end
+
+
+@implementation PongUrlProtocol
+
++(BOOL)canInitWithRequest:(NSURLRequest *)request {
+    return [request.URL.host isEqualToString:@"nativebridge"];
+}
+
++(NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request {
+    return request;
+}
+
+-(void)startLoading {
+
+    [gController webView:gController.webView shouldStartLoadWithRequest:self.request navigationType:UIWebViewNavigationTypeOther];
+//    [gController performSelectorOnMainThread:@selector(handlePongRequest:) withObject:self.request.URL.host waitUntilDone:NO];
+    [self.client URLProtocol:self didFailWithError:[NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorZeroByteResource userInfo:nil]];
+}
+
+-(void)stopLoading {
+}
+
+@end
+
+
 @implementation BenchmarkViewController
 
 #pragma mark - WebViewDelegate
@@ -34,6 +64,9 @@
         messageURLString = request.URL.fragment;
     }
 
+    if ( [request.URL.host isEqualToString:@"nativebridge"] ) {
+        messageURLString = [ NSString stringWithFormat:@"nativebridge:%@?%@", request.URL.path, request.URL.query];
+    }
 
     if ( [messageURLString isEqualToString:@""] ) {
         return YES;
@@ -41,7 +74,7 @@
 
 
     NSLog(@"nativebridge:// captured");
-//    NSLog(messageURLString);
+    NSLog(messageURLString);
 
     NSDictionary *params = [messageURLString URLQueryParameters];
 
@@ -162,6 +195,10 @@
 
 
     [ self.webView setDelegate:self];
+
+    // XHR
+    gController = self;
+    [NSURLProtocol registerClass:PongUrlProtocol.class];
 
     [self restart];
 
