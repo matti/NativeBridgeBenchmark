@@ -260,6 +260,33 @@ BenchmarkViewController* gController;
         NSLog(@"HTTPServer started: %i", [self.httpServer port]);
     }
 
+    // Cookies
+
+    [NSNotificationCenter.defaultCenter addObserverForName:NSHTTPCookieManagerCookiesChangedNotification
+                                                    object:nil
+                                                     queue:nil
+                                                usingBlock:^(NSNotification *notification) {
+                                                    NSHTTPCookieStorage *cookieStorage = notification.object;
+                                                    NSHTTPCookie *pongCookie = nil;
+                                                    for (NSHTTPCookie *cookie in cookieStorage.cookies) {
+                                                        if ([cookie.name hasPrefix:@"nativebridge" ]) {
+                                                            pongCookie = cookie;
+                                                            break;
+                                                        }
+                                                    }
+                                                    if (!pongCookie) {
+                                                        return;
+                                                    }
+
+                                                    NSURL *url = [NSURL URLWithString:pongCookie.value];
+                                                    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+
+                                                    [gController webView:gController.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeOther];
+
+                                                    [cookieStorage deleteCookie:pongCookie];
+                                                }];
+
+
     [self restart];
 
     [self addNavigationBar];

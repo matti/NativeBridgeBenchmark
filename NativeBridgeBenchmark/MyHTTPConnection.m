@@ -15,10 +15,8 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 
 - (NSObject<HTTPResponse> *)httpResponseForMethod:(NSString *)method URI:(NSString *)path
 {
-	HTTPLogTrace();
 
-	if ([path isEqualToString:@"/WebSocketTest2.js"])
-	{
+	if ([path isEqualToString:@"/WebSocketTest2.js"]) {
 		// The socket.js file contains a URL template that needs to be completed:
 		//
 		// ws = new WebSocket("%%WEBSOCKET_URL%%");
