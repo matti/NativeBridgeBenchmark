@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "UIWebView+TS_JavaScriptContext.h"
 
-
-@interface BenchmarkViewController : UIViewController <UIWebViewDelegate>
+@interface BenchmarkViewController : UIViewController <TSWebViewDelegate>
 @end

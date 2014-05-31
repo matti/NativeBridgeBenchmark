@@ -3,6 +3,7 @@
 <ul>
     <li><a href="http://nativebridge-benchmark.herokuapp.com/tests">on Heroku</a></li>
     <li><a href="http://localhost:3000/tests/1/results">localhost:3000</a></li>
+    <li><a href="http://192.168.1.248:3000/tests/1/results">(tango) devmachine:3000</a></li>
     <li><a href="http://192.168.0.11:3000/tests/1/results">devmachine:3000</a></li>
 </ul>
 
@@ -11,5 +12,6 @@
     window.setTimeout(function() {
                       document.querySelector("a[href^='http://192']").click();
                       }, 0);
-    
+
+    viewController.nativeBridge("HAI");
 </script>

@@ -13,7 +13,14 @@
 
 #import "NSDictionary+Merge.h"
 
-@interface BenchmarkViewController ()
+
+// JScore
+@protocol JS_TSViewController <JSExport>
+- (void) nativeBridge:(NSString *)msg;
+@end
+
+
+@interface BenchmarkViewController () <TSWebViewDelegate, JS_TSViewController>
 @property(nonatomic, retain) UIWebView *webView;
 @end
 
@@ -178,6 +185,39 @@ BenchmarkViewController* gController;
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView {
     NSLog(@"didFinish: %@", webView.request.URL.absoluteString);
+}
+
+#pragma mark - JSCore
+
+
+
+- (void)webView:(UIWebView *)webView didCreateJavaScriptContext:(JSContext *)ctx
+{
+    ctx[@"sayHello"] = ^{
+
+        dispatch_async( dispatch_get_main_queue(), ^{
+
+            UIAlertView* av = [[UIAlertView alloc] initWithTitle: @"Hello, World!"
+                                                         message: nil
+                                                        delegate: nil
+                                               cancelButtonTitle: @"OK"
+                                               otherButtonTitles: nil];
+
+            [av show];
+        });
+    };
+
+    ctx[@"viewController"] = self;
+}
+
+
+- (void) nativeBridge:(NSString *)msg
+{
+    NSURL *url = [NSURL URLWithString:msg];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+
+    [gController webView:gController.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeOther];
+
 }
 
 
