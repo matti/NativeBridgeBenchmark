@@ -4,9 +4,9 @@
 target "NativeBridgeBenchmark" do
   pod 'HTTPKit'
   pod 'RequestUtils'
+  pod 'CocoaHTTPServer'
 end
 
 target "NativeBridgeBenchmarkTests" do
 
 end
-

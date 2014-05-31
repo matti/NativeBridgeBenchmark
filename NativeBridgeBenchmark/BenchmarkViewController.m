@@ -13,6 +13,9 @@
 
 #import "NSDictionary+Merge.h"
 
+#import <CocoaHTTPServer/HTTPServer.h>
+#import "MyHTTPConnection.h"
+
 
 // JScore
 @protocol JS_TSViewController <JSExport>
@@ -21,7 +24,6 @@
 
 
 @interface BenchmarkViewController () <TSWebViewDelegate, JS_TSViewController>
-@property(nonatomic, retain) UIWebView *webView;
 @end
 
 BenchmarkViewController* gController;
@@ -81,7 +83,7 @@ BenchmarkViewController* gController;
 
 
     NSLog(@"nativebridge:// captured");
-    NSLog(messageURLString);
+//NSLog(messageURLString);
 
     NSDictionary *params = [messageURLString URLQueryParameters];
 
@@ -239,6 +241,24 @@ BenchmarkViewController* gController;
     // XHR
     gController = self;
     [NSURLProtocol registerClass:PongUrlProtocol.class];
+
+    // HTTPServer
+
+    self.httpServer = [[HTTPServer alloc] init];
+    [self.httpServer setConnectionClass:[MyHTTPConnection class]];
+    [self.httpServer setType:@"_http._tcp."];
+    [self.httpServer setPort: 31337];
+    
+    NSString *webPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Web"];
+    [self.httpServer setDocumentRoot:webPath];
+
+    NSError *error;
+	if(![self.httpServer start:&error])
+	{
+		NSLog(@"Error starting HTTP Server: %@", error);
+	} else {
+        NSLog(@"HTTPServer started: %i", [self.httpServer port]);
+    }
 
     [self restart];
 

@@ -22,6 +22,9 @@
 		ED0E98C3192772D200669AB6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED0E98AB192772D200669AB6 /* UIKit.framework */; };
 		ED0E98CB192772D200669AB6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED0E98C9192772D200669AB6 /* InfoPlist.strings */; };
 		ED0E98CD192772D200669AB6 /* NativeBridgeBenchmarkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ED0E98CC192772D200669AB6 /* NativeBridgeBenchmarkTests.m */; };
+		ED249E21193A47CC0021B269 /* MyHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = ED249E20193A47CC0021B269 /* MyHTTPConnection.m */; };
+		ED249E24193A48120021B269 /* MyWebsocket.m in Sources */ = {isa = PBXBuildFile; fileRef = ED249E23193A48120021B269 /* MyWebsocket.m */; };
+		ED249E2B193A4D2B0021B269 /* Web in Resources */ = {isa = PBXBuildFile; fileRef = ED249E2A193A4D2B0021B269 /* Web */; };
 		ED9241AC192A6B0E004164FE /* BenchmarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9241AB192A6B0E004164FE /* BenchmarkViewController.m */; };
 		ED9241AE192A7458004164FE /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = ED9241AD192A7458004164FE /* index.html */; };
 /* End PBXBuildFile section */
@@ -57,6 +60,11 @@
 		ED0E98C8192772D200669AB6 /* NativeBridgeBenchmarkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NativeBridgeBenchmarkTests-Info.plist"; sourceTree = "<group>"; };
 		ED0E98CA192772D200669AB6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		ED0E98CC192772D200669AB6 /* NativeBridgeBenchmarkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NativeBridgeBenchmarkTests.m; sourceTree = "<group>"; };
+		ED249E1F193A47CC0021B269 /* MyHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHTTPConnection.h; sourceTree = "<group>"; };
+		ED249E20193A47CC0021B269 /* MyHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHTTPConnection.m; sourceTree = "<group>"; };
+		ED249E22193A48120021B269 /* MyWebsocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWebsocket.h; sourceTree = "<group>"; };
+		ED249E23193A48120021B269 /* MyWebsocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWebsocket.m; sourceTree = "<group>"; };
+		ED249E2A193A4D2B0021B269 /* Web */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Web; sourceTree = "<group>"; };
 		ED9241AA192A6B0E004164FE /* BenchmarkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BenchmarkViewController.h; sourceTree = "<group>"; };
 		ED9241AB192A6B0E004164FE /* BenchmarkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BenchmarkViewController.m; sourceTree = "<group>"; };
 		ED9241AD192A7458004164FE /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
@@ -92,6 +100,7 @@
 		ED0E989B192772D100669AB6 = {
 			isa = PBXGroup;
 			children = (
+				ED249E2A193A4D2B0021B269 /* Web */,
 				ED9241AD192A7458004164FE /* index.html */,
 				ED0E98AD192772D200669AB6 /* NativeBridgeBenchmark */,
 				ED0E98C6192772D200669AB6 /* NativeBridgeBenchmarkTests */,
@@ -135,6 +144,10 @@
 				ED07A5B81932023600792C4C /* NSDictionary+Merge.m */,
 				ED038BDC193A3D8500FB88B2 /* UIWebView+TS_JavaScriptContext.h */,
 				ED038BDD193A3D8500FB88B2 /* UIWebView+TS_JavaScriptContext.m */,
+				ED249E1F193A47CC0021B269 /* MyHTTPConnection.h */,
+				ED249E20193A47CC0021B269 /* MyHTTPConnection.m */,
+				ED249E22193A48120021B269 /* MyWebsocket.h */,
+				ED249E23193A48120021B269 /* MyWebsocket.m */,
 			);
 			path = NativeBridgeBenchmark;
 			sourceTree = "<group>";
@@ -245,6 +258,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED9241AE192A7458004164FE /* index.html in Resources */,
+				ED249E2B193A4D2B0021B269 /* Web in Resources */,
 				ED0E98B2192772D200669AB6 /* InfoPlist.strings in Resources */,
 				ED0E98BA192772D200669AB6 /* Images.xcassets in Resources */,
 			);
@@ -301,6 +315,8 @@
 				ED0E98B8192772D200669AB6 /* AppDelegate.m in Sources */,
 				ED038BDE193A3D8500FB88B2 /* UIWebView+TS_JavaScriptContext.m in Sources */,
 				ED07A5B91932023600792C4C /* NSDictionary+Merge.m in Sources */,
+				ED249E24193A48120021B269 /* MyWebsocket.m in Sources */,
+				ED249E21193A47CC0021B269 /* MyHTTPConnection.m in Sources */,
 				ED0E98B4192772D200669AB6 /* main.m in Sources */,
 				ED9241AC192A6B0E004164FE /* BenchmarkViewController.m in Sources */,
 			);

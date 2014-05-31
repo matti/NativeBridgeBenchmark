@@ -1,14 +1,27 @@
 PODS:
+  - CocoaAsyncSocket (7.3.5)
+  - CocoaHTTPServer (2.3):
+    - CocoaAsyncSocket
+    - CocoaLumberjack
+  - CocoaLumberjack (1.9.0):
+    - CocoaLumberjack/Extensions
+  - CocoaLumberjack/Core (1.9.0)
+  - CocoaLumberjack/Extensions (1.9.0):
+    - CocoaLumberjack/Core
   - ConcurrentKit (0.1.0)
   - HTTPKit (0.1.2):
     - ConcurrentKit
   - RequestUtils (1.0.2)
 
 DEPENDENCIES:
+  - CocoaHTTPServer
   - HTTPKit
   - RequestUtils
 
 SPEC CHECKSUMS:
+  CocoaAsyncSocket: 45bdbbc1c0a5ed0640ff4c42af325ba43a2f099a
+  CocoaHTTPServer: 217df4cba4e48803db2480f97b805aaad2230dd1
+  CocoaLumberjack: 5766cdd1d0a24bcf15a133c6023747346bf786dd
   ConcurrentKit: 06f0a42b6a2617a777eb80655a31a3f0704356f8
   HTTPKit: 61e41215f424f11a2e30ca8077ece5879706eb67
   RequestUtils: 82b66f926bc11ef761fedc6dcc3613d6f74f4f3a
