@@ -16,10 +16,7 @@
 #import <CocoaHTTPServer/HTTPServer.h>
 #import "MyHTTPConnection.h"
 
-#import <mach/mach.h>
-
 #import "Memusage.h"
-
 #import "Cpuusage.h"
 
 
@@ -54,7 +51,7 @@ BenchmarkViewController* gController;
 -(void)startLoading {
 
     [gController webView:gController.webView shouldStartLoadWithRequest:self.request navigationType:UIWebViewNavigationTypeOther];
-//    [gController performSelectorOnMainThread:@selector(handlePongRequest:) withObject:self.request.URL.host waitUntilDone:NO];
+
     [self.client URLProtocol:self didFailWithError:[NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorZeroByteResource userInfo:nil]];
 }
 
@@ -69,7 +66,17 @@ BenchmarkViewController* gController;
 #pragma mark - WebViewDelegate
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    
+
+
+    NSDate *dateNow = [NSDate new];
+
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'"];
+
+    NSString *dateNowString = [dateFormatter stringFromDate: dateNow];
+
+
 
     NSString *messageURLString = @"";
 
@@ -86,38 +93,20 @@ BenchmarkViewController* gController;
         messageURLString = [ NSString stringWithFormat:@"nativebridge:%@?%@", request.URL.path, request.URL.query];
     }
 
-//    if ( [request.URL.host isEqualToString:@"nativebridge"] ) {
-//
-//    }
 
     if ( [messageURLString isEqualToString:@""] ) {
         return YES;
     }
 
 
-    NSLog(@"CPU: %@", [self.cpuUsage cpuUsageString]);
-    NSLog(@"Memory: %@", [self.memUsage memUsageString]);
-
     NSLog(@"nativebridge:// captured");
-//NSLog(messageURLString);
+    //NSLog(messageURLString);
+
 
     NSDictionary *params = [messageURLString URLQueryParameters];
 
-    NSLog(@"TIME WHEN WEBVIEW SENT: %@", [params valueForKey:@"webview_started_at"]);
     NSUInteger payloadLength = [[params valueForKey:@"payload"] length];
     NSString *payloadLengthString = [NSString stringWithFormat:@"%lu", (unsigned long)payloadLength];
-
-    NSLog(@"WebView payload length was %@", payloadLengthString);
-
-
-    NSDate *dateNow = [NSDate new];
-
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'"];
-
-    NSString *dateNowString = [dateFormatter stringFromDate: dateNow];
-    NSLog(@"TIME WHEN HIT NATIVE: %@", dateNowString);
 
 
     NSDictionary *benchmarkResult = @{
@@ -169,19 +158,10 @@ BenchmarkViewController* gController;
         NSString *responseURLString = [NSString stringWithFormat:@"%@.json", self.webView.request.URL.absoluteString];
         NSLog(@"posting to %@", responseURLString);
 
-//        if ( [params objectForKey:@"fps"]) {
-//            NSString *currentFps = [self.webView stringByEvaluatingJavaScriptFromString:@"if (window.COULD_NOT_ANIMATE_EVEN_ONCE) { 0 } else { window.COULD_NOT_ANIMATE_EVEN_ONCE = true; parseInt(window.stats.domElement.firstChild.textContent); }"];
-//
-//            benchmarkResult = [NSDictionary dictionaryByMerging:benchmarkResult with:@{
-//                                                                                       @"fps": currentFps
-//                                                                                      }];
-//        }
-
 
         DCHTTPTask *task = [DCHTTPTask POST: responseURLString
                                  parameters: @{ @"result": benchmarkResult }];
 
-        //        [task.requestSerializer setValue:[NSString stringWithFormat:@"Token token=\"%@\"", API_TOKEN] forHTTPHeaderField:@"Authorization"];
 
         [task setResponseSerializer:[DCJSONResponseSerializer new] forContentType:@"application/json"];
 
