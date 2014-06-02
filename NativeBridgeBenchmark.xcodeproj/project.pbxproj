@@ -27,6 +27,8 @@
 		ED249E2B193A4D2B0021B269 /* Web in Resources */ = {isa = PBXBuildFile; fileRef = ED249E2A193A4D2B0021B269 /* Web */; };
 		ED9241AC192A6B0E004164FE /* BenchmarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9241AB192A6B0E004164FE /* BenchmarkViewController.m */; };
 		ED9241AE192A7458004164FE /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = ED9241AD192A7458004164FE /* index.html */; };
+		EDB93A77193C85AE00371959 /* MemUsage.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB93A76193C85AE00371959 /* MemUsage.m */; };
+		EDB93A7A193C8DFD00371959 /* CpuUsage.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB93A79193C8DFD00371959 /* CpuUsage.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,10 @@
 		ED9241AA192A6B0E004164FE /* BenchmarkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BenchmarkViewController.h; sourceTree = "<group>"; };
 		ED9241AB192A6B0E004164FE /* BenchmarkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BenchmarkViewController.m; sourceTree = "<group>"; };
 		ED9241AD192A7458004164FE /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		EDB93A75193C85AE00371959 /* MemUsage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemUsage.h; sourceTree = "<group>"; };
+		EDB93A76193C85AE00371959 /* MemUsage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemUsage.m; sourceTree = "<group>"; };
+		EDB93A78193C8DFC00371959 /* CpuUsage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CpuUsage.h; sourceTree = "<group>"; };
+		EDB93A79193C8DFD00371959 /* CpuUsage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CpuUsage.m; sourceTree = "<group>"; };
 		F58474E18C224D05804B5107 /* Pods-NativeBridgeBenchmark.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NativeBridgeBenchmark.xcconfig"; path = "Pods/Pods-NativeBridgeBenchmark.xcconfig"; sourceTree = "<group>"; };
 		FFEAD3DAC6964C739C50B50E /* libPods-NativeBridgeBenchmark.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NativeBridgeBenchmark.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -148,6 +154,10 @@
 				ED249E20193A47CC0021B269 /* MyHTTPConnection.m */,
 				ED249E22193A48120021B269 /* MyWebsocket.h */,
 				ED249E23193A48120021B269 /* MyWebsocket.m */,
+				EDB93A75193C85AE00371959 /* MemUsage.h */,
+				EDB93A76193C85AE00371959 /* MemUsage.m */,
+				EDB93A78193C8DFC00371959 /* CpuUsage.h */,
+				EDB93A79193C8DFD00371959 /* CpuUsage.m */,
 			);
 			path = NativeBridgeBenchmark;
 			sourceTree = "<group>";
@@ -313,10 +323,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED0E98B8192772D200669AB6 /* AppDelegate.m in Sources */,
+				EDB93A77193C85AE00371959 /* MemUsage.m in Sources */,
 				ED038BDE193A3D8500FB88B2 /* UIWebView+TS_JavaScriptContext.m in Sources */,
 				ED07A5B91932023600792C4C /* NSDictionary+Merge.m in Sources */,
 				ED249E24193A48120021B269 /* MyWebsocket.m in Sources */,
 				ED249E21193A47CC0021B269 /* MyHTTPConnection.m in Sources */,
+				EDB93A7A193C8DFD00371959 /* CpuUsage.m in Sources */,
 				ED0E98B4192772D200669AB6 /* main.m in Sources */,
 				ED9241AC192A6B0E004164FE /* BenchmarkViewController.m in Sources */,
 			);

@@ -16,6 +16,12 @@
 #import <CocoaHTTPServer/HTTPServer.h>
 #import "MyHTTPConnection.h"
 
+#import <mach/mach.h>
+
+#import "Memusage.h"
+
+#import "Cpuusage.h"
+
 
 // JScore
 @protocol JS_TSViewController <JSExport>
@@ -28,6 +34,8 @@
 
 BenchmarkViewController* gController;
 
+
+// XHR
 @interface PongUrlProtocol : NSURLProtocol
 
 @end
@@ -73,14 +81,22 @@ BenchmarkViewController* gController;
         messageURLString = request.URL.fragment;
     }
 
+
     if ( [request.URL.host isEqualToString:@"nativebridge"] ) {
         messageURLString = [ NSString stringWithFormat:@"nativebridge:%@?%@", request.URL.path, request.URL.query];
     }
+
+//    if ( [request.URL.host isEqualToString:@"nativebridge"] ) {
+//
+//    }
 
     if ( [messageURLString isEqualToString:@""] ) {
         return YES;
     }
 
+
+    NSLog(@"CPU: %@", [self.cpuUsage cpuUsageString]);
+    NSLog(@"Memory: %@", [self.memUsage memUsageString]);
 
     NSLog(@"nativebridge:// captured");
 //NSLog(messageURLString);
@@ -111,7 +127,9 @@ BenchmarkViewController* gController;
                                       @"webview_payload_length": payloadLengthString,
                                       @"from": @"native",
                                       @"method_name": [params valueForKey:@"method_name"],
-                                      @"fps": [params valueForKey:@"fps"]
+                                      @"fps": [params valueForKey:@"fps"],
+                                      @"cpu": [self.cpuUsage cpuUsageString],
+                                      @"mem": [self.memUsage memUsageString]
                                     };
 
     // This if is legacy
@@ -227,6 +245,10 @@ BenchmarkViewController* gController;
 
 - (void)loadView
 {
+
+    self.memUsage = [[MemUsage alloc] init];
+    self.cpuUsage = [[CpuUsage alloc] init];
+
     [self setWebView:[UIWebView new]];
     [self setView: self.webView ];
 
