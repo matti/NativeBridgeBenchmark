@@ -67,6 +67,51 @@ BenchmarkViewController* gController;
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 
+    if ( [request.URL.fragment isEqualToString:@"bootstrapcomplete"] ) {
+
+        NSArray* cachePathArray = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString* cachePath = [cachePathArray lastObject];
+
+        NSFileManager *fm = [NSFileManager defaultManager];
+        NSArray *dirContents = [fm contentsOfDirectoryAtPath:cachePath error:nil];
+
+        NSString *hostPort = @"0";
+        if (request.URL.port) {
+            hostPort = request.URL.port.stringValue;
+        }
+
+        NSString *ourLocalStorageFileNameFilter = [NSString stringWithFormat:@"self ENDSWITH 'http_%@_%@.localstorage'", request.URL.host, hostPort];
+
+        NSLog(ourLocalStorageFileNameFilter);
+
+        NSPredicate *fltr = [NSPredicate predicateWithFormat:ourLocalStorageFileNameFilter];
+        NSArray *onlyLocalStorages = [dirContents filteredArrayUsingPredicate:fltr];
+
+        NSString *ourLocalStorage = [onlyLocalStorages lastObject ];
+
+        NSString *pathToLocalStorage = [ NSString stringWithFormat:@"%@/%@", cachePath, ourLocalStorage];
+
+        self.localStorageDB = [FMDatabase databaseWithPath:pathToLocalStorage];
+        if ( [ self.localStorageDB open ] ) {
+            NSLog(@"opened localstorage: %@", pathToLocalStorage);
+
+            FMResultSet *s = [ self.localStorageDB executeQuery:@"SELECT * FROM ItemTable" ];
+
+            BOOL foundDummy = NO;
+            while ([s next]) {
+                NSString *key = [ s stringForColumn:@"key" ];
+                if ( [key isEqualToString:@"dummy"] ) {
+                    foundDummy = YES;
+                    break;
+                }
+            }
+
+            NSAssert(foundDummy, @"did not find dummy key in localstorage");
+
+        }
+        
+        return NO;
+    }
 
     NSDate *dateNow = [NSDate new];
 
