@@ -235,6 +235,7 @@ BenchmarkViewController* gController;
     [self.webView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(44, 0, 0, 0)];
     [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 
+    // change pagination + bounces
     self.webView.paginationMode = UIWebPaginationModeLeftToRight;
     self.webView.paginationBreakingMode = UIWebPaginationBreakingModePage;
     self.webView.gapBetweenPages = 10;
