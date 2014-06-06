@@ -21,6 +21,8 @@
 #import <FMDB/FMDB.h>
 
 
+
+
 @interface SharedViewController : UIViewController
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 80000
@@ -36,6 +38,8 @@
 
 @property(nonatomic, retain) MemUsage* memUsage;
 @property(nonatomic, retain) CpuUsage* cpuUsage;
+
+-(BOOL) handleRequest: (NSURLRequest*) request;
 
 -(void) reload;
 -(void) restart;

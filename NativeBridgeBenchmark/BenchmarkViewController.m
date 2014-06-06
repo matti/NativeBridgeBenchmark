@@ -8,10 +8,7 @@
 
 #import "BenchmarkViewController.h"
 
-#import <HTTPKit/DCHTTPTask.h>
-#import <RequestUtils/RequestUtils.h>
 
-#import "NSDictionary+Merge.h"
 
 BenchmarkViewController* gBenchmarkViewController;
 
@@ -69,6 +66,7 @@ dispatch_source_t _source;
 @implementation BenchmarkViewController
 
 #pragma mark - WebViewDelegate
+
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 
@@ -210,114 +208,9 @@ dispatch_source_t _source;
         return NO;
     }
 
-    NSDate *dateNow = [NSDate new];
-
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'"];
-
-    NSString *dateNowString = [dateFormatter stringFromDate: dateNow];
-
-
-
-    NSString *messageURLString = @"";
-
-    if ( [request.URL.absoluteString hasPrefix:@"nativebridge://"] ) {
-        messageURLString = request.URL.absoluteString;
-    }
-
-    if ( [request.URL.fragment hasPrefix:@"nativebridge://"]) {
-        messageURLString = request.URL.fragment;
-    }
-
-
-    if ( [request.URL.host isEqualToString:@"nativebridge"] ) {
-        messageURLString = [ NSString stringWithFormat:@"nativebridge:%@?%@", request.URL.path, request.URL.query];
-    }
-
-
-    if ( [messageURLString isEqualToString:@""] ) {
-        return YES;
-    }
-
-
-    NSLog(@"nativebridge:// captured");
-    //NSLog(messageURLString);
-
-
-    NSDictionary *params = [messageURLString URLQueryParameters];
-
-    NSUInteger payloadLength = [[params valueForKey:@"payload"] length];
-    NSString *payloadLengthString = [NSString stringWithFormat:@"%lu", (unsigned long)payloadLength];
-
-
-    NSDictionary *benchmarkResult = @{
-                                      @"webview_started_at": [params valueForKey:@"webview_started_at"],
-                                      @"native_received_at": dateNowString,
-                                      @"native_started_at": dateNowString,
-                                      @"webview_payload_length": payloadLengthString,
-                                      @"from": @"native",
-                                      @"method_name": [params valueForKey:@"method_name"],
-                                      @"fps": [params valueForKey:@"fps"],
-                                      @"cpu": [self.cpuUsage cpuUsageString],
-                                      @"mem": [self.memUsage memUsageString]
-                                    };
-
-    // This if is legacy
-    if ( [params objectForKey:@"pong"] ) {
-
-        NSInteger pongPayloadLength = [[ params objectForKey:@"pongPayloadLength" ] integerValue];
-
-        NSString *alphabet  = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXZY0123456789";
-        NSMutableString *pongPayload = [NSMutableString stringWithCapacity:pongPayloadLength];
-        for (NSUInteger i = 0U; i < pongPayloadLength; i++) {
-            u_int32_t r = arc4random() % [alphabet length];
-            unichar c = [alphabet characterAtIndex:r];
-            [pongPayload appendFormat:@"%C", c];
-        }
-
-        NSString *callbackName = [ params objectForKey:@"callback" ];
-
-        NSDictionary *payloadedBenchmarkResult = [ NSDictionary dictionaryByMerging:benchmarkResult with:@{
-                                                                                                           @"pongPayload": pongPayload,
-                                                                                                           @"callback": callbackName
-                                                                                                           }];
-
-
-
-        NSData *jsonData = [ NSJSONSerialization dataWithJSONObject:payloadedBenchmarkResult options:0 error: nil];
-        NSString *jsonDataString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
-
-
-        NSString *evalString = [NSString stringWithFormat:@"pong('%@');", jsonDataString ];
-
-        [self.webView stringByEvaluatingJavaScriptFromString:evalString];
-
-        NSLog(@"ponged!");
-
-    } else {
-
-        NSString *responseURLString = [NSString stringWithFormat:@"%@.json", self.webView.request.URL.absoluteString];
-        NSLog(@"posting to %@", responseURLString);
-
-
-        DCHTTPTask *task = [DCHTTPTask POST: responseURLString
-                                 parameters: @{ @"result": benchmarkResult }];
-
-
-        [task setResponseSerializer:[DCJSONResponseSerializer new] forContentType:@"application/json"];
-
-        task.then(^(DCHTTPResponse *response){
-            //NSString *str = [[NSString alloc] initWithData:response.responseObject encoding:NSUTF8StringEncoding];
-            //NSLog(str);
-        }).catch(^(NSError *error){
-            NSLog(@"failed to upload file: %@",[error localizedDescription]);
-        });
-        [task start];
-
-    }
-
-    return NO;
+    
+    
+    return [self handleRequest:request];
 
 }
 
