@@ -13,12 +13,7 @@
 
 #import "NSDictionary+Merge.h"
 
-#import <CocoaHTTPServer/HTTPServer.h>
-#import "MyHTTPConnection.h"
-
-#import "Memusage.h"
-#import "Cpuusage.h"
-
+BenchmarkViewController* gBenchmarkViewController;
 
 // bllaaa
 
@@ -39,7 +34,7 @@ dispatch_source_t _source;
 @interface BenchmarkViewController () <TSWebViewDelegate, JS_TSViewController>
 @end
 
-BenchmarkViewController* gController;
+
 
 
 // XHR
@@ -59,8 +54,8 @@ BenchmarkViewController* gController;
 }
 
 -(void)startLoading {
-
-    [gController webView:gController.webView shouldStartLoadWithRequest:self.request navigationType:UIWebViewNavigationTypeOther];
+    
+    [gBenchmarkViewController webView:gBenchmarkViewController.webView shouldStartLoadWithRequest:self.request navigationType:UIWebViewNavigationTypeOther];
 
     [self.client URLProtocol:self didFailWithError:[NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorZeroByteResource userInfo:nil]];
 }
@@ -201,7 +196,7 @@ BenchmarkViewController* gController;
                 NSURL *url = [NSURL URLWithString:value];
                 NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
 
-                [gController webView:gController.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeOther];
+                [gBenchmarkViewController webView:gBenchmarkViewController.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeOther];
 
                 NSString *deleteQuery = [ NSString stringWithFormat:@"DELETE FROM ItemTable WHERE key='%@'", key];
 
@@ -363,7 +358,7 @@ BenchmarkViewController* gController;
     NSURL *url = [NSURL URLWithString:msg];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
 
-    [gController webView:gController.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeOther];
+    [gBenchmarkViewController webView:gBenchmarkViewController.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeOther];
 
 }
 
@@ -372,10 +367,7 @@ BenchmarkViewController* gController;
 
 - (void)loadView
 {
-
-    self.memUsage = [[MemUsage alloc] init];
-    self.cpuUsage = [[CpuUsage alloc] init];
-
+    
     [self setWebView:[UIWebView new]];
     [self setView: self.webView ];
 
@@ -393,109 +385,16 @@ BenchmarkViewController* gController;
 
     [ self.webView setDelegate:self];
 
-    // XHR
-    gController = self;
+    // XHR TODO: in iOS8 ?
+    gBenchmarkViewController = self;
     [NSURLProtocol registerClass:PongUrlProtocol.class];
 
-    // HTTPServer
-
-    self.httpServer = [[HTTPServer alloc] init];
-    [self.httpServer setConnectionClass:[MyHTTPConnection class]];
-    [self.httpServer setType:@"_http._tcp."];
-    [self.httpServer setPort: 31337];
     
-    NSString *webPath = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"Web"];
-    [self.httpServer setDocumentRoot:webPath];
-
-    NSError *error;
-	if(![self.httpServer start:&error])
-	{
-		NSLog(@"Error starting HTTP Server: %@", error);
-	} else {
-        NSLog(@"HTTPServer started: %i", [self.httpServer port]);
-    }
-
-    // Cookies
-
-    [NSNotificationCenter.defaultCenter addObserverForName:NSHTTPCookieManagerCookiesChangedNotification
-                                                    object:nil
-                                                     queue:nil
-                                                usingBlock:^(NSNotification *notification) {
-                                                    NSHTTPCookieStorage *cookieStorage = notification.object;
-                                                    NSHTTPCookie *pongCookie = nil;
-                                                    for (NSHTTPCookie *cookie in cookieStorage.cookies) {
-                                                        if ([cookie.name hasPrefix:@"nativebridge" ]) {
-                                                            pongCookie = cookie;
-                                                            break;
-                                                        }
-                                                    }
-                                                    if (!pongCookie) {
-                                                        return;
-                                                    }
-
-                                                    NSURL *url = [NSURL URLWithString:pongCookie.value];
-                                                    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
-
-                                                    [gController webView:gController.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeOther];
-
-                                                    [cookieStorage deleteCookie:pongCookie];
-                                                }];
-
-
-    [self restart];
-
-    [self addNavigationBar];
+    [ super loadView ];
 
 }
 
--(void)addNavigationBar
-{
-    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
 
 
-    navBar.backgroundColor = [UIColor yellowColor];
-
-    UINavigationItem *navItem = [[UINavigationItem alloc] init];
-    navItem.title = @"Benchmark";
-
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonItemStylePlain target:self action:@selector(reload)];
-    navItem.leftBarButtonItem = leftButton;
-
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Restart" style:UIBarButtonItemStylePlain target:self action:@selector(restart)];
-    navItem.rightBarButtonItem = rightButton;
-
-
-    
-    navBar.items = @[ navItem ];
-
-    [self.view insertSubview:navBar aboveSubview: self.view];
-}
-
--(void)reload
-{
-
-    [[ self webView ] stringByEvaluatingJavaScriptFromString:@"window.location.reload();"];
-
-}
-
--(void)restart {
-    NSString *localHTMLPath = [NSBundle.mainBundle pathForResource:@"index" ofType:@"html"];
-    NSURL *localHTMLURL = [NSURL fileURLWithPath:localHTMLPath];
-    NSURLRequest *request = [NSURLRequest requestWithURL: localHTMLURL];
-    
-    [self.webView loadRequest: request ];
-}
-
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 @end

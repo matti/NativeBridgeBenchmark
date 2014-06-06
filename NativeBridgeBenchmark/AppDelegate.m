@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "BenchmarkViewController.h"
+#import "IOS8BenchmarkViewController.h"
 
 @implementation AppDelegate
 
@@ -17,7 +18,22 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor redColor];
 
-    [self.window setRootViewController: [BenchmarkViewController new]];
+    UIViewController *benchmarkViewController = nil;
+    
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+    benchmarkViewController = [IOS8BenchmarkViewController new];
+#else
+    benchmarkViewController = [BenchmarkViewController new];
+#endif
+    
+//    if ( ![[[UIDevice currentDevice ] systemVersion ] floatValue] >= 8.0 ) {
+//        benchmarkViewController = [IOS8BenchmarkViewController new];
+//    } else {
+//        benchmarkViewController = [BenchmarkViewController new];
+//        
+//    }
+
+    [self.window setRootViewController: benchmarkViewController];
     
     [self.window makeKeyAndVisible];
     return YES;

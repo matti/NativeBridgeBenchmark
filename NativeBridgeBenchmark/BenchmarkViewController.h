@@ -7,16 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIWebView+TS_JavaScriptContext.h"
-#import <CocoaHTTPServer/HTTPServer.h>
-#import "Memusage.h"
-#import "CpuUsage.h"
-#import <FMDB/FMDB.h>
+#import "SharedViewController.h"
 
-@interface BenchmarkViewController : UIViewController <TSWebViewDelegate>
-@property (nonatomic, retain) UIWebView* webView;
-@property(nonatomic, retain) HTTPServer* httpServer;
-@property(nonatomic, retain) MemUsage* memUsage;
-@property(nonatomic, retain) CpuUsage* cpuUsage;
-@property(nonatomic, retain) FMDatabase* localStorageDB;
+#import "UIWebView+TS_JavaScriptContext.h"
+
+@interface BenchmarkViewController :  SharedViewController <TSWebViewDelegate>
+
+
 @end
