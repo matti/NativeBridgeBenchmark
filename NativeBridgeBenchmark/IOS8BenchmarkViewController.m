@@ -23,76 +23,29 @@
 {
     self.wkWebView = [ WKWebView new ];
     [self setView: self.wkWebView];
-
-    
+        
     [ super loadView ];
 
-    
-//    [self.wkWebView.scrollView setContentOffset:CGPointMake(0, 400)];
-    
+
     [self.wkWebView.scrollView setContentInset:UIEdgeInsetsMake(44, 0, 0, 0)];
     [self.wkWebView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(44, 0, 0, 0)];
     [self.wkWebView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 
-    /*
-    NSString *localHTMLPath = [NSBundle.mainBundle pathForResource:@"index" ofType:@"html"];
-    NSURL *localHTMLURL = [NSURL fileURLWithPath:localHTMLPath];
-    NSURLRequest *request = [NSURLRequest requestWithURL: localHTMLURL];
-
-    [self.wkWebView loadRequest: request];
-    */
     
-    /*
-    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 0, 320, 44)];
-    
-    
-    navBar.backgroundColor = [UIColor yellowColor];
-    
-    UINavigationItem *navItem = [[UINavigationItem alloc] init];
-    navItem.title = @"Benchmark";
-    
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonItemStylePlain target:self action:@selector(reload)];
-    navItem.leftBarButtonItem = leftButton;
-    
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Restart" style:UIBarButtonItemStylePlain target:self action:@selector(restart)];
-    navItem.rightBarButtonItem = rightButton;
-    
-    
-    
-    navBar.items = @[ navItem ];
-    
-    [self.view insertSubview:navBar aboveSubview: self.view];
-    */
-    
-    
-
+    [ self.wkWebView setNavigationDelegate: self ];
     
 }
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
+- (void)webView:(WKWebView *)webView
+decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
+decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+
+    NSLog(@"ALLOW! %@", [navigationAction.request.URL absoluteString]);
+
     
-
+    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
 

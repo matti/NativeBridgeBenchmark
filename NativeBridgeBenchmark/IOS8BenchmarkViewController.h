@@ -12,7 +12,7 @@
 #import <WebKit/WebKit.h>
 #import "SharedViewController.h"
 
-@interface IOS8BenchmarkViewController : SharedViewController
+@interface IOS8BenchmarkViewController : SharedViewController<WKNavigationDelegate>
 @property(nonatomic, retain) WKWebView* wkWebView;
 @end
 

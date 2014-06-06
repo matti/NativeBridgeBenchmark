@@ -96,7 +96,7 @@ BenchmarkViewController *gBenchmarkViewController;
     if (self.webView) {
         [[ self webView ] stringByEvaluatingJavaScriptFromString:@"window.location.reload();"];
     } else {
-        //[[ self webView ] stringByEvaluatingJavaScriptFromString:@"window.location.reload();"];
+        //[ self.wkWebView reload];
     }
 }
 

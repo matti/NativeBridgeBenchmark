@@ -25,6 +25,7 @@
 		ED249E21193A47CC0021B269 /* MyHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = ED249E20193A47CC0021B269 /* MyHTTPConnection.m */; };
 		ED249E24193A48120021B269 /* MyWebsocket.m in Sources */ = {isa = PBXBuildFile; fileRef = ED249E23193A48120021B269 /* MyWebsocket.m */; };
 		ED249E2B193A4D2B0021B269 /* Web in Resources */ = {isa = PBXBuildFile; fileRef = ED249E2A193A4D2B0021B269 /* Web */; };
+		ED86854B1942084900B4479B /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDCC5DB61941DF970086A658 /* WebKit.framework */; };
 		ED9241AC192A6B0E004164FE /* BenchmarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9241AB192A6B0E004164FE /* BenchmarkViewController.m */; };
 		ED9241AE192A7458004164FE /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = ED9241AD192A7458004164FE /* index.html */; };
 		EDB93A77193C85AE00371959 /* MemUsage.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB93A76193C85AE00371959 /* MemUsage.m */; };
@@ -90,6 +91,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED86854B1942084900B4479B /* WebKit.framework in Frameworks */,
 				ED0E98AA192772D200669AB6 /* CoreGraphics.framework in Frameworks */,
 				ED0E98AC192772D200669AB6 /* UIKit.framework in Frameworks */,
 				ED0E98A8192772D200669AB6 /* Foundation.framework in Frameworks */,
@@ -470,7 +472,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos7.1;
+				SDKROOT = iphoneos8.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -487,7 +489,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos7.1;
+				SDKROOT = iphoneos8.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
