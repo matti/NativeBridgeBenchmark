@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 80000
 #import <WebKit/WebKit.h>
 #endif
 
@@ -23,7 +23,7 @@
 
 @interface SharedViewController : UIViewController
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 80000
 @property(nonatomic, retain) WKWebView* wkWebView;
 #else
 @property(nonatomic, retain) UIWebView* wkWebView;

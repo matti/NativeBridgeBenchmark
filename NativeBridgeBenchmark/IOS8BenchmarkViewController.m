@@ -6,13 +6,13 @@
 //
 //
 
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 80000
 
 
 #import "IOS8BenchmarkViewController.h"
-
-
 #import <WebKit/WebKit.h>
+
 
 @interface IOS8BenchmarkViewController ()
 @end
@@ -24,19 +24,15 @@
     self.wkWebView = [ WKWebView new ];
     [self setView: self.wkWebView];
 
-    NSLog(@"before super");
     
     [ super loadView ];
 
-    NSLog(@"after super");
-
     
-
-    /*
+//    [self.wkWebView.scrollView setContentOffset:CGPointMake(0, 400)];
+    
     [self.wkWebView.scrollView setContentInset:UIEdgeInsetsMake(44, 0, 0, 0)];
     [self.wkWebView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(44, 0, 0, 0)];
     [self.wkWebView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
-    */
 
     /*
     NSString *localHTMLPath = [NSBundle.mainBundle pathForResource:@"index" ofType:@"html"];
@@ -77,6 +73,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+
 }
 
 - (void)didReceiveMemoryWarning

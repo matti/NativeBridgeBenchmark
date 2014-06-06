@@ -8,7 +8,10 @@
 
 #import "AppDelegate.h"
 #import "BenchmarkViewController.h"
+
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 80000
 #import "IOS8BenchmarkViewController.h"
+#endif
 
 @implementation AppDelegate
 
@@ -20,18 +23,11 @@
 
     UIViewController *benchmarkViewController = nil;
     
-#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 80000
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 80000
     benchmarkViewController = [IOS8BenchmarkViewController new];
 #else
     benchmarkViewController = [BenchmarkViewController new];
 #endif
-    
-//    if ( ![[[UIDevice currentDevice ] systemVersion ] floatValue] >= 8.0 ) {
-//        benchmarkViewController = [IOS8BenchmarkViewController new];
-//    } else {
-//        benchmarkViewController = [BenchmarkViewController new];
-//        
-//    }
 
     [self.window setRootViewController: benchmarkViewController];
     
