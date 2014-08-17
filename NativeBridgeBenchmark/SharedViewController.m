@@ -56,6 +56,9 @@ BenchmarkViewController *gBenchmarkViewController;
     }
     
     
+    
+    
+    
     NSLog(@"nativebridge:// captured");
     //NSLog(messageURLString);
     
@@ -78,59 +81,25 @@ BenchmarkViewController *gBenchmarkViewController;
                                       @"mem": [self.memUsage memUsageString]
                                       };
     
-    // This if is legacy
-    if ( [params objectForKey:@"pong"] ) {
-        
-        NSInteger pongPayloadLength = [[ params objectForKey:@"pongPayloadLength" ] integerValue];
-        
-        NSString *alphabet  = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXZY0123456789";
-        NSMutableString *pongPayload = [NSMutableString stringWithCapacity:pongPayloadLength];
-        for (NSUInteger i = 0U; i < pongPayloadLength; i++) {
-            u_int32_t r = arc4random() % [alphabet length];
-            unichar c = [alphabet characterAtIndex:r];
-            [pongPayload appendFormat:@"%C", c];
-        }
-        
-        NSString *callbackName = [ params objectForKey:@"callback" ];
-        
-        NSDictionary *payloadedBenchmarkResult = [ NSDictionary dictionaryByMerging:benchmarkResult with:@{
-                                                                                                           @"pongPayload": pongPayload,
-                                                                                                           @"callback": callbackName
-                                                                                                           }];
-        
-        
-        
-        NSData *jsonData = [ NSJSONSerialization dataWithJSONObject:payloadedBenchmarkResult options:0 error: nil];
-        NSString *jsonDataString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        
-        
-        NSString *evalString = [NSString stringWithFormat:@"pong('%@');", jsonDataString ];
-        
-        [self.webView stringByEvaluatingJavaScriptFromString:evalString];
-        
-        NSLog(@"ponged!");
-        
-    } else {
-        
-        NSString *responseURLString = [NSString stringWithFormat:@"%@.json", self.webView.request.URL.absoluteString];
-        NSLog(@"posting to %@", responseURLString);
-        
-        
-        DCHTTPTask *task = [DCHTTPTask POST: responseURLString
-                                 parameters: @{ @"result": benchmarkResult }];
-        
-        
-        [task setResponseSerializer:[DCJSONResponseSerializer new] forContentType:@"application/json"];
-        
-        task.then(^(DCHTTPResponse *response){
-            //NSString *str = [[NSString alloc] initWithData:response.responseObject encoding:NSUTF8StringEncoding];
-            //NSLog(str);
-        }).catch(^(NSError *error){
-            NSLog(@"failed to upload file: %@",[error localizedDescription]);
-        });
-        [task start];
-        
-    }
+    NSString *responseURLString = [NSString stringWithFormat:@"%@.json", self.webView.request.URL.absoluteString];
+    NSLog(@"posting to %@", responseURLString);
+    
+    
+    DCHTTPTask *task = [DCHTTPTask POST: responseURLString
+                             parameters: @{ @"result": benchmarkResult }];
+    
+    
+    [task setResponseSerializer:[DCJSONResponseSerializer new] forContentType:@"application/json"];
+    
+    task.then(^(DCHTTPResponse *response){
+        //NSString *str = [[NSString alloc] initWithData:response.responseObject encoding:NSUTF8StringEncoding];
+        //NSLog(str);
+    }).catch(^(NSError *error){
+        NSLog(@"failed to upload file: %@",[error localizedDescription]);
+    });
+    [task start];
+    
+    
     
     return NO;
 }

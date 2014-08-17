@@ -270,10 +270,12 @@ dispatch_source_t _source;
     [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
 
     // change pagination + bounces
+    /*
     self.webView.paginationMode = UIWebPaginationModeLeftToRight;
     self.webView.paginationBreakingMode = UIWebPaginationBreakingModePage;
     self.webView.gapBetweenPages = 10;
-
+    */
+     
     self.webView.scrollView.bounces = false;
 
     [ self.webView setDelegate:self];
