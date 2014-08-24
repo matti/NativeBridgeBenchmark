@@ -248,11 +248,14 @@ dispatch_source_t _source;
 
 - (void) nativeBridge:(NSString *)msg
 {
-    NSURL *url = [NSURL URLWithString:msg];
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+    dispatch_async(dispatch_get_main_queue(), ^{
 
-    [gBenchmarkViewController webView:gBenchmarkViewController.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeOther];
+        NSURL *url = [NSURL URLWithString:msg];
+        NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
 
+        [gBenchmarkViewController webView:gBenchmarkViewController.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeOther];
+
+    });
 }
 
 
