@@ -78,7 +78,8 @@ BenchmarkViewController *gBenchmarkViewController;
                                       @"method_name": [params valueForKey:@"method_name"],
                                       @"fps": [params valueForKey:@"fps"],
                                       @"cpu": [self.cpuUsage cpuUsageString],
-                                      @"mem": [self.memUsage memUsageString]
+                                      @"mem": [self.memUsage memUsageString],
+                                      @"render_paused":[ params valueForKey:@"render_paused"]
                                       };
     
     NSString *responseURLString = [NSString stringWithFormat:@"%@.json", self.webView.request.URL.absoluteString];
