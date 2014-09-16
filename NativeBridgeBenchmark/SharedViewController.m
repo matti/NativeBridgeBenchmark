@@ -11,7 +11,7 @@
 #import "NSDictionary+Merge.h"
 #import <RequestUtils/RequestUtils.h>
 #import <HTTPKit/DCHTTPTask.h>
-
+#import "NativeBridgeURLProtocol.h"
 
 @interface SharedViewController ()
 
@@ -37,18 +37,18 @@ BenchmarkViewController *gBenchmarkViewController;
     
     NSString *messageURLString = @"";
     
-    if ( [request.URL.absoluteString hasPrefix:@"nativebridge://"] ) {
-        messageURLString = request.URL.absoluteString;
-    }
-    
-    if ( [request.URL.fragment hasPrefix:@"nativebridge://"]) {
-        messageURLString = request.URL.fragment;
-    }
-    
-    
-    if ( [request.URL.host isEqualToString:@"nativebridge"] ) {
-        messageURLString = [ NSString stringWithFormat:@"nativebridge:%@?%@", request.URL.path, request.URL.query];
-    }
+//    if ( [request.URL.absoluteString hasPrefix:@"nativebridge://"] ) {
+//        messageURLString = request.URL.absoluteString;
+//    }
+//    
+//    if ( [request.URL.fragment hasPrefix:@"nativebridge://"]) {
+//        messageURLString = request.URL.fragment;
+//    }
+//    
+//    
+//    if ( [request.URL.host isEqualToString:@"nativebridge"] ) {
+//        messageURLString = [ NSString stringWithFormat:@"nativebridge:%@?%@", request.URL.path, request.URL.query];
+//    }
     
     
     if ( [messageURLString isEqualToString:@""] ) {
@@ -110,6 +110,8 @@ BenchmarkViewController *gBenchmarkViewController;
 -(void)loadView {
     self.memUsage = [[MemUsage alloc] init];
     self.cpuUsage = [[CpuUsage alloc] init];
+    
+    [NSURLProtocol registerClass:[NativeBridgeURLProtocol class]];
     
     [ self startHTTPServer ];
     
