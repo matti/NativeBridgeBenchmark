@@ -37,18 +37,18 @@ BenchmarkViewController *gBenchmarkViewController;
     
     NSString *messageURLString = @"";
     
-//    if ( [request.URL.absoluteString hasPrefix:@"nativebridge://"] ) {
-//        messageURLString = request.URL.absoluteString;
-//    }
-//    
-//    if ( [request.URL.fragment hasPrefix:@"nativebridge://"]) {
-//        messageURLString = request.URL.fragment;
-//    }
-//    
-//    
-//    if ( [request.URL.host isEqualToString:@"nativebridge"] ) {
-//        messageURLString = [ NSString stringWithFormat:@"nativebridge:%@?%@", request.URL.path, request.URL.query];
-//    }
+    if ( [request.URL.absoluteString hasPrefix:@"nativebridge://"] ) {
+        messageURLString = request.URL.absoluteString;
+    }
+    
+    if ( [request.URL.fragment hasPrefix:@"nativebridge://"]) {
+        messageURLString = request.URL.fragment;
+    }
+    
+    
+    if ( [request.URL.host isEqualToString:@"nativebridge"] ) {
+        messageURLString = [ NSString stringWithFormat:@"nativebridge:%@?%@", request.URL.path, request.URL.query];
+    }
     
     
     if ( [messageURLString isEqualToString:@""] ) {

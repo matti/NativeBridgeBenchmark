@@ -7,6 +7,7 @@
 //
 
 #import "NativeBridgeURLProtocol.h"
+#import "BenchmarkViewController.h"
 
 #import <MobileCoreServices/MobileCoreServices.h>
 
@@ -19,9 +20,12 @@
 
         NSLog(@"URLPROTOCOL captured");
 
+        BenchmarkViewController *bvc = (BenchmarkViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
         
-        // TODO: this just might be it:
-//            [self.client URLProtocol:self didFailWithError:[NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorZeroByteResource userInfo:nil]];
+//        NSURL *url = [NSURL URLWithString:msg];
+//        NSMutableURLRequest *betterRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
+        
+        [bvc webView: bvc.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeOther];
         
         return YES;
     };
@@ -30,7 +34,8 @@
 //    if ([[[request URL] host] isEqualToString:@"localhost"]) {
 //        return YES;
 //    }
-//    
+//
+    
 
     // Do not capture, fall back to webview default behaviour
     return NO;
@@ -43,12 +48,14 @@
 }
 
 -(void) startLoading {
+
     NSString *requestPath = [[[self request] URL] path];
     NSString *requestMethod = [[self request] HTTPMethod];
 
     NSData *body = [@"{}" dataUsingEncoding:NSUTF8StringEncoding];
     
     NSHTTPURLResponse *response = [NSHTTPURLResponse alloc];
+
     
     [response initWithURL:[[self request] URL]
                 statusCode:200
