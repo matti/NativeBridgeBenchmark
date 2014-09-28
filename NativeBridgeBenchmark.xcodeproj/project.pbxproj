@@ -23,6 +23,7 @@
 		ED0E98CB192772D200669AB6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = ED0E98C9192772D200669AB6 /* InfoPlist.strings */; };
 		ED0E98CD192772D200669AB6 /* NativeBridgeBenchmarkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = ED0E98CC192772D200669AB6 /* NativeBridgeBenchmarkTests.m */; };
 		ED1E683519D86A86004753B2 /* BenchmarkRecorder.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1E683419D86A86004753B2 /* BenchmarkRecorder.m */; };
+		ED1E683B19D879A5004753B2 /* LocalStorageObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = ED1E683A19D879A5004753B2 /* LocalStorageObserver.m */; };
 		ED249E21193A47CC0021B269 /* MyHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = ED249E20193A47CC0021B269 /* MyHTTPConnection.m */; };
 		ED249E24193A48120021B269 /* MyWebsocket.m in Sources */ = {isa = PBXBuildFile; fileRef = ED249E23193A48120021B269 /* MyWebsocket.m */; };
 		ED249E2B193A4D2B0021B269 /* Web in Resources */ = {isa = PBXBuildFile; fileRef = ED249E2A193A4D2B0021B269 /* Web */; };
@@ -68,6 +69,8 @@
 		ED0E98CC192772D200669AB6 /* NativeBridgeBenchmarkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NativeBridgeBenchmarkTests.m; sourceTree = "<group>"; };
 		ED1E683319D86A86004753B2 /* BenchmarkRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BenchmarkRecorder.h; sourceTree = "<group>"; };
 		ED1E683419D86A86004753B2 /* BenchmarkRecorder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BenchmarkRecorder.m; sourceTree = "<group>"; };
+		ED1E683919D879A5004753B2 /* LocalStorageObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalStorageObserver.h; sourceTree = "<group>"; };
+		ED1E683A19D879A5004753B2 /* LocalStorageObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalStorageObserver.m; sourceTree = "<group>"; };
 		ED249E1F193A47CC0021B269 /* MyHTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyHTTPConnection.h; sourceTree = "<group>"; };
 		ED249E20193A47CC0021B269 /* MyHTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyHTTPConnection.m; sourceTree = "<group>"; };
 		ED249E22193A48120021B269 /* MyWebsocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWebsocket.h; sourceTree = "<group>"; };
@@ -180,6 +183,8 @@
 				ED94F64D19C5F5DE00011133 /* NativeBridgeURLProtocol.m */,
 				ED1E683319D86A86004753B2 /* BenchmarkRecorder.h */,
 				ED1E683419D86A86004753B2 /* BenchmarkRecorder.m */,
+				ED1E683919D879A5004753B2 /* LocalStorageObserver.h */,
+				ED1E683A19D879A5004753B2 /* LocalStorageObserver.m */,
 			);
 			path = NativeBridgeBenchmark;
 			sourceTree = "<group>";
@@ -354,6 +359,7 @@
 				ED07A5B91932023600792C4C /* NSDictionary+Merge.m in Sources */,
 				EDCC5DBA1941E0C40086A658 /* SharedViewController.m in Sources */,
 				ED1E683519D86A86004753B2 /* BenchmarkRecorder.m in Sources */,
+				ED1E683B19D879A5004753B2 /* LocalStorageObserver.m in Sources */,
 				ED249E24193A48120021B269 /* MyWebsocket.m in Sources */,
 				EDCC5DB51941DE320086A658 /* IOS8BenchmarkViewController.m in Sources */,
 				ED249E21193A47CC0021B269 /* MyHTTPConnection.m in Sources */,

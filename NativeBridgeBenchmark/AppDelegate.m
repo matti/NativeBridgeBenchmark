@@ -73,27 +73,23 @@
                                                      queue:nil
                                                 usingBlock:^(NSNotification *notification) {
                                                     NSHTTPCookieStorage *cookieStorage = notification.object;
-                                                    NSHTTPCookie *pongCookie = nil;
+                                                    NSHTTPCookie *messageCookie = nil;
                                                     for (NSHTTPCookie *cookie in cookieStorage.cookies) {
                                                         if ([cookie.name hasPrefix:@"nativebridge" ]) {
-                                                            pongCookie = cookie;
+                                                            messageCookie = cookie;
                                                             break;
                                                         }
                                                     }
-                                                    if (!pongCookie) {
+                                                    if (!messageCookie) {
                                                         return;
                                                     }
                                                     
-                                                    // TODO: Ugly
                                                     BenchmarkRecorder *recorder = [BenchmarkRecorder new];
-
-                                                    BenchmarkViewController *bvc = self.window.rootViewController;
                                                     
-                                                    NSString *referer = bvc.webView.request.URL.absoluteString;
                                                     
-                                                    [ recorder recordMessage:pongCookie.value withReferer: referer ];
+                                                    [ recorder recordMessage:messageCookie.value ];
                                                     
-                                                    [cookieStorage deleteCookie:pongCookie];
+                                                    [cookieStorage deleteCookie:messageCookie];
                                                 }];
     
 }

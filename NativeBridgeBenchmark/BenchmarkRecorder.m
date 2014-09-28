@@ -15,10 +15,11 @@
 #import "MemUsage.h"
 #import "CpuUsage.h"
 
+#import "BenchmarkViewController.h"
+
 @implementation BenchmarkRecorder
 
 -(BOOL) recordMessage:(NSString *)messageURLString withReferer:(NSString *)referer {
-
     MemUsage *memUsage = [[MemUsage alloc] init];
     CpuUsage *cpuUsage = [[CpuUsage alloc] init];
     
@@ -29,7 +30,7 @@
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'"];
     
     NSString *dateNowString = [dateFormatter stringFromDate: dateNow];
-
+    
     
     NSDictionary *params = [messageURLString URLQueryParameters];
     
@@ -70,6 +71,16 @@
     
     return YES;
 
+}
+
+-(BOOL) recordMessage:(NSString *)messageURLString {
+
+    // TODO: ugly
+    BenchmarkViewController *bvc = (BenchmarkViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
+
+    NSString *referer = bvc.webView.request.URL.absoluteString;
+    
+    return [ self recordMessage:messageURLString withReferer:referer ];
 }
 
 -(BOOL) recordRequest:(NSURLRequest *)request {

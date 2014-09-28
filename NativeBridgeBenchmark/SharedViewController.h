@@ -12,8 +12,6 @@
 #import <WebKit/WebKit.h>
 #endif
 
-#import <FMDB/FMDB.h>
-
 #import <CocoaHTTPServer/HTTPServer.h>
 #import "MyHTTPConnection.h"
 
@@ -28,9 +26,6 @@
 #endif
 
 @property(nonatomic, retain) UIWebView* webView;
-
-@property(nonatomic, retain) FMDatabase* localStorageDB;
-
 
 -(BOOL) handleRequest: (NSURLRequest*) request;
 

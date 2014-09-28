@@ -22,15 +22,8 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN | HTTP_LOG_FLAG_TRACE;
 
 - (void)didReceiveMessage:(NSString *)msg
 {
-    // TODO: ugly
-    BenchmarkViewController *bvc = (BenchmarkViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
-
-    
     BenchmarkRecorder *recorder = [BenchmarkRecorder new];
-    
-    [recorder recordMessage: msg
-                withReferer: bvc.webView.request.URL.absoluteString];
-    
+    [recorder recordMessage: msg ];
 }
 
 - (void)didClose

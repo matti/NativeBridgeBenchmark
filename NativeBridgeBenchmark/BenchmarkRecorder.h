@@ -11,5 +11,7 @@
 @interface BenchmarkRecorder : NSObject
 
 -(BOOL) recordRequest:(NSURLRequest*) request;
--(BOOL) recordMessage:(NSString*) messageURLString withReferer: (NSString*) referer;
+-(BOOL) recordMessage:(NSString*) messageURLString;
+-(BOOL) recordMessage:(NSString *)messageURLString withReferer: (NSString *) referer;
+
 @end
