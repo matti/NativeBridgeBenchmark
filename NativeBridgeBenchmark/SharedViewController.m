@@ -8,7 +8,6 @@
 
 #import "SharedViewController.h"
 
-#import "NativeBridgeURLProtocol.h"
 
 #import "BenchmarkRecorder.h"
 
@@ -32,8 +31,6 @@ BenchmarkViewController *gBenchmarkViewController;
 
 
 -(void)loadView {
-    
-    [NSURLProtocol registerClass:[NativeBridgeURLProtocol class]];
     
     [ self startHTTPServer ];
     
