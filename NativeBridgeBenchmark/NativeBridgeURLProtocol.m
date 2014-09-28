@@ -9,7 +9,6 @@
 #import "NativeBridgeURLProtocol.h"
 #import "BenchmarkViewController.h"
 
-#import <MobileCoreServices/MobileCoreServices.h>
 
 @implementation NativeBridgeURLProtocol
 
@@ -25,6 +24,9 @@
 //        NSURL *url = [NSURL URLWithString:msg];
 //        NSMutableURLRequest *betterRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
         
+        // TODO: check if faster?
+        //    [self.client URLProtocol:self didFailWithError:[NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorZeroByteResource userInfo:nil]];
+
         [bvc webView: bvc.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeOther];
         
         return YES;

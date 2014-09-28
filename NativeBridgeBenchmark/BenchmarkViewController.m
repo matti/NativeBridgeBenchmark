@@ -34,35 +34,6 @@ dispatch_source_t _source;
 
 
 
-//// XHR
-//@interface PongUrlProtocol : NSURLProtocol
-//
-//@end
-//
-//
-//@implementation PongUrlProtocol
-//
-//+(BOOL)canInitWithRequest:(NSURLRequest *)request {
-//    return [request.URL.host isEqualToString:@"nativebridge"];
-//}
-//
-//+(NSURLRequest *)canonicalRequestForRequest:(NSURLRequest *)request {
-//    return request;
-//}
-//
-//-(void)startLoading {
-//    
-//    [gBenchmarkViewController webView:gBenchmarkViewController.webView shouldStartLoadWithRequest:self.request navigationType:UIWebViewNavigationTypeOther];
-//
-//    [self.client URLProtocol:self didFailWithError:[NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorZeroByteResource userInfo:nil]];
-//}
-//
-//-(void)stopLoading {
-//}
-//
-//@end
-
-
 @implementation BenchmarkViewController
 
 #pragma mark - WebViewDelegate
