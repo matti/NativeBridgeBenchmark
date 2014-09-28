@@ -12,14 +12,10 @@
 #import <WebKit/WebKit.h>
 #endif
 
-#import "Memusage.h"
-#import "Cpuusage.h"
+#import <FMDB/FMDB.h>
 
 #import <CocoaHTTPServer/HTTPServer.h>
 #import "MyHTTPConnection.h"
-
-#import <FMDB/FMDB.h>
-
 
 
 
@@ -33,18 +29,14 @@
 
 @property(nonatomic, retain) UIWebView* webView;
 
-@property(nonatomic, retain) HTTPServer* httpServer;
 @property(nonatomic, retain) FMDatabase* localStorageDB;
 
-@property(nonatomic, retain) MemUsage* memUsage;
-@property(nonatomic, retain) CpuUsage* cpuUsage;
 
 -(BOOL) handleRequest: (NSURLRequest*) request;
 
 -(void) reload;
 -(void) restart;
 -(void) addNavigationBar;
--(void) startHTTPServer;
 -(void) addCookieObserver;
 
 @end

@@ -17,11 +17,11 @@
 
 @implementation BenchmarkRecorder
 
--(BOOL) recordRequest:(NSURLRequest *)request {
-    
+-(BOOL) recordMessage:(NSString *)messageURLString withReferer:(NSString *)referer {
+
     MemUsage *memUsage = [[MemUsage alloc] init];
     CpuUsage *cpuUsage = [[CpuUsage alloc] init];
-
+    
     NSDate *dateNow = [NSDate new];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -29,33 +29,7 @@
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'"];
     
     NSString *dateNowString = [dateFormatter stringFromDate: dateNow];
-    
-    
-    
-    NSString *messageURLString = @"";
-    
-    if ( [request.URL.absoluteString hasPrefix:@"nativebridge://"] ) {
-        messageURLString = request.URL.absoluteString;
-    }
-    
-    if ( [request.URL.fragment hasPrefix:@"nativebridge://"]) {
-        messageURLString = request.URL.fragment;
-    }
-    
-    
-    if ( [request.URL.host isEqualToString:@"nativebridge"] ) {
-        messageURLString = [ NSString stringWithFormat:@"nativebridge:%@?%@", request.URL.path, request.URL.query];
-    }
-    
-    if ( [messageURLString isEqualToString:@""] ) {
-        return NO;
-    }
-    
-    
-    
-    NSLog(@"nativebridge:// captured");
-    //NSLog(messageURLString);
-    
+
     
     NSDictionary *params = [messageURLString URLQueryParameters];
     
@@ -76,7 +50,6 @@
                                       @"render_paused":[ params valueForKey:@"render_paused"]
                                       };
     
-    NSString *referer = [[request allHTTPHeaderFields] objectForKey:@"Referer"];
     NSString *responseURLString = [NSString stringWithFormat:@"%@.json", referer];
     NSLog(@"posting to %@", responseURLString);
     
@@ -94,7 +67,40 @@
         NSLog(@"failed to upload file: %@",[error localizedDescription]);
     });
     [task start];
-
+    
     return YES;
+
+}
+
+-(BOOL) recordRequest:(NSURLRequest *)request {
+    
+
+    NSString *messageURLString = @"";
+    
+    if ( [request.URL.absoluteString hasPrefix:@"nativebridge://"] ) {
+        messageURLString = request.URL.absoluteString;
+    }
+    
+    if ( [request.URL.fragment hasPrefix:@"nativebridge://"]) {
+        messageURLString = request.URL.fragment;
+    }
+    
+    
+    if ( [request.URL.host isEqualToString:@"nativebridge"] ) {
+        messageURLString = [ NSString stringWithFormat:@"nativebridge:%@?%@", request.URL.path, request.URL.query];
+    }
+    
+    if ( [messageURLString isEqualToString:@""] ) {
+        return NO;
+    }
+    
+
+    NSLog(@"nativebridge:// captured");
+    //NSLog(messageURLString);
+
+
+    NSString *referer = [[request allHTTPHeaderFields] objectForKey:@"Referer"];
+
+    return [ self recordMessage:messageURLString withReferer:referer];
 }
 @end
