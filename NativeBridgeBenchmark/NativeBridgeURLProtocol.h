@@ -10,4 +10,7 @@
 
 @interface NativeBridgeURLProtocol : NSURLProtocol
 
++(BOOL)isNativeBridgeURLProtocol: (NSURLRequest *) request;
++(NSString*)extractNativeBridgeMessageWith: (NSURLRequest *) request;
+
 @end

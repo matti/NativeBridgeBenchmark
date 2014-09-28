@@ -7,19 +7,68 @@
 //
 
 #import "NativeBridgeURLProtocol.h"
+#import "BenchmarkRecorder.h"
+
 #import "BenchmarkViewController.h"
+
+#import "LocalStorageObserver.h"
 
 
 @implementation NativeBridgeURLProtocol
 
++(NSString*) extractNativeBridgeMessageWith:(NSURLRequest *)request {
+
+    NSString *messageURLString = nil;
+    
+    if ( [request.URL.absoluteString hasPrefix:@"nativebridge://"] ) {
+        messageURLString = request.URL.absoluteString;
+    }
+    
+    if ( [request.URL.fragment hasPrefix:@"nativebridge://"] ) {
+        messageURLString = request.URL.fragment;
+    }
+    
+    // TODO: which one is this?? http fallback? check if still needed.
+    if ( [request.URL.host isEqualToString:@"nativebridge"] ) {
+        messageURLString = [ NSString stringWithFormat:@"nativebridge:%@?%@", request.URL.path, request.URL.query];
+    }
+    
+    return messageURLString;
+}
+
++(BOOL) isNativeBridgeURLProtocol:(NSURLRequest *)request {
+    
+    NSString* messageURL = [ self extractNativeBridgeMessageWith:request ];
+
+    return ( messageURL || [request.URL.host isEqualToString:@"nativebridgebootstrapcomplete"] );
+
+}
 
 +(BOOL) canInitWithRequest:(NSURLRequest *)request {
+        
+    if ( [request.URL.fragment isEqualToString:@"nativebridgebootstrapcomplete"] ) {
+        
+       LocalStorageObserver *localStorageObserver = [ LocalStorageObserver new ];
+       [localStorageObserver observeWithHTTPPort:request.URL.port andHost:request.URL.host];
 
-    if ([ [[request URL] host ] isEqualToString:@"nativebridge" ]) {
-
+        return YES;
+    }
+  
+    NSString* messageURLString = [self extractNativeBridgeMessageWith:request];
+    
+    if ( messageURLString ) {
         NSLog(@"URLPROTOCOL captured");
+        
+        BenchmarkRecorder *recorder = [ BenchmarkRecorder new ];
+        [ recorder recordMessage:messageURLString ];
+        
+        return YES;
+    } else {
+        return NO;
+    }
+    
 
-        BenchmarkViewController *bvc = (BenchmarkViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
+//        BenchmarkViewController *bvc = (BenchmarkViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
         
 //        NSURL *url = [NSURL URLWithString:msg];
 //        NSMutableURLRequest *betterRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
@@ -27,20 +76,16 @@
         // TODO: check if faster?
         //    [self.client URLProtocol:self didFailWithError:[NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorZeroByteResource userInfo:nil]];
 
-        [bvc webView: bvc.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeOther];
+           //        [bvc webView: bvc.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeOther];
         
-        return YES;
-    };
+        
     
     
 //    if ([[[request URL] host] isEqualToString:@"localhost"]) {
 //        return YES;
 //    }
 //
-    
 
-    // Do not capture, fall back to webview default behaviour
-    return NO;
 }
 
 + (NSURLRequest*) canonicalRequestForRequest:(NSURLRequest*)request {
@@ -51,6 +96,7 @@
 
 -(void) startLoading {
 
+    
     NSString *requestPath = [[[self request] URL] path];
     NSString *requestMethod = [[self request] HTTPMethod];
 

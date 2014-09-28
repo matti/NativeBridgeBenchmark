@@ -8,8 +8,8 @@
 
 #import "BenchmarkViewController.h"
 
-#import "LocalStorageObserver.h"
-
+#import "NativeBridgeURLProtocol.h"
+#import "BenchmarkRecorder.h"
 
 BenchmarkViewController* gBenchmarkViewController;
 
@@ -33,27 +33,14 @@ BenchmarkViewController* gBenchmarkViewController;
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
 
-    if ( [request.URL.fragment isEqualToString:@"bootstrapcomplete"] ) {
-        
-        LocalStorageObserver *localStorageObserver = [ LocalStorageObserver new ];
-        [localStorageObserver observeWithHTTPPort:request.URL.port andHost:request.URL.host];
-        
-        return NO;
-    }
-
-    
-    
-    return [self handleRequest:request];
-
+    return (![ NativeBridgeURLProtocol canInitWithRequest:request ]);
 }
 
--(void)webViewDidStartLoad:(UIWebView *)webView {
-    NSLog(@"didStart: %@", webView.request.URL.absoluteString);
-}
-
--(void)webViewDidFinishLoad:(UIWebView *)webView {
-    NSLog(@"didFinish: %@", webView.request.URL.absoluteString);
-}
+//-(void)webViewDidStartLoad:(UIWebView *)webView {
+//}
+//
+//-(void)webViewDidFinishLoad:(UIWebView *)webView {
+//}
 
 #pragma mark - JSCore
 

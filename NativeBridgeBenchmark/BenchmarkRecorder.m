@@ -85,33 +85,8 @@
 
 -(BOOL) recordRequest:(NSURLRequest *)request {
     
-
-    NSString *messageURLString = @"";
-    
-    if ( [request.URL.absoluteString hasPrefix:@"nativebridge://"] ) {
-        messageURLString = request.URL.absoluteString;
-    }
-    
-    if ( [request.URL.fragment hasPrefix:@"nativebridge://"]) {
-        messageURLString = request.URL.fragment;
-    }
-    
-    
-    if ( [request.URL.host isEqualToString:@"nativebridge"] ) {
-        messageURLString = [ NSString stringWithFormat:@"nativebridge:%@?%@", request.URL.path, request.URL.query];
-    }
-    
-    if ( [messageURLString isEqualToString:@""] ) {
-        return NO;
-    }
-    
-
-    NSLog(@"nativebridge:// captured");
-    //NSLog(messageURLString);
-
-
     NSString *referer = [[request allHTTPHeaderFields] objectForKey:@"Referer"];
 
-    return [ self recordMessage:messageURLString withReferer:referer];
+    return [ self recordMessage:request.URL.absoluteString withReferer:referer];
 }
 @end
