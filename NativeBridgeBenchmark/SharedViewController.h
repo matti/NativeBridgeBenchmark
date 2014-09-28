@@ -37,6 +37,5 @@
 -(void) reload;
 -(void) restart;
 -(void) addNavigationBar;
--(void) addCookieObserver;
 
 @end

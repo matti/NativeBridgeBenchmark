@@ -31,13 +31,6 @@ BenchmarkViewController *gBenchmarkViewController;
 
 
 -(void)loadView {
-        
-    if ( self.webView ) {
-        [ self addCookieObserver ];
-    } else {
-        // TODO: ios8?
-    }
-    
     [self addNavigationBar];
     [self restart];
 }
@@ -89,34 +82,5 @@ BenchmarkViewController *gBenchmarkViewController;
 }
 
 
--(void)addCookieObserver {
-    [NSNotificationCenter.defaultCenter addObserverForName:NSHTTPCookieManagerCookiesChangedNotification
-                                                    object:nil
-                                                     queue:nil
-                                                usingBlock:^(NSNotification *notification) {
-                                                    NSHTTPCookieStorage *cookieStorage = notification.object;
-                                                    NSHTTPCookie *pongCookie = nil;
-                                                    for (NSHTTPCookie *cookie in cookieStorage.cookies) {
-                                                        if ([cookie.name hasPrefix:@"nativebridge" ]) {
-                                                            pongCookie = cookie;
-                                                            break;
-                                                        }
-                                                    }
-                                                    if (!pongCookie) {
-                                                        return;
-                                                    }
-                                                    
-                                                    NSURL *url = [NSURL URLWithString:pongCookie.value];
-                                                    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
-                                                    
-                                                    if (gBenchmarkViewController) {
-                                                    [gBenchmarkViewController webView: gBenchmarkViewController.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeOther];
-                                                    } else {
-                                                        NSLog(@"TODO: wkWebView w/ Cookies");
-                                                    }
-                                                    [cookieStorage deleteCookie:pongCookie];
-                                                }];
-    
-}
 
 @end

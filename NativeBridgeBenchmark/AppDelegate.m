@@ -10,6 +10,7 @@
 #import "BenchmarkViewController.h"
 
 #import "NativeBridgeURLProtocol.h"
+#import "BenchmarkRecorder.h"
 
 
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 80000
@@ -40,7 +41,8 @@
     [NSURLProtocol registerClass:[NativeBridgeURLProtocol class]];
 
     [ self startHTTPServer ];
-
+    [ self addCookieObserver ];
+    
     return YES;
 }
 
@@ -64,6 +66,39 @@
     }
     
 }
+
+-(void)addCookieObserver {
+    [NSNotificationCenter.defaultCenter addObserverForName:NSHTTPCookieManagerCookiesChangedNotification
+                                                    object:nil
+                                                     queue:nil
+                                                usingBlock:^(NSNotification *notification) {
+                                                    NSHTTPCookieStorage *cookieStorage = notification.object;
+                                                    NSHTTPCookie *pongCookie = nil;
+                                                    for (NSHTTPCookie *cookie in cookieStorage.cookies) {
+                                                        if ([cookie.name hasPrefix:@"nativebridge" ]) {
+                                                            pongCookie = cookie;
+                                                            break;
+                                                        }
+                                                    }
+                                                    if (!pongCookie) {
+                                                        return;
+                                                    }
+                                                    
+                                                    // TODO: Ugly
+                                                    BenchmarkRecorder *recorder = [BenchmarkRecorder new];
+
+                                                    BenchmarkViewController *bvc = self.window.rootViewController;
+                                                    
+                                                    NSString *referer = bvc.webView.request.URL.absoluteString;
+                                                    
+                                                    [ recorder recordMessage:pongCookie.value withReferer: referer ];
+                                                    
+                                                    [cookieStorage deleteCookie:pongCookie];
+                                                }];
+    
+}
+
+
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {

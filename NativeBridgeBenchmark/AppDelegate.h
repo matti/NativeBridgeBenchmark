@@ -18,4 +18,7 @@
 
 @property(nonatomic, retain) HTTPServer* httpServer;
 
+-(void) startHTTPServer;
+-(void) addCookieObserver;
+
 @end
