@@ -7,15 +7,13 @@
 //
 
 #import "AppDelegate.h"
+
 #import "BenchmarkViewController.h"
+#import "IOS8BenchmarkViewController.h"
 
 #import "NativeBridgeURLProtocol.h"
 #import "BenchmarkRecorder.h"
 
-
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 80000
-#import "IOS8BenchmarkViewController.h"
-#endif
 
 @implementation AppDelegate
 
@@ -26,15 +24,9 @@
     self.window.backgroundColor = [UIColor redColor];
 
     UIViewController *benchmarkViewController = nil;
-    
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 80000
-    benchmarkViewController = [IOS8BenchmarkViewController new];
-#else
     benchmarkViewController = [BenchmarkViewController new];
-#endif
 
     [self.window setRootViewController: benchmarkViewController];
-    
     [self.window makeKeyAndVisible];
     
     

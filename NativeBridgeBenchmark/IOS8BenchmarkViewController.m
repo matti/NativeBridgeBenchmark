@@ -7,8 +7,6 @@
 //
 
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 80000
-
 
 #import "IOS8BenchmarkViewController.h"
 #import <WebKit/WebKit.h>
@@ -58,4 +56,3 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 
 @end
 
-#endif
