@@ -13,6 +13,8 @@
 #import "IOS8BenchmarkViewController.h"
 #import <WebKit/WebKit.h>
 
+#import "BenchmarkRecorder.h"
+#import "NativeBridgeURLProtocol.h"
 
 @interface IOS8BenchmarkViewController ()
 @end
@@ -41,8 +43,14 @@
 decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
 decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 
-    NSLog(@"ALLOW! %@", [navigationAction.request.URL absoluteString]);
+//    NSLog(@"ALLOW! %@", [navigationAction.request.URL absoluteString]);
 
+    if ([NativeBridgeURLProtocol isNativeBridgeURLProtocol: navigationAction.request ]) {
+
+        [NativeBridgeURLProtocol canInitWithRequest: navigationAction.request ];
+
+        decisionHandler(WKNavigationActionPolicyCancel);
+    }
     
     decisionHandler(WKNavigationActionPolicyAllow);
 }

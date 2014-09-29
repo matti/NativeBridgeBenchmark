@@ -490,11 +490,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NativeBridgeBenchmark/NativeBridgeBenchmark-Prefix.pch";
 				INFOPLIST_FILE = "NativeBridgeBenchmark/NativeBridgeBenchmark-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SDKROOT = iphoneos7.1;
+				SDKROOT = iphoneos8.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -510,11 +510,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "NativeBridgeBenchmark/NativeBridgeBenchmark-Prefix.pch";
 				INFOPLIST_FILE = "NativeBridgeBenchmark/NativeBridgeBenchmark-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SDKROOT = iphoneos7.1;
+				SDKROOT = iphoneos8.0;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

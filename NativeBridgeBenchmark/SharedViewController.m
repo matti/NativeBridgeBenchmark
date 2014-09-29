@@ -16,7 +16,8 @@
 @end
 
 #import "BenchmarkViewController.h"
-BenchmarkViewController *gBenchmarkViewController;
+#import "IOS8BenchmarkViewController.h"
+
 
 @implementation SharedViewController
 
@@ -45,12 +46,14 @@ BenchmarkViewController *gBenchmarkViewController;
     UINavigationItem *navItem = [[UINavigationItem alloc] init];
     navItem.title = @"Benchmark";
     
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonItemStylePlain target:self action:@selector(reload)];
-    navItem.leftBarButtonItem = leftButton;
+    UIBarButtonItem *reloadButton = [[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonItemStylePlain target:self action:@selector(reload)];
+    navItem.leftBarButtonItem = reloadButton;
     
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Restart" style:UIBarButtonItemStylePlain target:self action:@selector(restart)];
-    navItem.rightBarButtonItem = rightButton;
-    
+    UIBarButtonItem *restartButton = [[UIBarButtonItem alloc] initWithTitle:@"Restart" style:UIBarButtonItemStylePlain target:self action:@selector(restart)];
+
+    UIBarButtonItem *webviewButton = [[UIBarButtonItem alloc] initWithTitle:@"W" style:UIBarButtonItemStylePlain target:self action:@selector(changeWebView)];
+
+    navItem.rightBarButtonItems = @[restartButton, webviewButton];
     
     
     navBar.items = @[ navItem ];
@@ -58,9 +61,41 @@ BenchmarkViewController *gBenchmarkViewController;
     [self.view insertSubview:navBar aboveSubview: self.view];
 }
 
+-(void)changeWebView {
+
+    UIWindow *window = [[ [ UIApplication sharedApplication ] delegate ] window ];
+                                 
+    SharedViewController *currentRootVC = (SharedViewController*)window.rootViewController;
+
+    for (UIView *view in [currentRootVC.view subviews]) {
+        [view removeFromSuperview];
+    }
+    
+    
+    SharedViewController *newVC;
+    
+    if (currentRootVC.wkWebView) {
+        newVC = [BenchmarkViewController new];
+        
+    } else {
+        newVC = [IOS8BenchmarkViewController new];
+        currentRootVC.webView.delegate = nil;
+        currentRootVC.webView = nil;
+    }
+
+
+    [currentRootVC.view removeFromSuperview];
+    currentRootVC.view = nil;
+
+    [currentRootVC dismissViewControllerAnimated:NO completion:nil];
+    [currentRootVC removeFromParentViewController];
+    
+    [window setRootViewController:newVC];
+    
+}
+
 -(void)reload
 {
-    
     if (self.webView) {
         [[ self webView ] stringByEvaluatingJavaScriptFromString:@"window.location.reload();"];
     } else {

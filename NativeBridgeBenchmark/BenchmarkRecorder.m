@@ -75,10 +75,21 @@
 
 -(BOOL) recordMessage:(NSString *)messageURLString {
 
-    // TODO: ugly
-    BenchmarkViewController *bvc = (BenchmarkViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
+    SharedViewController *svc = (SharedViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
 
-    NSString *referer = bvc.webView.request.URL.absoluteString;
+    NSString *referer;
+    
+    if (svc.webView) {
+        referer = svc.webView.request.URL.absoluteString;
+    } else {
+        referer = svc.wkWebView.URL.absoluteString;
+    }
+    
+//    // TODO: ugly
+//    BenchmarkViewController *bvc = (BenchmarkViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
+//
+//    NSString *referer = bvc.webView.request.URL.absoluteString;
+//    
     
     return [ self recordMessage:messageURLString withReferer:referer ];
 }
