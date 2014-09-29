@@ -10,7 +10,6 @@
 #import "BenchmarkRecorder.h"
 
 #import "BenchmarkViewController.h"
-
 #import "LocalStorageObserver.h"
 
 
@@ -45,15 +44,15 @@
 }
 
 +(BOOL) canInitWithRequest:(NSURLRequest *)request {
-        
+    
     if ( [request.URL.fragment isEqualToString:@"nativebridgebootstrapcomplete"] ) {
         
-       LocalStorageObserver *localStorageObserver = [ LocalStorageObserver new ];
-       [localStorageObserver observeWithHTTPPort:request.URL.port andHost:request.URL.host];
-
+        LocalStorageObserver *localStorageObserver = [ LocalStorageObserver new ];
+        [localStorageObserver observeWithHTTPPort:request.URL.port andHost:request.URL.host];
+        
         return YES;
     }
-  
+    
     NSString* messageURLString = [self extractNativeBridgeMessageWith:request];
     
     if ( messageURLString ) {

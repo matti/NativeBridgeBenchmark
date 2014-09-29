@@ -20,6 +20,10 @@ dispatch_source_t _source;
 @implementation LocalStorageObserver
 
 -(void) observeWithHTTPPort:(NSNumber *)port andHost:(NSString *)host {
+    
+    // TODO ios8 in here: /Users/mpa/Library/Developer/CoreSimulator/Devices/40F7B20A-CC92-41E6-9839-BE282C2D85EC/data/Containers/Data/Application/1A4A6540-7F85-41D4-8522-666111F1425A/Library/WebKit/fi.helsinki.cs.paksula.NativeBridgeBenchmark/WebsiteData/LocalStorage
+
+    
     NSArray* cachePathArray = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
     NSString* cachePath = [cachePathArray lastObject];
     
