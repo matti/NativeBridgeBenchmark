@@ -47,8 +47,12 @@
     
     if ( [request.URL.fragment isEqualToString:@"nativebridgebootstrapcomplete"] ) {
         
-        LocalStorageObserver *localStorageObserver = [ LocalStorageObserver new ];
-        [localStorageObserver observeWithHTTPPort:request.URL.port andHost:request.URL.host];
+        // Doesn't work well in iOS8 uiwebview, only has the first char as value..
+        
+        //NSString *basePath = [@"~/Library/WebKit/fi.helsinki.cs.paksula.NativeBridgeBenchmark/WebsiteData/LocalStorage" stringByExpandingTildeInPath];
+
+//        LocalStorageObserver *localStorageObserver = [ LocalStorageObserver new ];
+//        [localStorageObserver observeWithHTTPPort:request.URL.port andHost:request.URL.host andBasePath:basePath];
         
         return YES;
     }
@@ -66,25 +70,6 @@
         return NO;
     }
     
-
-//        BenchmarkViewController *bvc = (BenchmarkViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
-        
-//        NSURL *url = [NSURL URLWithString:msg];
-//        NSMutableURLRequest *betterRequest = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
-        
-        // TODO: check if faster?
-        //    [self.client URLProtocol:self didFailWithError:[NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorZeroByteResource userInfo:nil]];
-
-           //        [bvc webView: bvc.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeOther];
-        
-        
-    
-    
-//    if ([[[request URL] host] isEqualToString:@"localhost"]) {
-//        return YES;
-//    }
-//
-
 }
 
 + (NSURLRequest*) canonicalRequestForRequest:(NSURLRequest*)request {

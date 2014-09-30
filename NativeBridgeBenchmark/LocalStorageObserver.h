@@ -12,7 +12,7 @@
 
 @interface LocalStorageObserver : NSObject
 
--(void) observeWithHTTPPort: (NSNumber*) port andHost: (NSString *) host;
+-(void) observeWithHTTPPort: (NSNumber*) port andHost: (NSString *) host andBasePath: (NSString*) basePath;
 
 @property(nonatomic, retain) FMDatabase* localStorageDB;
 

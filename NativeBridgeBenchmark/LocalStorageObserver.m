@@ -19,16 +19,19 @@ dispatch_source_t _source;
 
 @implementation LocalStorageObserver
 
--(void) observeWithHTTPPort:(NSNumber *)port andHost:(NSString *)host {
+-(void) observeWithHTTPPort:(NSNumber *)port andHost:(NSString *)host andBasePath:(NSString *)basePath {
     
     // TODO ios8 in here: /Users/mpa/Library/Developer/CoreSimulator/Devices/40F7B20A-CC92-41E6-9839-BE282C2D85EC/data/Containers/Data/Application/1A4A6540-7F85-41D4-8522-666111F1425A/Library/WebKit/fi.helsinki.cs.paksula.NativeBridgeBenchmark/WebsiteData/LocalStorage
 
+    // Wk webview?
+//    NSString *basePath = [@"~/Library/WebKit/fi.helsinki.cs.paksula.NativeBridgeBenchmark/WebsiteData/LocalStorage" stringByExpandingTildeInPath];
     
-    NSArray* cachePathArray = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-    NSString* cachePath = [cachePathArray lastObject];
+    // gives "the other one", seems like ios8 stores uiwebview localstorage in own sandbox (with simulator, not in device)
+    //NSString *basePath = [@"~/Library/Caches" stringByExpandingTildeInPath];
+
     
     NSFileManager *fm = [NSFileManager defaultManager];
-    NSArray *dirContents = [fm contentsOfDirectoryAtPath:cachePath error:nil];
+    NSArray *dirContents = [fm contentsOfDirectoryAtPath:basePath error:nil];
     
     NSString *hostPort = @"0";
     if (port) {
@@ -37,14 +40,14 @@ dispatch_source_t _source;
     
     NSString *ourLocalStorageFileNameFilter = [NSString stringWithFormat:@"self ENDSWITH 'http_%@_%@.localstorage'", host, hostPort];
     
-    NSLog(ourLocalStorageFileNameFilter);
     
     NSPredicate *fltr = [NSPredicate predicateWithFormat:ourLocalStorageFileNameFilter];
     NSArray *onlyLocalStorages = [dirContents filteredArrayUsingPredicate:fltr];
     
     NSString *ourLocalStorage = [onlyLocalStorages lastObject ];
     
-    NSString *pathToLocalStorage = [ NSString stringWithFormat:@"%@/%@", cachePath, ourLocalStorage];
+    NSString *pathToLocalStorage = [ NSString stringWithFormat:@"%@/%@", basePath, ourLocalStorage];
+
     
     self.localStorageDB = [FMDatabase databaseWithPath:pathToLocalStorage];
     if ( [ self.localStorageDB open ] ) {
@@ -136,12 +139,14 @@ dispatch_source_t _source;
     [[NSNotificationCenter defaultCenter] addObserverForName:fileChangedNotification object:Nil queue:Nil usingBlock:^(NSNotification * notification) {
         // NSLog(@"File change detected!");
         
+        // TODO: always returns "n" as value...
         FMResultSet *s = [ self.localStorageDB executeQuery:@"SELECT key, CAST(value AS TEXT) FROM ItemTable WHERE key LIKE 'nativebridge%'" ];
-        
+
+
         while ([s next]) {
             NSString *key = [ s stringForColumn:@"key" ];
             NSString *value = [ s stringForColumnIndex:1 ];
-            // NSLog(@"GOTS: %@, %@", value, key);
+            NSLog(@"GOTS: %@, %@", value, key);
             
             
             BenchmarkRecorder *recorder = [ BenchmarkRecorder new ];
