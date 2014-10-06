@@ -21,9 +21,15 @@
 
 - (void)loadView
 {
-    self.wkWebView = [ WKWebView new ];
+    WKWebViewConfiguration *wkConfiguration = [WKWebViewConfiguration new];
+    [wkConfiguration.userContentController addScriptMessageHandler:self name:@"nativeBridge"];
+
+    // TODO: wat, pitäiskö oll addSubView paradigmalla sittenki...? vähän epäilyttää cgrectzero
+    self.wkWebView = [[ WKWebView alloc] initWithFrame:CGRectZero configuration:wkConfiguration];
+
+    
     [self setView: self.wkWebView];
-        
+
     [ super loadView ];
 
 
@@ -35,6 +41,20 @@
     [ self.wkWebView setNavigationDelegate: self ];
     
     [ self.wkWebView setContentScaleFactor:2.0];
+    
+}
+
+
+-(void) viewDidLoad {
+
+}
+
+
+-(void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+    NSString *msg = (NSString*) message.body;
+    
+    BenchmarkRecorder *recorder = [ BenchmarkRecorder new ];
+    [recorder recordMessage:msg];
     
 }
 
