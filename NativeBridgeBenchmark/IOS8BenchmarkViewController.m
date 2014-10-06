@@ -34,6 +34,8 @@
     
     [ self.wkWebView setNavigationDelegate: self ];
     
+    [ self.wkWebView setContentScaleFactor:2.0];
+    
 }
 
 
@@ -41,16 +43,18 @@
 decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
 decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 
-//    NSLog(@"ALLOW! %@", [navigationAction.request.URL absoluteString]);
 
     if ([NativeBridgeURLProtocol isNativeBridgeURLProtocol: navigationAction.request ]) {
+        NSLog(@"cancel this %@", [navigationAction.request.URL absoluteString]);
 
         [NativeBridgeURLProtocol canInitWithRequest: navigationAction.request ];
 
         decisionHandler(WKNavigationActionPolicyCancel);
+    } else {
+        NSLog(@"allow this %@", [navigationAction.request.URL absoluteString]);
+
+        decisionHandler(WKNavigationActionPolicyAllow);
     }
-    
-    decisionHandler(WKNavigationActionPolicyAllow);
 }
 
 
