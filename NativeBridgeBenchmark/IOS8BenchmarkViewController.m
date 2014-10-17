@@ -9,7 +9,6 @@
 
 
 #import "IOS8BenchmarkViewController.h"
-#import <WebKit/WebKit.h>
 
 #import "BenchmarkRecorder.h"
 #import "NativeBridgeURLProtocol.h"

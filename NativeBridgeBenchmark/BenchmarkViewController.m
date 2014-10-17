@@ -9,7 +9,6 @@
 #import "BenchmarkViewController.h"
 
 #import "NativeBridgeURLProtocol.h"
-#import "BenchmarkRecorder.h"
 
 BenchmarkViewController* gBenchmarkViewController;
 

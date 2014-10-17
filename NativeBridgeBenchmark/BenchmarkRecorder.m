@@ -15,7 +15,7 @@
 #import "MemUsage.h"
 #import "CpuUsage.h"
 
-#import "BenchmarkViewController.h"
+#import "SharedViewController.h"
 
 @implementation BenchmarkRecorder
 

@@ -9,7 +9,6 @@
 #import "AppDelegate.h"
 
 #import "BenchmarkViewController.h"
-#import "IOS8BenchmarkViewController.h"
 
 @implementation AppDelegate
 

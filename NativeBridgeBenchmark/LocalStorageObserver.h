@@ -8,7 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-#import <FMDB/FMDB.h>
+@class FMDatabase;
+
 
 @interface LocalStorageObserver : NSObject
 

@@ -19,8 +19,6 @@
 @property(nonatomic, retain) WKWebView* wkWebView;
 @property(nonatomic, retain) UIWebView* webView;
 
--(BOOL) handleRequest: (NSURLRequest*) request;
-
 -(void) reload;
 -(void) restart;
 -(void) changeWebView;

@@ -2,7 +2,6 @@
 #import "HTTPLogging.h"
 
 #import "BenchmarkRecorder.h"
-#import "BenchmarkViewController.h"
 
 // Log levels: off, error, warn, info, verbose
 // Other flags : trace

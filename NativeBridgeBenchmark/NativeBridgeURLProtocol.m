@@ -9,10 +9,6 @@
 #import "NativeBridgeURLProtocol.h"
 #import "BenchmarkRecorder.h"
 
-#import "BenchmarkViewController.h"
-#import "LocalStorageObserver.h"
-
-
 @implementation NativeBridgeURLProtocol
 
 +(NSString*) extractNativeBridgeMessageWith:(NSURLRequest *)request {

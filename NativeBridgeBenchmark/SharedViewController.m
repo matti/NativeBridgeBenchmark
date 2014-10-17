@@ -8,9 +8,6 @@
 
 #import "SharedViewController.h"
 
-
-#import "BenchmarkRecorder.h"
-
 @interface SharedViewController ()
 
 @end
@@ -20,16 +17,6 @@
 
 
 @implementation SharedViewController
-
-
--(BOOL) handleRequest:(NSURLRequest *) request {
-    
-    BenchmarkRecorder *recorder = [ BenchmarkRecorder new ];
-    
-    return ![recorder recordRequest:request];
-}
-
-
 
 -(void)loadView {
     [self addNavigationBar];

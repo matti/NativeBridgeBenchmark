@@ -8,6 +8,7 @@
 
 #import "LocalStorageObserver.h"
 
+#import <FMDB/FMDB.h>
 #import "BenchmarkRecorder.h"
 
 // Dispatch queue
