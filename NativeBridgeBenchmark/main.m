@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 
 #import "NBHTTPService.h"
+#import "NativeBridgeURLProtocol.h"
 
 int main(int argc, char * argv[])
 {
@@ -18,6 +19,8 @@ int main(int argc, char * argv[])
         NBHTTPService *httpService = [ NBHTTPService new ];
         [httpService start];
         
+        [NSURLProtocol registerClass:[NativeBridgeURLProtocol class]];
+
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
 }

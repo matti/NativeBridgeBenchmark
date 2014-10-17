@@ -8,9 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-#import <CocoaHTTPServer/HTTPServer.h>
-#import "MyHTTPConnection.h"
-
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

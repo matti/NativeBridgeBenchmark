@@ -11,7 +11,6 @@
 #import "BenchmarkViewController.h"
 #import "IOS8BenchmarkViewController.h"
 
-#import "NativeBridgeURLProtocol.h"
 #import "BenchmarkRecorder.h"
 
 
@@ -29,9 +28,6 @@
     [self.window setRootViewController: benchmarkViewController];
     [self.window makeKeyAndVisible];
     
-    
-    [NSURLProtocol registerClass:[NativeBridgeURLProtocol class]];
-
     [ self addCookieObserver ];
     
     return YES;
