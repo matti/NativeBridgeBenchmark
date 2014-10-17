@@ -159,32 +159,12 @@
 			children = (
 				ED0E98B6192772D200669AB6 /* AppDelegate.h */,
 				ED0E98B7192772D200669AB6 /* AppDelegate.m */,
-				ED0E98B9192772D200669AB6 /* Images.xcassets */,
+				ED24FAB319F13AF800DC09DB /* Models */,
+				ED24FAB019F1399B00DC09DB /* Categories */,
+				ED24FAAD19F1360300DC09DB /* View Controllers */,
+				ED24FAAF19F1395C00DC09DB /* URL Protocols */,
 				ED0E98AE192772D200669AB6 /* Supporting Files */,
-				ED9241AA192A6B0E004164FE /* BenchmarkViewController.h */,
-				ED9241AB192A6B0E004164FE /* BenchmarkViewController.m */,
-				ED07A5B71932023600792C4C /* NSDictionary+Merge.h */,
-				ED07A5B81932023600792C4C /* NSDictionary+Merge.m */,
-				ED038BDC193A3D8500FB88B2 /* UIWebView+TS_JavaScriptContext.h */,
-				ED038BDD193A3D8500FB88B2 /* UIWebView+TS_JavaScriptContext.m */,
-				ED249E1F193A47CC0021B269 /* MyHTTPConnection.h */,
-				ED249E20193A47CC0021B269 /* MyHTTPConnection.m */,
-				ED249E22193A48120021B269 /* MyWebsocket.h */,
-				ED249E23193A48120021B269 /* MyWebsocket.m */,
-				EDB93A75193C85AE00371959 /* MemUsage.h */,
-				EDB93A76193C85AE00371959 /* MemUsage.m */,
-				EDB93A78193C8DFC00371959 /* CpuUsage.h */,
-				EDB93A79193C8DFD00371959 /* CpuUsage.m */,
-				EDCC5DB31941DE320086A658 /* IOS8BenchmarkViewController.h */,
-				EDCC5DB41941DE320086A658 /* IOS8BenchmarkViewController.m */,
-				EDCC5DB81941E0C40086A658 /* SharedViewController.h */,
-				EDCC5DB91941E0C40086A658 /* SharedViewController.m */,
-				ED94F64C19C5F5DE00011133 /* NativeBridgeURLProtocol.h */,
-				ED94F64D19C5F5DE00011133 /* NativeBridgeURLProtocol.m */,
-				ED1E683319D86A86004753B2 /* BenchmarkRecorder.h */,
-				ED1E683419D86A86004753B2 /* BenchmarkRecorder.m */,
-				ED1E683919D879A5004753B2 /* LocalStorageObserver.h */,
-				ED1E683A19D879A5004753B2 /* LocalStorageObserver.m */,
+				ED0E98B9192772D200669AB6 /* Images.xcassets */,
 			);
 			path = NativeBridgeBenchmark;
 			sourceTree = "<group>";
@@ -216,6 +196,90 @@
 				ED0E98C9192772D200669AB6 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		ED24FAAD19F1360300DC09DB /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				ED9241AA192A6B0E004164FE /* BenchmarkViewController.h */,
+				ED9241AB192A6B0E004164FE /* BenchmarkViewController.m */,
+				EDCC5DB31941DE320086A658 /* IOS8BenchmarkViewController.h */,
+				EDCC5DB41941DE320086A658 /* IOS8BenchmarkViewController.m */,
+				EDCC5DB81941E0C40086A658 /* SharedViewController.h */,
+				EDCC5DB91941E0C40086A658 /* SharedViewController.m */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		ED24FAAE19F138EF00DC09DB /* Usage */ = {
+			isa = PBXGroup;
+			children = (
+				EDB93A75193C85AE00371959 /* MemUsage.h */,
+				EDB93A76193C85AE00371959 /* MemUsage.m */,
+				EDB93A78193C8DFC00371959 /* CpuUsage.h */,
+				EDB93A79193C8DFD00371959 /* CpuUsage.m */,
+			);
+			name = Usage;
+			sourceTree = "<group>";
+		};
+		ED24FAAF19F1395C00DC09DB /* URL Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				ED94F64C19C5F5DE00011133 /* NativeBridgeURLProtocol.h */,
+				ED94F64D19C5F5DE00011133 /* NativeBridgeURLProtocol.m */,
+			);
+			name = "URL Protocols";
+			sourceTree = "<group>";
+		};
+		ED24FAB019F1399B00DC09DB /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				ED07A5B71932023600792C4C /* NSDictionary+Merge.h */,
+				ED07A5B81932023600792C4C /* NSDictionary+Merge.m */,
+				ED038BDC193A3D8500FB88B2 /* UIWebView+TS_JavaScriptContext.h */,
+				ED038BDD193A3D8500FB88B2 /* UIWebView+TS_JavaScriptContext.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		ED24FAB119F13A9600DC09DB /* WebSockets */ = {
+			isa = PBXGroup;
+			children = (
+				ED249E1F193A47CC0021B269 /* MyHTTPConnection.h */,
+				ED249E20193A47CC0021B269 /* MyHTTPConnection.m */,
+				ED249E22193A48120021B269 /* MyWebsocket.h */,
+				ED249E23193A48120021B269 /* MyWebsocket.m */,
+			);
+			name = WebSockets;
+			sourceTree = "<group>";
+		};
+		ED24FAB219F13AA500DC09DB /* Localstorage */ = {
+			isa = PBXGroup;
+			children = (
+				ED1E683919D879A5004753B2 /* LocalStorageObserver.h */,
+				ED1E683A19D879A5004753B2 /* LocalStorageObserver.m */,
+			);
+			name = Localstorage;
+			sourceTree = "<group>";
+		};
+		ED24FAB319F13AF800DC09DB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				ED24FAB119F13A9600DC09DB /* WebSockets */,
+				ED24FAAE19F138EF00DC09DB /* Usage */,
+				ED24FAB219F13AA500DC09DB /* Localstorage */,
+				ED24FAB419F13B1300DC09DB /* Benchmarking */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		ED24FAB419F13B1300DC09DB /* Benchmarking */ = {
+			isa = PBXGroup;
+			children = (
+				ED1E683319D86A86004753B2 /* BenchmarkRecorder.h */,
+				ED1E683419D86A86004753B2 /* BenchmarkRecorder.m */,
+			);
+			name = Benchmarking;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
