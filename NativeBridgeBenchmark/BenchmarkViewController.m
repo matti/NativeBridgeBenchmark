@@ -10,8 +10,6 @@
 
 #import "NativeBridgeURLProtocol.h"
 
-BenchmarkViewController* gBenchmarkViewController;
-
 
 // JScore
 @protocol JS_TSViewController <JSExport>
@@ -35,15 +33,7 @@ BenchmarkViewController* gBenchmarkViewController;
     return (![ NativeBridgeURLProtocol canInitWithRequest:request ]);
 }
 
-//-(void)webViewDidStartLoad:(UIWebView *)webView {
-//}
-//
-//-(void)webViewDidFinishLoad:(UIWebView *)webView {
-//}
-
 #pragma mark - JSCore
-
-
 
 - (void)webView:(UIWebView *)webView didCreateJavaScriptContext:(JSContext *)ctx
 {
@@ -72,7 +62,9 @@ BenchmarkViewController* gBenchmarkViewController;
         NSURL *url = [NSURL URLWithString:msg];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
 
-        [gBenchmarkViewController webView:gBenchmarkViewController.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeOther];
+        BenchmarkViewController *bvc = (BenchmarkViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
+        
+        [bvc webView:bvc.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeOther];
 
     });
 }
@@ -94,8 +86,6 @@ BenchmarkViewController* gBenchmarkViewController;
     self.webView.scrollView.bounces = false;
 
     [ self.webView setDelegate:self];
-
-    gBenchmarkViewController = self;
 
     
     [ super loadView ];
