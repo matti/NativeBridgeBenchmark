@@ -11,9 +11,6 @@
 #import "BenchmarkViewController.h"
 #import "IOS8BenchmarkViewController.h"
 
-#import "BenchmarkRecorder.h"
-
-
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -28,38 +25,9 @@
     [self.window setRootViewController: benchmarkViewController];
     [self.window makeKeyAndVisible];
     
-    [ self addCookieObserver ];
     
     return YES;
 }
-
--(void)addCookieObserver {
-    [NSNotificationCenter.defaultCenter addObserverForName:NSHTTPCookieManagerCookiesChangedNotification
-                                                    object:nil
-                                                     queue:nil
-                                                usingBlock:^(NSNotification *notification) {
-                                                    NSHTTPCookieStorage *cookieStorage = notification.object;
-                                                    NSHTTPCookie *messageCookie = nil;
-                                                    for (NSHTTPCookie *cookie in cookieStorage.cookies) {
-                                                        if ([cookie.name hasPrefix:@"nativebridge" ]) {
-                                                            messageCookie = cookie;
-                                                            break;
-                                                        }
-                                                    }
-                                                    if (!messageCookie) {
-                                                        return;
-                                                    }
-                                                    
-                                                    BenchmarkRecorder *recorder = [BenchmarkRecorder new];
-                                                    
-                                                    
-                                                    [ recorder recordMessage:messageCookie.value ];
-                                                    
-                                                    [cookieStorage deleteCookie:messageCookie];
-                                                }];
-    
-}
-
 
 
 - (void)applicationWillResignActive:(UIApplication *)application
