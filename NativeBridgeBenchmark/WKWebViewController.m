@@ -8,15 +8,15 @@
 
 
 
-#import "IOS8BenchmarkViewController.h"
+#import "WKWebViewController.h"
 
 #import "BenchmarkRecorder.h"
 #import "NativeBridgeURLProtocol.h"
 
-@interface IOS8BenchmarkViewController ()
+@interface WKWebViewController ()
 @end
 
-@implementation IOS8BenchmarkViewController
+@implementation WKWebViewController
 
 - (void)loadView
 {

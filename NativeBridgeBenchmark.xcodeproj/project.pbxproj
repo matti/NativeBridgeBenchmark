@@ -34,7 +34,7 @@
 		ED94F64E19C5F5DE00011133 /* NativeBridgeURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = ED94F64D19C5F5DE00011133 /* NativeBridgeURLProtocol.m */; };
 		EDB93A77193C85AE00371959 /* MemUsage.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB93A76193C85AE00371959 /* MemUsage.m */; };
 		EDB93A7A193C8DFD00371959 /* CpuUsage.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB93A79193C8DFD00371959 /* CpuUsage.m */; };
-		EDCC5DB51941DE320086A658 /* IOS8BenchmarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDCC5DB41941DE320086A658 /* IOS8BenchmarkViewController.m */; };
+		EDCC5DB51941DE320086A658 /* WKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDCC5DB41941DE320086A658 /* WKWebViewController.m */; };
 		EDCC5DBA1941E0C40086A658 /* SharedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDCC5DB91941E0C40086A658 /* SharedViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -91,8 +91,8 @@
 		EDB93A76193C85AE00371959 /* MemUsage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemUsage.m; sourceTree = "<group>"; };
 		EDB93A78193C8DFC00371959 /* CpuUsage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CpuUsage.h; sourceTree = "<group>"; };
 		EDB93A79193C8DFD00371959 /* CpuUsage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CpuUsage.m; sourceTree = "<group>"; };
-		EDCC5DB31941DE320086A658 /* IOS8BenchmarkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOS8BenchmarkViewController.h; sourceTree = "<group>"; };
-		EDCC5DB41941DE320086A658 /* IOS8BenchmarkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOS8BenchmarkViewController.m; sourceTree = "<group>"; };
+		EDCC5DB31941DE320086A658 /* WKWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKWebViewController.h; sourceTree = "<group>"; };
+		EDCC5DB41941DE320086A658 /* WKWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKWebViewController.m; sourceTree = "<group>"; };
 		EDCC5DB61941DF970086A658 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		EDCC5DB81941E0C40086A658 /* SharedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedViewController.h; sourceTree = "<group>"; };
 		EDCC5DB91941E0C40086A658 /* SharedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedViewController.m; sourceTree = "<group>"; };
@@ -209,8 +209,8 @@
 			children = (
 				ED9241AA192A6B0E004164FE /* UIWebViewViewController.h */,
 				ED9241AB192A6B0E004164FE /* UIWebViewViewController.m */,
-				EDCC5DB31941DE320086A658 /* IOS8BenchmarkViewController.h */,
-				EDCC5DB41941DE320086A658 /* IOS8BenchmarkViewController.m */,
+				EDCC5DB31941DE320086A658 /* WKWebViewController.h */,
+				EDCC5DB41941DE320086A658 /* WKWebViewController.m */,
 				EDCC5DB81941E0C40086A658 /* SharedViewController.h */,
 				EDCC5DB91941E0C40086A658 /* SharedViewController.m */,
 			);
@@ -444,7 +444,7 @@
 				ED1E683519D86A86004753B2 /* BenchmarkRecorder.m in Sources */,
 				ED1E683B19D879A5004753B2 /* LocalStorageObserver.m in Sources */,
 				ED249E24193A48120021B269 /* MyWebsocket.m in Sources */,
-				EDCC5DB51941DE320086A658 /* IOS8BenchmarkViewController.m in Sources */,
+				EDCC5DB51941DE320086A658 /* WKWebViewController.m in Sources */,
 				ED249E21193A47CC0021B269 /* MyHTTPConnection.m in Sources */,
 				EDB93A7A193C8DFD00371959 /* CpuUsage.m in Sources */,
 				ED0E98B4192772D200669AB6 /* main.m in Sources */,

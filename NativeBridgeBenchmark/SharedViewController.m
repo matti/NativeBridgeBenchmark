@@ -13,7 +13,7 @@
 @end
 
 #import "UIWebViewViewController.h"
-#import "IOS8BenchmarkViewController.h"
+#import "WKWebViewController.h"
 
 
 @implementation SharedViewController
@@ -65,7 +65,7 @@
         newVC = [UIWebViewViewController new];
         
     } else {
-        newVC = [IOS8BenchmarkViewController new];
+        newVC = [WKWebViewController new];
         currentRootVC.webView.delegate = nil;
         currentRootVC.webView = nil;
     }

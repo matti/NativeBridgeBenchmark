@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SharedViewController.h"
 
-@interface IOS8BenchmarkViewController : SharedViewController<WKNavigationDelegate, WKScriptMessageHandler>
+@interface WKWebViewController : SharedViewController<WKNavigationDelegate, WKScriptMessageHandler>
 @property(nonatomic, retain) WKWebView* wkWebView;
 @end
