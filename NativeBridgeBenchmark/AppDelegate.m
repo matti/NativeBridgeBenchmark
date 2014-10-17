@@ -8,7 +8,7 @@
 
 #import "AppDelegate.h"
 
-#import "BenchmarkViewController.h"
+#import "UIWebViewViewController.h"
 
 @implementation AppDelegate
 
@@ -19,7 +19,7 @@
     self.window.backgroundColor = [UIColor redColor];
 
     UIViewController *benchmarkViewController = nil;
-    benchmarkViewController = [BenchmarkViewController new];
+    benchmarkViewController = [UIWebViewViewController new];
 
     [self.window setRootViewController: benchmarkViewController];
     [self.window makeKeyAndVisible];

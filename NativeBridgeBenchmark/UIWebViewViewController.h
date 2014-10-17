@@ -11,7 +11,7 @@
 
 #import "UIWebView+TS_JavaScriptContext.h"
 
-@interface BenchmarkViewController :  SharedViewController <TSWebViewDelegate>
+@interface UIWebViewViewController :  SharedViewController <TSWebViewDelegate>
 
 
 @end

@@ -6,7 +6,7 @@
 //
 //
 
-#import "BenchmarkViewController.h"
+#import "UIWebViewViewController.h"
 
 #import "NativeBridgeURLProtocol.h"
 
@@ -17,13 +17,13 @@
 @end
 
 
-@interface BenchmarkViewController () <TSWebViewDelegate, JS_TSViewController>
+@interface UIWebViewViewController () <TSWebViewDelegate, JS_TSViewController>
 @end
 
 
 
 
-@implementation BenchmarkViewController
+@implementation UIWebViewViewController
 
 #pragma mark - WebViewDelegate
 
@@ -62,7 +62,7 @@
         NSURL *url = [NSURL URLWithString:msg];
         NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60.0];
 
-        BenchmarkViewController *bvc = (BenchmarkViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
+        UIWebViewViewController *bvc = (UIWebViewViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
         
         [bvc webView:bvc.webView shouldStartLoadWithRequest:request navigationType:UIWebViewNavigationTypeOther];
 

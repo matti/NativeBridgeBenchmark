@@ -12,7 +12,7 @@
 
 @end
 
-#import "BenchmarkViewController.h"
+#import "UIWebViewViewController.h"
 #import "IOS8BenchmarkViewController.h"
 
 
@@ -62,7 +62,7 @@
     SharedViewController *newVC;
     
     if (currentRootVC.wkWebView) {
-        newVC = [BenchmarkViewController new];
+        newVC = [UIWebViewViewController new];
         
     } else {
         newVC = [IOS8BenchmarkViewController new];
