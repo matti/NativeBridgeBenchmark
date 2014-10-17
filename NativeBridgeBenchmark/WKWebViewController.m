@@ -48,6 +48,18 @@
 
 }
 
+-(void)reload
+{
+    [super reload];
+    [self.wkWebView reload];
+}
+
+-(void)restart {
+    [super restart];
+    [self.wkWebView loadRequest: self.startingRequest];
+}
+
+
 # pragma mark - WKScriptMessageHandler
 
 -(void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {

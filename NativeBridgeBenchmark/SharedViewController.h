@@ -13,6 +13,7 @@
 
 @property(nonatomic, retain) WKWebView* wkWebView;
 @property(nonatomic, retain) UIWebView* webView;
+@property(nonatomic, retain) NSURLRequest* startingRequest;
 
 +(void) toggleOrSetWebView;
 

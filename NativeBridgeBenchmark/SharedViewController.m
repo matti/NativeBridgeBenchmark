@@ -19,6 +19,7 @@
 @implementation SharedViewController
 
 -(void)loadView {
+    
     [self addNavigationBar];
     [self restart];
 }
@@ -48,26 +49,16 @@
     [self.view insertSubview:navBar aboveSubview: self.view];
 }
 
--(void)reload
-{
-    if (self.webView) {
-        [[ self webView ] stringByEvaluatingJavaScriptFromString:@"window.location.reload();"];
-    } else {
-        [ self.wkWebView reload];
-    }
-}
-
--(void)restart {
+-(void) restart {
     NSString *localHTMLPath = [NSBundle.mainBundle pathForResource:@"index" ofType:@"html"];
     NSURL *localHTMLURL = [NSURL fileURLWithPath:localHTMLPath];
-    NSURLRequest *request = [NSURLRequest requestWithURL: localHTMLURL];
-    
-    if (self.webView) {
-        [self.webView loadRequest: request];
-    } else {
-        [self.wkWebView loadRequest: request];
+    self.startingRequest = [NSURLRequest requestWithURL: localHTMLURL];
 
-    }
+    NSLog(@"Restarting from %@", localHTMLPath);
+}
+
+-(void) reload {
+    NSLog(@"Reloading...");
 }
 
 # pragma mark - Class

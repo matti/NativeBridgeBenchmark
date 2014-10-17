@@ -33,6 +33,18 @@
     return (![ NativeBridgeURLProtocol canInitWithRequest:request ]);
 }
 
+-(void)restart {
+    [super restart ];
+    [self.webView loadRequest: self.startingRequest ];
+}
+
+-(void)reload
+{
+    [super reload];
+    [self.webView stringByEvaluatingJavaScriptFromString:@"window.location.reload();" ];
+}
+
+
 #pragma mark - JSCore
 
 - (void)webView:(UIWebView *)webView didCreateJavaScriptContext:(JSContext *)ctx
