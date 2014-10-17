@@ -93,13 +93,5 @@
     [[self client] URLProtocolDidFinishLoading:self];
 }
 
--(void) stopLoading {
-    
-}
-
--(void) respondWithResponse:(NSHTTPURLResponse*)response Body:(NSData*)body {
-}
-
-
 
 @end
