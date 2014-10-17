@@ -10,9 +10,14 @@
 
 #import "AppDelegate.h"
 
+#import "NBHTTPService.h"
+
 int main(int argc, char * argv[])
 {
     @autoreleasepool {
+        NBHTTPService *httpService = [ NBHTTPService new ];
+        [httpService start];
+        
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
 }

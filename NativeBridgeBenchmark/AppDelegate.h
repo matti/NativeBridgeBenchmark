@@ -16,9 +16,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property(nonatomic, retain) HTTPServer* httpServer;
-
--(void) startHTTPServer;
 -(void) addCookieObserver;
 
 @end

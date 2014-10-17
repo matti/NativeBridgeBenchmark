@@ -27,6 +27,7 @@
 		ED249E21193A47CC0021B269 /* MyHTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = ED249E20193A47CC0021B269 /* MyHTTPConnection.m */; };
 		ED249E24193A48120021B269 /* MyWebsocket.m in Sources */ = {isa = PBXBuildFile; fileRef = ED249E23193A48120021B269 /* MyWebsocket.m */; };
 		ED249E2B193A4D2B0021B269 /* Web in Resources */ = {isa = PBXBuildFile; fileRef = ED249E2A193A4D2B0021B269 /* Web */; };
+		ED24FABC19F13FC900DC09DB /* NBHTTPService.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24FABB19F13FC900DC09DB /* NBHTTPService.m */; };
 		ED9241AC192A6B0E004164FE /* BenchmarkViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9241AB192A6B0E004164FE /* BenchmarkViewController.m */; };
 		ED9241AE192A7458004164FE /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = ED9241AD192A7458004164FE /* index.html */; };
 		ED94F64E19C5F5DE00011133 /* NativeBridgeURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = ED94F64D19C5F5DE00011133 /* NativeBridgeURLProtocol.m */; };
@@ -76,6 +77,8 @@
 		ED249E22193A48120021B269 /* MyWebsocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWebsocket.h; sourceTree = "<group>"; };
 		ED249E23193A48120021B269 /* MyWebsocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWebsocket.m; sourceTree = "<group>"; };
 		ED249E2A193A4D2B0021B269 /* Web */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Web; sourceTree = "<group>"; };
+		ED24FABA19F13FC900DC09DB /* NBHTTPService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBHTTPService.h; sourceTree = "<group>"; };
+		ED24FABB19F13FC900DC09DB /* NBHTTPService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBHTTPService.m; sourceTree = "<group>"; };
 		ED9241AA192A6B0E004164FE /* BenchmarkViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BenchmarkViewController.h; sourceTree = "<group>"; };
 		ED9241AB192A6B0E004164FE /* BenchmarkViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BenchmarkViewController.m; sourceTree = "<group>"; };
 		ED9241AD192A7458004164FE /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
@@ -242,15 +245,17 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
-		ED24FAB119F13A9600DC09DB /* WebSockets */ = {
+		ED24FAB119F13A9600DC09DB /* HTTP */ = {
 			isa = PBXGroup;
 			children = (
 				ED249E1F193A47CC0021B269 /* MyHTTPConnection.h */,
 				ED249E20193A47CC0021B269 /* MyHTTPConnection.m */,
 				ED249E22193A48120021B269 /* MyWebsocket.h */,
 				ED249E23193A48120021B269 /* MyWebsocket.m */,
+				ED24FABA19F13FC900DC09DB /* NBHTTPService.h */,
+				ED24FABB19F13FC900DC09DB /* NBHTTPService.m */,
 			);
-			name = WebSockets;
+			name = HTTP;
 			sourceTree = "<group>";
 		};
 		ED24FAB219F13AA500DC09DB /* Localstorage */ = {
@@ -265,7 +270,7 @@
 		ED24FAB319F13AF800DC09DB /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				ED24FAB119F13A9600DC09DB /* WebSockets */,
+				ED24FAB119F13A9600DC09DB /* HTTP */,
 				ED24FAAE19F138EF00DC09DB /* Usage */,
 				ED24FAB219F13AA500DC09DB /* Localstorage */,
 				ED24FAB419F13B1300DC09DB /* Benchmarking */,
@@ -421,6 +426,7 @@
 				EDB93A77193C85AE00371959 /* MemUsage.m in Sources */,
 				ED038BDE193A3D8500FB88B2 /* UIWebView+TS_JavaScriptContext.m in Sources */,
 				ED07A5B91932023600792C4C /* NSDictionary+Merge.m in Sources */,
+				ED24FABC19F13FC900DC09DB /* NBHTTPService.m in Sources */,
 				EDCC5DBA1941E0C40086A658 /* SharedViewController.m in Sources */,
 				ED1E683519D86A86004753B2 /* BenchmarkRecorder.m in Sources */,
 				ED1E683B19D879A5004753B2 /* LocalStorageObserver.m in Sources */,
