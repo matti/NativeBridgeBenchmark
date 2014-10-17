@@ -9,19 +9,14 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 
-#import <CocoaHTTPServer/HTTPServer.h>
-#import "MyHTTPConnection.h"
-
-
-
 @interface SharedViewController : UIViewController
 
 @property(nonatomic, retain) WKWebView* wkWebView;
 @property(nonatomic, retain) UIWebView* webView;
 
++(void) toggleOrSetWebView;
+
 -(void) reload;
 -(void) restart;
--(void) changeWebView;
-
 -(void) addNavigationBar;
 @end

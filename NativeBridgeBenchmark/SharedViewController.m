@@ -38,7 +38,7 @@
     
     UIBarButtonItem *restartButton = [[UIBarButtonItem alloc] initWithTitle:@"Restart" style:UIBarButtonItemStylePlain target:self action:@selector(restart)];
 
-    UIBarButtonItem *webviewButton = [[UIBarButtonItem alloc] initWithTitle:@"W" style:UIBarButtonItemStylePlain target:self action:@selector(changeWebView)];
+    UIBarButtonItem *webviewButton = [[UIBarButtonItem alloc] initWithTitle:@"W" style:UIBarButtonItemStylePlain target:[SharedViewController class] action:@selector(toggleOrSetWebView)];
 
     navItem.rightBarButtonItems = @[restartButton, webviewButton];
     
@@ -46,39 +46,6 @@
     navBar.items = @[ navItem ];
     
     [self.view insertSubview:navBar aboveSubview: self.view];
-}
-
--(void)changeWebView {
-
-    UIWindow *window = [[ [ UIApplication sharedApplication ] delegate ] window ];
-                                 
-    SharedViewController *currentRootVC = (SharedViewController*)window.rootViewController;
-
-    for (UIView *view in [currentRootVC.view subviews]) {
-        [view removeFromSuperview];
-    }
-    
-    
-    SharedViewController *newVC;
-    
-    if (currentRootVC.wkWebView) {
-        newVC = [UIWebViewViewController new];
-        
-    } else {
-        newVC = [WKWebViewController new];
-        currentRootVC.webView.delegate = nil;
-        currentRootVC.webView = nil;
-    }
-
-
-    [currentRootVC.view removeFromSuperview];
-    currentRootVC.view = nil;
-
-    [currentRootVC dismissViewControllerAnimated:NO completion:nil];
-    [currentRootVC removeFromParentViewController];
-    
-    [window setRootViewController:newVC];
-    
 }
 
 -(void)reload
@@ -103,6 +70,38 @@
     }
 }
 
+# pragma mark - Class
+
++(void)toggleOrSetWebView {
+    
+    UIWindow *window = [[ [ UIApplication sharedApplication ] delegate ] window ];
+    
+    SharedViewController *currentRootVC = (SharedViewController*)window.rootViewController;
+    
+    for (UIView *view in [currentRootVC.view subviews]) {
+        [view removeFromSuperview];
+    }
+    
+    
+    SharedViewController *newVC;
+    
+    if (currentRootVC.webView) {
+        newVC = [WKWebViewController new];
+        currentRootVC.webView.delegate = nil;
+        currentRootVC.webView = nil;
+    } else {
+        newVC = [UIWebViewViewController new];
+    }
+    
+    
+    [currentRootVC.view removeFromSuperview];
+    currentRootVC.view = nil;
+    
+    [currentRootVC dismissViewControllerAnimated:NO completion:nil];
+    [currentRootVC removeFromParentViewController];
+    
+    [window setRootViewController:newVC];
+}
 
 
 @end

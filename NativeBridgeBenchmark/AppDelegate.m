@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 
 #import "UIWebViewViewController.h"
+#import "SharedViewController.h"
 
 @implementation AppDelegate
 
@@ -18,10 +19,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor redColor];
 
-    UIViewController *benchmarkViewController = nil;
-    benchmarkViewController = [UIWebViewViewController new];
-
-    [self.window setRootViewController: benchmarkViewController];
+    [SharedViewController toggleOrSetWebView];
+     
     [self.window makeKeyAndVisible];
     
     
