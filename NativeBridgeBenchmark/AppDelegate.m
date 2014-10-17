@@ -19,7 +19,7 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor redColor];
 
-    [SharedViewController toggleOrSetWebView];
+    [SharedViewController toggleAndSetWebView];
      
     [self.window makeKeyAndVisible];
     

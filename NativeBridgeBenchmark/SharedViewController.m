@@ -63,7 +63,7 @@
 
 # pragma mark - Class
 
-+(void)toggleOrSetWebView {
++(void)toggleAndSetWebView {
     
     UIWindow *window = [[ [ UIApplication sharedApplication ] delegate ] window ];
     
