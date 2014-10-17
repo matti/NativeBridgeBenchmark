@@ -48,6 +48,7 @@
 
 }
 
+# pragma mark - WKScriptMessageHandler
 
 -(void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
     NSString *msg = (NSString*) message.body;
@@ -57,6 +58,7 @@
     
 }
 
+# pragma mark - WKNavigationDelegate
 
 - (void)webView:(WKWebView *)webView
 decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction
