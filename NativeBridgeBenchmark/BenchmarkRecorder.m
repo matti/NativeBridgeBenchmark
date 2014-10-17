@@ -85,12 +85,6 @@
         referer = svc.wkWebView.URL.absoluteString;
     }
     
-//    // TODO: ugly
-//    BenchmarkViewController *bvc = (BenchmarkViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
-//
-//    NSString *referer = bvc.webView.request.URL.absoluteString;
-//    
-    
     return [ self recordMessage:messageURLString withReferer:referer ];
 }
 

@@ -90,22 +90,12 @@ BenchmarkViewController* gBenchmarkViewController;
     [self.webView.scrollView setContentInset:UIEdgeInsetsMake(44, 0, 0, 0)];
     [self.webView.scrollView setScrollIndicatorInsets:UIEdgeInsetsMake(44, 0, 0, 0)];
     [self.webView.scrollView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:NO];
-
-    // change pagination + bounces
-    /*
-    self.webView.paginationMode = UIWebPaginationModeLeftToRight;
-    self.webView.paginationBreakingMode = UIWebPaginationBreakingModePage;
-    self.webView.gapBetweenPages = 10;
-    */
-     
+    
     self.webView.scrollView.bounces = false;
 
     [ self.webView setDelegate:self];
 
-    // XHR TODO: in iOS8 ?
     gBenchmarkViewController = self;
-
-    //[NSURLProtocol registerClass:PongUrlProtocol.class];
 
     
     [ super loadView ];

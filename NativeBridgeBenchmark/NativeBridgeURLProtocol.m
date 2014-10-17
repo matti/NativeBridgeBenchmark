@@ -69,23 +69,16 @@
 }
 
 + (NSURLRequest*) canonicalRequestForRequest:(NSURLRequest*)request {
-    //    NSMutableURLRequest *copy = [[request mutableCopy] autorelease];
-    //    copy.URL = [NSURL URLWithString:[[[request URL] absoluteString] stringByReplacingOccurrencesOfString:@"http" withString:[NSString stringWithFormat:@"http+%f", [[NSDate date] timeIntervalSince1970]]]];
     return request;
 }
 
 -(void) startLoading {
 
-    
-    NSString *requestPath = [[[self request] URL] path];
-    NSString *requestMethod = [[self request] HTTPMethod];
-
     NSData *body = [@"{}" dataUsingEncoding:NSUTF8StringEncoding];
     
-    NSHTTPURLResponse *response = [NSHTTPURLResponse alloc];
-
+    NSHTTPURLResponse *lolsponse = [NSHTTPURLResponse alloc];
     
-    [response initWithURL:[[self request] URL]
+    NSHTTPURLResponse *response = [lolsponse initWithURL:[[self request] URL]
                 statusCode:200
                HTTPVersion:@"HTTP/1.1"
               headerFields: @{
@@ -95,7 +88,9 @@
                               @"Access-Control-Allow-Origin": @"*"
                               }];
     
-    [self respondWithResponse:response Body:body];
+    [[self client] URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
+    [[self client] URLProtocol:self didLoadData:body];
+    [[self client] URLProtocolDidFinishLoading:self];
 }
 
 -(void) stopLoading {
@@ -103,11 +98,6 @@
 }
 
 -(void) respondWithResponse:(NSHTTPURLResponse*)response Body:(NSData*)body {
-    [[self client] URLProtocol:self didReceiveResponse:response cacheStoragePolicy:NSURLCacheStorageNotAllowed];
-    
-    [[self client] URLProtocol:self didLoadData:body];
-    
-    [[self client] URLProtocolDidFinishLoading:self];
 }
 
 
