@@ -7,10 +7,16 @@
 //
 
 #import "BridgeHead.h"
+#import "BenchmarkRecorder.h"
 
 @implementation BridgeHead
 
--(void)perform: (NSString*) messageURL {
+-(void)perform: (NSString*) messageURLString {
     NSLog(@"performing native call");
+    
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
+        BenchmarkRecorder *recorder = [ BenchmarkRecorder new ];
+        [ recorder recordMessage:messageURLString ];
+    });
 }
 @end

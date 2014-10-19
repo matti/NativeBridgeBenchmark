@@ -7,7 +7,6 @@
 //
 
 #import "NativeBridgeURLProtocol.h"
-#import "BenchmarkRecorder.h"
 #import "BridgeHead.h"
 
 @implementation NativeBridgeURLProtocol
@@ -64,17 +63,9 @@
     NSString* messageURLString = [self extractNativeBridgeMessageWith:request];
     
     if ( messageURLString ) {
-        NSLog(@"URLPROTOCOL captured");
-        
         BridgeHead *bridgeHead = [BridgeHead new];
         [bridgeHead perform:messageURLString];
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
-            NSLog(@"background");
-            BenchmarkRecorder *recorder = [ BenchmarkRecorder new ];
-            [ recorder recordMessage:messageURLString ];
-        });
-        
+                
         return YES;
     } else {
         return NO;
