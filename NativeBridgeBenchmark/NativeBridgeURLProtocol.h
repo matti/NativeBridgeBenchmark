@@ -13,4 +13,5 @@
 +(BOOL)isNativeBridgeURLProtocol: (NSURLRequest *) request;
 +(NSString*)extractNativeBridgeMessageWith: (NSURLRequest *) request;
 
++(BOOL) canInitWith: (NSString*) messageURLString;
 @end

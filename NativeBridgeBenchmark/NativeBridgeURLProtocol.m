@@ -8,6 +8,7 @@
 
 #import "NativeBridgeURLProtocol.h"
 #import "BenchmarkRecorder.h"
+#import "BridgeHead.h"
 
 @implementation NativeBridgeURLProtocol
 
@@ -39,8 +40,15 @@
 
 }
 
-+(BOOL) canInitWithRequest:(NSURLRequest *)request {
++(BOOL) canInitWith:(NSString *)messageURLString {
+    NSURL *url = [NSURL URLWithString:messageURLString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
+    return [ self canInitWithRequest:request];
+}
+
++(BOOL) canInitWithRequest:(NSURLRequest *)request {
+
     if ( [request.URL.fragment isEqualToString:@"nativebridgebootstrapcomplete"] ) {
         
         // Doesn't work well in iOS8 uiwebview, only has the first char as value..
@@ -58,8 +66,14 @@
     if ( messageURLString ) {
         NSLog(@"URLPROTOCOL captured");
         
-        BenchmarkRecorder *recorder = [ BenchmarkRecorder new ];
-        [ recorder recordMessage:messageURLString ];
+        BridgeHead *bridgeHead = [BridgeHead new];
+        [bridgeHead perform:messageURLString];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
+            NSLog(@"background");
+            BenchmarkRecorder *recorder = [ BenchmarkRecorder new ];
+            [ recorder recordMessage:messageURLString ];
+        });
         
         return YES;
     } else {

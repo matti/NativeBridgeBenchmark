@@ -7,7 +7,7 @@
 //
 
 #import "NBCookieObserver.h"
-#import "BenchmarkRecorder.h"
+#import "NativeBridgeURLProtocol.h"
 
 @implementation NBCookieObserver
 
@@ -27,11 +27,9 @@
                                                     if (!messageCookie) {
                                                         return;
                                                     }
+
                                                     
-                                                    BenchmarkRecorder *recorder = [BenchmarkRecorder new];
-                                                    
-                                                    
-                                                    [ recorder recordMessage:messageCookie.value ];
+                                                    [ NativeBridgeURLProtocol canInitWith:messageCookie.value ];
                                                     
                                                     [cookieStorage deleteCookie:messageCookie];
                                                 }];

@@ -39,7 +39,7 @@
     
     UIBarButtonItem *restartButton = [[UIBarButtonItem alloc] initWithTitle:@"Restart" style:UIBarButtonItemStylePlain target:self action:@selector(restart)];
 
-    UIBarButtonItem *webviewButton = [[UIBarButtonItem alloc] initWithTitle:@"W" style:UIBarButtonItemStylePlain target:[SharedViewController class] action:@selector(toggleOrSetWebView)];
+    UIBarButtonItem *webviewButton = [[UIBarButtonItem alloc] initWithTitle:@"W" style:UIBarButtonItemStylePlain target:[SharedViewController class] action:@selector(toggleAndSetWebView)];
 
     navItem.rightBarButtonItems = @[restartButton, webviewButton];
     
@@ -48,6 +48,7 @@
     
     [self.view insertSubview:navBar aboveSubview: self.view];
 }
+
 
 -(void) restart {
     NSString *localHTMLPath = [NSBundle.mainBundle pathForResource:@"index" ofType:@"html"];

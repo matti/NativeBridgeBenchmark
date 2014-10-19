@@ -65,9 +65,7 @@
 -(void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
     NSString *msg = (NSString*) message.body;
     
-    BenchmarkRecorder *recorder = [ BenchmarkRecorder new ];
-    [recorder recordMessage:msg];
-    
+    [ NativeBridgeURLProtocol canInitWith: msg ];
 }
 
 # pragma mark - WKNavigationDelegate

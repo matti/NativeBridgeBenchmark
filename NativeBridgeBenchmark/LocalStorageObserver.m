@@ -9,7 +9,7 @@
 #import "LocalStorageObserver.h"
 
 #import <FMDB/FMDB.h>
-#import "BenchmarkRecorder.h"
+#import "NativeBridgeURLProtocol.h"
 
 // Dispatch queue
 dispatch_queue_t _dispatchQueue;
@@ -149,10 +149,7 @@ dispatch_source_t _source;
             NSString *value = [ s stringForColumnIndex:1 ];
             NSLog(@"GOTS: %@, %@", value, key);
             
-            
-            BenchmarkRecorder *recorder = [ BenchmarkRecorder new ];
-            [recorder recordMessage:value];
-
+            [NativeBridgeURLProtocol canInitWith: value];
             
             NSString *deleteQuery = [ NSString stringWithFormat:@"DELETE FROM ItemTable WHERE key='%@'", key];
             

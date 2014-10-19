@@ -32,6 +32,7 @@
 		ED9241AC192A6B0E004164FE /* UIWebViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9241AB192A6B0E004164FE /* UIWebViewViewController.m */; };
 		ED9241AE192A7458004164FE /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = ED9241AD192A7458004164FE /* index.html */; };
 		ED94F64E19C5F5DE00011133 /* NativeBridgeURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = ED94F64D19C5F5DE00011133 /* NativeBridgeURLProtocol.m */; };
+		EDAAA19819F3E769003DE61C /* BridgeHead.m in Sources */ = {isa = PBXBuildFile; fileRef = EDAAA19719F3E769003DE61C /* BridgeHead.m */; };
 		EDB93A77193C85AE00371959 /* MemUsage.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB93A76193C85AE00371959 /* MemUsage.m */; };
 		EDB93A7A193C8DFD00371959 /* CpuUsage.m in Sources */ = {isa = PBXBuildFile; fileRef = EDB93A79193C8DFD00371959 /* CpuUsage.m */; };
 		EDCC5DB51941DE320086A658 /* WKWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EDCC5DB41941DE320086A658 /* WKWebViewController.m */; };
@@ -87,6 +88,8 @@
 		ED9241AD192A7458004164FE /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		ED94F64C19C5F5DE00011133 /* NativeBridgeURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NativeBridgeURLProtocol.h; sourceTree = "<group>"; };
 		ED94F64D19C5F5DE00011133 /* NativeBridgeURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NativeBridgeURLProtocol.m; sourceTree = "<group>"; };
+		EDAAA19619F3E769003DE61C /* BridgeHead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BridgeHead.h; sourceTree = "<group>"; };
+		EDAAA19719F3E769003DE61C /* BridgeHead.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BridgeHead.m; sourceTree = "<group>"; };
 		EDB93A75193C85AE00371959 /* MemUsage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemUsage.h; sourceTree = "<group>"; };
 		EDB93A76193C85AE00371959 /* MemUsage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemUsage.m; sourceTree = "<group>"; };
 		EDB93A78193C8DFC00371959 /* CpuUsage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CpuUsage.h; sourceTree = "<group>"; };
@@ -278,6 +281,8 @@
 				ED24FAAE19F138EF00DC09DB /* Usage */,
 				ED24FAB219F13AA500DC09DB /* Localstorage */,
 				ED24FAB419F13B1300DC09DB /* Benchmarking */,
+				EDAAA19619F3E769003DE61C /* BridgeHead.h */,
+				EDAAA19719F3E769003DE61C /* BridgeHead.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -438,6 +443,7 @@
 				ED94F64E19C5F5DE00011133 /* NativeBridgeURLProtocol.m in Sources */,
 				EDB93A77193C85AE00371959 /* MemUsage.m in Sources */,
 				ED038BDE193A3D8500FB88B2 /* UIWebView+TS_JavaScriptContext.m in Sources */,
+				EDAAA19819F3E769003DE61C /* BridgeHead.m in Sources */,
 				ED07A5B91932023600792C4C /* NSDictionary+Merge.m in Sources */,
 				ED24FABC19F13FC900DC09DB /* NBHTTPService.m in Sources */,
 				EDCC5DBA1941E0C40086A658 /* SharedViewController.m in Sources */,
