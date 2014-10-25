@@ -98,5 +98,8 @@
     [[self client] URLProtocolDidFinishLoading:self];
 }
 
+-(void) stopLoading {
+    // from abstract
+}
 
 @end
