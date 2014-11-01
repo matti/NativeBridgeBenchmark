@@ -17,13 +17,27 @@
 
 #import "SharedViewController.h"
 
+#import "BenchmarkEvent.h"
+
 @implementation BenchmarkRecorder
 
 -(BOOL) recordMessage:(NSString *)messageURLString withReferer:(NSString *)referer {
     MemUsage *memUsage = [[MemUsage alloc] init];
     CpuUsage *cpuUsage = [[CpuUsage alloc] init];
     
+    SharedViewController *svc = (SharedViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
+    
     NSDate *dateNow = [NSDate new];
+    
+    NSURL *url;
+    
+    if (svc.webView) {
+        url = svc.webView.request.URL;
+    } else {
+        url = svc.wkWebView.URL;
+    }
+    
+    BenchmarkEvent *event = [[ BenchmarkEvent alloc ] initWithMessage:messageURLString andTargetURL:url ];
     
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
