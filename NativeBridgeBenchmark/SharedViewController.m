@@ -14,6 +14,7 @@
 
 #import "UIWebViewViewController.h"
 #import "WKWebViewController.h"
+#import "BenchmarkRecorder.h"
 
 
 @implementation SharedViewController
@@ -32,7 +33,7 @@
     navBar.backgroundColor = [UIColor yellowColor];
     
     UINavigationItem *navItem = [[UINavigationItem alloc] init];
-    navItem.title = @"Benchmark";
+    navItem.title = @"B";
     
     UIBarButtonItem *reloadButton = [[UIBarButtonItem alloc] initWithTitle:@"Reload" style:UIBarButtonItemStylePlain target:self action:@selector(reload)];
     navItem.leftBarButtonItem = reloadButton;
@@ -41,7 +42,9 @@
 
     UIBarButtonItem *webviewButton = [[UIBarButtonItem alloc] initWithTitle:@"W" style:UIBarButtonItemStylePlain target:[SharedViewController class] action:@selector(toggleAndSetWebView)];
 
-    navItem.rightBarButtonItems = @[restartButton, webviewButton];
+    UIBarButtonItem *flushButton = [[UIBarButtonItem alloc] initWithTitle:@"F" style:UIBarButtonItemStylePlain target:[SharedViewController class] action:@selector(flush)];
+    
+    navItem.rightBarButtonItems = @[restartButton, webviewButton, flushButton];
     
     
     navBar.items = @[ navItem ];
@@ -50,7 +53,33 @@
 }
 
 
++(void) flush {
+    
+    NSLog(@"Flushing events");
+    
+    
+    UIAlertView *alertView = [[UIAlertView alloc ] initWithTitle:@"flushing" message:@"started" delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+    
+    [alertView show];
+    [alertView dismissWithClickedButtonIndex:0 animated:YES];
+    
+    
+    NSInteger flushed = [[ BenchmarkRecorder instance ] flush ];
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        alertView.title = @"flushed";
+
+        alertView.message = [@(flushed) stringValue];
+
+        [alertView show];
+        [alertView dismissWithClickedButtonIndex:0 animated:YES];
+    });
+
+    
+}
+
 -(void) restart {
+    
     NSString *localHTMLPath = [NSBundle.mainBundle pathForResource:@"index" ofType:@"html"];
     NSURL *localHTMLURL = [NSURL fileURLWithPath:localHTMLPath];
     self.startingRequest = [NSURLRequest requestWithURL: localHTMLURL];

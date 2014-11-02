@@ -15,8 +15,9 @@
     NSLog(@"performing native call");
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^(void){
-        BenchmarkRecorder *recorder = [ BenchmarkRecorder new ];
-        [ recorder recordMessage:messageURLString ];
+        BenchmarkRecorder *recorder = [ BenchmarkRecorder instance ];
+        [recorder queue:messageURLString ];
     });
 }
+
 @end

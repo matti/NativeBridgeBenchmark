@@ -30,6 +30,7 @@
 		ED24FABC19F13FC900DC09DB /* NBHTTPService.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24FABB19F13FC900DC09DB /* NBHTTPService.m */; };
 		ED24FAC019F1422500DC09DB /* NBCookieObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24FABF19F1422500DC09DB /* NBCookieObserver.m */; };
 		ED4B5DBE1A05490E00DF5A70 /* BenchmarkEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4B5DBD1A05490E00DF5A70 /* BenchmarkEvent.m */; };
+		ED4C534E1A0671AB00F21677 /* BenchmarkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4C534D1A0671AB00F21677 /* BenchmarkOperation.m */; };
 		ED9241AC192A6B0E004164FE /* UIWebViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9241AB192A6B0E004164FE /* UIWebViewViewController.m */; };
 		ED9241AE192A7458004164FE /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = ED9241AD192A7458004164FE /* index.html */; };
 		ED94F64E19C5F5DE00011133 /* NativeBridgeURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = ED94F64D19C5F5DE00011133 /* NativeBridgeURLProtocol.m */; };
@@ -86,6 +87,8 @@
 		ED24FABF19F1422500DC09DB /* NBCookieObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBCookieObserver.m; sourceTree = "<group>"; };
 		ED4B5DBC1A05490E00DF5A70 /* BenchmarkEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BenchmarkEvent.h; sourceTree = "<group>"; };
 		ED4B5DBD1A05490E00DF5A70 /* BenchmarkEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BenchmarkEvent.m; sourceTree = "<group>"; };
+		ED4C534C1A0671AB00F21677 /* BenchmarkOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BenchmarkOperation.h; sourceTree = "<group>"; };
+		ED4C534D1A0671AB00F21677 /* BenchmarkOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BenchmarkOperation.m; sourceTree = "<group>"; };
 		ED9241AA192A6B0E004164FE /* UIWebViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIWebViewViewController.h; sourceTree = "<group>"; };
 		ED9241AB192A6B0E004164FE /* UIWebViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIWebViewViewController.m; sourceTree = "<group>"; };
 		ED9241AD192A7458004164FE /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
@@ -297,6 +300,8 @@
 				ED1E683419D86A86004753B2 /* BenchmarkRecorder.m */,
 				ED4B5DBC1A05490E00DF5A70 /* BenchmarkEvent.h */,
 				ED4B5DBD1A05490E00DF5A70 /* BenchmarkEvent.m */,
+				ED4C534C1A0671AB00F21677 /* BenchmarkOperation.h */,
+				ED4C534D1A0671AB00F21677 /* BenchmarkOperation.m */,
 			);
 			name = Benchmarking;
 			sourceTree = "<group>";
@@ -460,6 +465,7 @@
 				EDB93A7A193C8DFD00371959 /* CpuUsage.m in Sources */,
 				ED0E98B4192772D200669AB6 /* main.m in Sources */,
 				ED9241AC192A6B0E004164FE /* UIWebViewViewController.m in Sources */,
+				ED4C534E1A0671AB00F21677 /* BenchmarkOperation.m in Sources */,
 				ED4B5DBE1A05490E00DF5A70 /* BenchmarkEvent.m in Sources */,
 				ED24FAC019F1422500DC09DB /* NBCookieObserver.m in Sources */,
 			);

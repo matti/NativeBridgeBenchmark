@@ -8,16 +8,22 @@
 
 #import "BenchmarkEvent.h"
 
+#import "MemUsage.h"
+#import "CpuUsage.h"
+
+
 @implementation BenchmarkEvent {
-    NSDate *created_at;
-    NSString *message;
-    NSURL *targetURL;
 }
+
 
 -(id) init {
     self = [ super init ];
     
-    created_at = [NSDate new];
+    _created_at = [NSDate new];
+    
+    _memUsageString = [[[MemUsage alloc] init] memUsageString];
+    _cpuUsageString = [[[CpuUsage alloc] init] cpuUsageString];
+    
     
     return self;
 }
@@ -26,8 +32,8 @@
     
     self = [ self init ];
     
-    message = msg;
-    targetURL = url;
+    _message = msg;
+    _targetURL = url;
     
     return self;
 }

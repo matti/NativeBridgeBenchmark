@@ -16,6 +16,7 @@
 @property(nonatomic, retain) NSURLRequest* startingRequest;
 
 +(void) toggleAndSetWebView;
++(void) flush;
 
 -(void) reload;
 -(void) restart;
