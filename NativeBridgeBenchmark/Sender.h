@@ -14,8 +14,10 @@
 
 +(Sender*) instance;
 
--(BOOL) send: (NSString*) configurationMessage withWebSocket: (MyWebSocket*) webSocket;
+-(void) send: (NSString*) configurationMessage withWebSocket: (MyWebSocket*) ws;
+-(void) sender;
 
 -(NSString*) randomStringWithLength: (NSInteger) len;
+
 
 @end
