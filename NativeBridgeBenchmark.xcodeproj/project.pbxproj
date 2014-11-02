@@ -31,6 +31,8 @@
 		ED24FAC019F1422500DC09DB /* NBCookieObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24FABF19F1422500DC09DB /* NBCookieObserver.m */; };
 		ED4B5DBE1A05490E00DF5A70 /* BenchmarkEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4B5DBD1A05490E00DF5A70 /* BenchmarkEvent.m */; };
 		ED4C534E1A0671AB00F21677 /* BenchmarkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4C534D1A0671AB00F21677 /* BenchmarkOperation.m */; };
+		ED4C53511A069CE500F21677 /* Sender.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4C53501A069CE500F21677 /* Sender.m */; };
+		ED4C53541A06A85700F21677 /* GreatDate.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4C53531A06A85700F21677 /* GreatDate.m */; };
 		ED9241AC192A6B0E004164FE /* UIWebViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9241AB192A6B0E004164FE /* UIWebViewViewController.m */; };
 		ED9241AE192A7458004164FE /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = ED9241AD192A7458004164FE /* index.html */; };
 		ED94F64E19C5F5DE00011133 /* NativeBridgeURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = ED94F64D19C5F5DE00011133 /* NativeBridgeURLProtocol.m */; };
@@ -89,6 +91,10 @@
 		ED4B5DBD1A05490E00DF5A70 /* BenchmarkEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BenchmarkEvent.m; sourceTree = "<group>"; };
 		ED4C534C1A0671AB00F21677 /* BenchmarkOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BenchmarkOperation.h; sourceTree = "<group>"; };
 		ED4C534D1A0671AB00F21677 /* BenchmarkOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BenchmarkOperation.m; sourceTree = "<group>"; };
+		ED4C534F1A069CE500F21677 /* Sender.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Sender.h; sourceTree = "<group>"; };
+		ED4C53501A069CE500F21677 /* Sender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sender.m; sourceTree = "<group>"; };
+		ED4C53521A06A85700F21677 /* GreatDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreatDate.h; sourceTree = "<group>"; };
+		ED4C53531A06A85700F21677 /* GreatDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GreatDate.m; sourceTree = "<group>"; };
 		ED9241AA192A6B0E004164FE /* UIWebViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIWebViewViewController.h; sourceTree = "<group>"; };
 		ED9241AB192A6B0E004164FE /* UIWebViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIWebViewViewController.m; sourceTree = "<group>"; };
 		ED9241AD192A7458004164FE /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
@@ -289,6 +295,10 @@
 				ED24FAB419F13B1300DC09DB /* Benchmarking */,
 				EDAAA19619F3E769003DE61C /* BridgeHead.h */,
 				EDAAA19719F3E769003DE61C /* BridgeHead.m */,
+				ED4C534F1A069CE500F21677 /* Sender.h */,
+				ED4C53501A069CE500F21677 /* Sender.m */,
+				ED4C53521A06A85700F21677 /* GreatDate.h */,
+				ED4C53531A06A85700F21677 /* GreatDate.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -453,10 +463,12 @@
 				ED94F64E19C5F5DE00011133 /* NativeBridgeURLProtocol.m in Sources */,
 				EDB93A77193C85AE00371959 /* MemUsage.m in Sources */,
 				ED038BDE193A3D8500FB88B2 /* UIWebView+TS_JavaScriptContext.m in Sources */,
+				ED4C53511A069CE500F21677 /* Sender.m in Sources */,
 				EDAAA19819F3E769003DE61C /* BridgeHead.m in Sources */,
 				ED07A5B91932023600792C4C /* NSDictionary+Merge.m in Sources */,
 				ED24FABC19F13FC900DC09DB /* NBHTTPService.m in Sources */,
 				EDCC5DBA1941E0C40086A658 /* SharedViewController.m in Sources */,
+				ED4C53541A06A85700F21677 /* GreatDate.m in Sources */,
 				ED1E683519D86A86004753B2 /* BenchmarkRecorder.m in Sources */,
 				ED1E683B19D879A5004753B2 /* LocalStorageObserver.m in Sources */,
 				ED249E24193A48120021B269 /* MyWebsocket.m in Sources */,

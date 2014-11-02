@@ -12,6 +12,7 @@
 #import <RequestUtils/RequestUtils.h>
 #import <HTTPKit/DCHTTPTask.h>
 
+#import "GreatDate.h"
 
 @implementation BenchmarkOperation {
     BenchmarkEvent *benchmarkEvent;
@@ -26,12 +27,10 @@
 }
 
 -(void) main {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSS'Z'"];
     
-    NSString *dateNowString = [dateFormatter stringFromDate: benchmarkEvent.created_at ];
-
+    NSString *dateNowString = [[ GreatDate new ] format: benchmarkEvent.created_at];
+    
+    
     NSDictionary *params = [benchmarkEvent.message URLQueryParameters];
 
     NSUInteger payloadLength = [[params valueForKey:@"payload"] length];

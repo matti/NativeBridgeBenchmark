@@ -63,17 +63,20 @@
     [alertView show];
     [alertView dismissWithClickedButtonIndex:0 animated:YES];
     
-    
-    NSInteger flushed = [[ BenchmarkRecorder instance ] flush ];
-
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        alertView.title = @"flushed";
+        NSInteger flushed = [[ BenchmarkRecorder instance ] flush ];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            alertView.title = @"flushed";
+            
+            alertView.message = [@(flushed) stringValue];
+            
+            [alertView show];
+            [alertView dismissWithClickedButtonIndex:0 animated:YES];
+        });
 
-        alertView.message = [@(flushed) stringValue];
-
-        [alertView show];
-        [alertView dismissWithClickedButtonIndex:0 animated:YES];
     });
+    
 
     
 }
