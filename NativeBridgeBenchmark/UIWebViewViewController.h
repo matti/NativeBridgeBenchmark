@@ -13,5 +13,6 @@
 
 @interface UIWebViewViewController :  SharedViewController <TSWebViewDelegate>
 
+@property(retain) JSContext* jsContext;
 
 @end

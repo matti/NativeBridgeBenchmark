@@ -49,21 +49,9 @@
 
 - (void)webView:(UIWebView *)webView didCreateJavaScriptContext:(JSContext *)ctx
 {
-    ctx[@"sayHello"] = ^{
-
-        dispatch_async( dispatch_get_main_queue(), ^{
-
-            UIAlertView* av = [[UIAlertView alloc] initWithTitle: @"Hello, World!"
-                                                         message: nil
-                                                        delegate: nil
-                                               cancelButtonTitle: @"OK"
-                                               otherButtonTitles: nil];
-
-            [av show];
-        });
-    };
-
     ctx[@"viewController"] = self;
+    
+    self.jsContext = ctx;
 }
 
 

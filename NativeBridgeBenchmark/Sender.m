@@ -12,6 +12,8 @@
 #import "CpuUsage.h"
 #import "MemUsage.h"
 
+#import "UIWebViewViewController.h"
+
 @implementation Sender {
     NSTimer *timer;
     
@@ -19,6 +21,7 @@
     NSInteger messages;
     NSString *payload;
     NSString *method;
+    UIWebViewViewController *currentUIWebViewController;
     
     MyWebSocket *webSocket;
 }
@@ -40,11 +43,14 @@ static Sender *instance;
     for (int i=0; i<len; i++) {
         [randomString appendFormat: @"%C", [letters characterAtIndex: arc4random_uniform([letters length])]];
     }
-        
+    
     return randomString;
 }
 
 -(void) send:(NSString *)configurationMessage withWebSocket:(MyWebSocket *)ws {
+
+    currentUIWebViewController = (UIWebViewViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
+
     
     webSocket = ws;
     
@@ -105,6 +111,13 @@ static Sender *instance;
         
         [webSocket sendData: jsonData ];
         
+    } else if ( [ method isEqualToString: @"jscore.sync" ]) {
+        
+        NSString *jsonString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        
+        NSString *evalString = [ NSString stringWithFormat:@"bridgeHead('%@');", jsonString ];
+        
+        [currentUIWebViewController.jsContext evaluateScript:evalString];
     }
     
     messages--;
