@@ -114,10 +114,24 @@ static Sender *instance;
     } else if ( [ method isEqualToString: @"jscore.sync" ]) {
         
         NSString *jsonString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        
         NSString *evalString = [ NSString stringWithFormat:@"bridgeHead('%@');", jsonString ];
         
         [currentUIWebViewController.jsContext evaluateScript:evalString];
+        
+    } else if ( [ method isEqualToString: @"location.hash"]) {
+        
+        NSURLComponents *urlComponents = [ NSURLComponents componentsWithString: [currentUIWebViewController.webView.request.URL absoluteString ]];
+        
+        NSString *jsonString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        
+        urlComponents.fragment = [ NSString stringWithFormat:@"#webviewbridge:%@", jsonString];
+        
+        NSURL *newURL = [urlComponents URL];
+        NSURLRequest *newRequest = [[ NSURLRequest alloc ] initWithURL: newURL ];
+        
+        [currentUIWebViewController.webView loadRequest:newRequest];
+        
+        
     }
     
     messages--;

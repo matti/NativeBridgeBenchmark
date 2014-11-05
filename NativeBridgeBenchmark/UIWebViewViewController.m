@@ -29,8 +29,12 @@
 
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-
-    return (![ NativeBridgeURLProtocol canInitWithRequest:request ]);
+    
+    if ([ NativeBridgeURLProtocol isNativeBridgeURLProtocol:request ]) {
+        return NO;
+    } else {
+        return YES;
+    }
 }
 
 -(void)restart {

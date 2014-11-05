@@ -33,6 +33,7 @@
 		ED4C534E1A0671AB00F21677 /* BenchmarkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4C534D1A0671AB00F21677 /* BenchmarkOperation.m */; };
 		ED4C53511A069CE500F21677 /* Sender.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4C53501A069CE500F21677 /* Sender.m */; };
 		ED4C53541A06A85700F21677 /* GreatDate.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4C53531A06A85700F21677 /* GreatDate.m */; };
+		ED51DF971A0AB3FA00771191 /* WebViewURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = ED51DF961A0AB3FA00771191 /* WebViewURLProtocol.m */; };
 		ED9241AC192A6B0E004164FE /* UIWebViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ED9241AB192A6B0E004164FE /* UIWebViewViewController.m */; };
 		ED9241AE192A7458004164FE /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = ED9241AD192A7458004164FE /* index.html */; };
 		ED94F64E19C5F5DE00011133 /* NativeBridgeURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = ED94F64D19C5F5DE00011133 /* NativeBridgeURLProtocol.m */; };
@@ -95,6 +96,8 @@
 		ED4C53501A069CE500F21677 /* Sender.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Sender.m; sourceTree = "<group>"; };
 		ED4C53521A06A85700F21677 /* GreatDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreatDate.h; sourceTree = "<group>"; };
 		ED4C53531A06A85700F21677 /* GreatDate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GreatDate.m; sourceTree = "<group>"; };
+		ED51DF951A0AB3FA00771191 /* WebViewURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewURLProtocol.h; sourceTree = "<group>"; };
+		ED51DF961A0AB3FA00771191 /* WebViewURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewURLProtocol.m; sourceTree = "<group>"; };
 		ED9241AA192A6B0E004164FE /* UIWebViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIWebViewViewController.h; sourceTree = "<group>"; };
 		ED9241AB192A6B0E004164FE /* UIWebViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIWebViewViewController.m; sourceTree = "<group>"; };
 		ED9241AD192A7458004164FE /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
@@ -248,6 +251,8 @@
 			children = (
 				ED94F64C19C5F5DE00011133 /* NativeBridgeURLProtocol.h */,
 				ED94F64D19C5F5DE00011133 /* NativeBridgeURLProtocol.m */,
+				ED51DF951A0AB3FA00771191 /* WebViewURLProtocol.h */,
+				ED51DF961A0AB3FA00771191 /* WebViewURLProtocol.m */,
 			);
 			name = "URL Protocols";
 			sourceTree = "<group>";
@@ -480,6 +485,7 @@
 				ED4C534E1A0671AB00F21677 /* BenchmarkOperation.m in Sources */,
 				ED4B5DBE1A05490E00DF5A70 /* BenchmarkEvent.m in Sources */,
 				ED24FAC019F1422500DC09DB /* NBCookieObserver.m in Sources */,
+				ED51DF971A0AB3FA00771191 /* WebViewURLProtocol.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

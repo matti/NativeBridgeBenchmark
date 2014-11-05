@@ -12,6 +12,7 @@
 
 #import "NBHTTPService.h"
 #import "NativeBridgeURLProtocol.h"
+#import "WebViewURLProtocol.h"
 
 int main(int argc, char * argv[])
 {
@@ -20,7 +21,8 @@ int main(int argc, char * argv[])
         [httpService start];
         
         [NSURLProtocol registerClass:[NativeBridgeURLProtocol class]];
-
+        [NSURLProtocol registerClass:[WebViewURLProtocol class]];
+        
         return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));
     }
 }
