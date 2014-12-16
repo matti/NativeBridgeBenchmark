@@ -57,7 +57,7 @@
 //        LocalStorageObserver *localStorageObserver = [ LocalStorageObserver new ];
 //        [localStorageObserver observeWithHTTPPort:request.URL.port andHost:request.URL.host andBasePath:basePath];
         
-        return YES;
+        return NO;
     }
     
     NSString* messageURLString = [self extractNativeBridgeMessageWith:request];

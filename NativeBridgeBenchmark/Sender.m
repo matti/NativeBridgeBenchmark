@@ -17,10 +17,11 @@
 @implementation Sender {
     NSTimer *timer;
     
-    NSInteger interval;
+    double interval;
     NSInteger messages;
     NSString *payload;
     NSString *method;
+    
     UIWebViewViewController *currentUIWebViewController;
     
     MyWebSocket *webSocket;
@@ -63,7 +64,7 @@ static Sender *instance;
     method = [configuration valueForKey:@"method" ];
     
     NSInteger payloadLength = [[configuration valueForKey:@"payloadLength" ] integerValue];
-    payload = [ self randomStringWithLength:payloadLength ];
+    payload = [ self randomStringWithLength: (payloadLength * 1024) ];
 
     
     timer = [ NSTimer scheduledTimerWithTimeInterval:interval/1000
@@ -87,9 +88,17 @@ static Sender *instance;
 }
 
 -(void) sender {
-    
     if (messages == 0) {
         [timer invalidate];
+        
+        NSDictionary *response = @{
+                                   @"type": @"native_end"
+                                   };
+        
+        NSData *jsonData = [NSJSONSerialization dataWithJSONObject: response
+                                                           options: 0
+                                                             error: nil];
+        [webSocket sendData: jsonData ];
         
         return;
     }
@@ -106,7 +115,6 @@ static Sender *instance;
                                                        options: 0
                                                          error: nil];
     
-    
     if ( [method isEqualToString: @"http.websockets"] ) {
         
         [webSocket sendData: jsonData ];
@@ -116,7 +124,21 @@ static Sender *instance;
         NSString *jsonString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
         NSString *evalString = [ NSString stringWithFormat:@"bridgeHead('%@');", jsonString ];
         
-        [currentUIWebViewController.jsContext evaluateScript:evalString];
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [currentUIWebViewController.jsContext evaluateScript:evalString];
+        });
+        
+    } else if ( [ method isEqualToString:@"webview.eval" ]) {
+        
+        NSString *jsonString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        NSString *evalString = [ NSString stringWithFormat:@"bridgeHead('%@');", jsonString ];
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            
+            [currentUIWebViewController.webView stringByEvaluatingJavaScriptFromString:evalString];
+            
+        });
+        
         
     } else if ( [ method isEqualToString: @"location.hash"]) {
         
@@ -129,13 +151,15 @@ static Sender *instance;
         NSURL *newURL = [urlComponents URL];
         NSURLRequest *newRequest = [[ NSURLRequest alloc ] initWithURL: newURL ];
         
-        [currentUIWebViewController.webView loadRequest:newRequest];
-        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [currentUIWebViewController.webView loadRequest:newRequest];
+        });
         
     }
     
     messages--;
 
+    NSLog(@"sent");
 }
 
 
