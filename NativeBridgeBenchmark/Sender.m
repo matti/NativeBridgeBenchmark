@@ -48,6 +48,13 @@ static Sender *instance;
     return randomString;
 }
 
+-(void)showAlert: (NSString*) message {
+    UIAlertView *alertView = [[UIAlertView alloc ] initWithTitle:@"Hai" message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+    
+    [alertView show];
+    [alertView dismissWithClickedButtonIndex:0 animated:YES];
+}
+
 -(void) send:(NSString *)configurationMessage withWebSocket:(MyWebSocket *)ws {
 
     currentUIWebViewController = (UIWebViewViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
@@ -63,9 +70,12 @@ static Sender *instance;
     messages = [[configuration valueForKey:@"messages" ] integerValue];
     method = [configuration valueForKey:@"method" ];
     
+    [ self performSelectorOnMainThread:@selector(showAlert:) withObject:@"generating payload" waitUntilDone:YES ];
+    
     NSInteger payloadLength = [[configuration valueForKey:@"payloadLength" ] integerValue];
     payload = [ self randomStringWithLength: (payloadLength * 1024) ];
 
+    [ self performSelectorOnMainThread:@selector(showAlert:) withObject:@"Starting" waitUntilDone:YES ];
     
     timer = [ NSTimer scheduledTimerWithTimeInterval:interval/1000
                                               target:self

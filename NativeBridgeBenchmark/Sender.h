@@ -17,6 +17,8 @@
 -(void) send: (NSString*) configurationMessage withWebSocket: (MyWebSocket*) ws;
 -(void) sender;
 
+-(void) showAlert: (NSString*) message;
+
 -(NSString*) randomStringWithLength: (NSInteger) len;
 
 

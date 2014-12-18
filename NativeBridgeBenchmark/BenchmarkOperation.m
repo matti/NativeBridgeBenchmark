@@ -40,7 +40,6 @@
     NSDictionary *benchmarkResult = @{
                                       @"webview_started_at": [params valueForKey:@"webview_started_at"],
                                       @"native_received_at": dateNowString,
-                                      @"native_started_at": dateNowString,
                                       @"webview_payload_length": payloadLengthString,
                                       @"from": @"native",
                                       @"method_name": [params valueForKey:@"method_name"],
