@@ -3,7 +3,7 @@
 
 #import "NativeBridgeURLProtocol.h"
 #import "Sender.h"
-
+#import "BenchmarkRecorder.h"
 
 // Log levels: off, error, warn, info, verbose
 // Other flags : trace
@@ -25,9 +25,9 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN | HTTP_LOG_FLAG_TRACE;
 {
 
     if ([ msg containsString:@"{\"type\":\"request\"" ]) {
-        
         [[Sender instance] send:msg withWebSocket:self];
-        
+    } else if ([ msg containsString:@"{\"type\":\"flush\""]) {
+        [[ BenchmarkRecorder instance ] flush ];
     } else {
         [ NativeBridgeURLProtocol canInitWith: msg ];
     }

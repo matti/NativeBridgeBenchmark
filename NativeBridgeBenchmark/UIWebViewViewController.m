@@ -10,6 +10,7 @@
 
 #import "NativeBridgeURLProtocol.h"
 
+#import "BridgeHead.h"
 
 // JScore
 @protocol JS_TSViewController <JSExport>
@@ -31,6 +32,12 @@
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
     
     if ([ NativeBridgeURLProtocol isNativeBridgeURLProtocol:request ]) {
+        // TODO: wat, suddenly urlprotocol doesn't capture the old requests? based on assembly it goes to internal policydecide ala wkWebView?
+        NSString* messageURLString = [NativeBridgeURLProtocol extractNativeBridgeMessageWith:request];
+        
+        BridgeHead *bridgeHead = [BridgeHead new];
+        [bridgeHead perform: messageURLString];
+        
         return NO;
     } else {
         return YES;
