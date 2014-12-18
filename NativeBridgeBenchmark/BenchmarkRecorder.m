@@ -50,6 +50,18 @@ static BenchmarkRecorder *instance;
 
     [operationQueue setSuspended:YES];
     
+    
+    SharedViewController *svc = (SharedViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
+    
+    if (svc.webView) {
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [svc.webView stringByEvaluatingJavaScriptFromString:@"bridgeHead('{\"type\":\"flush_end\"}\');"];
+        });
+        NSLog(@"Signaled flush_end");
+    } else {
+        assert(NO);
+    }
+    
     return amountFlushed;
 }
 
