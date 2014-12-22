@@ -16,6 +16,7 @@
 
 @implementation BenchmarkOperation {
     BenchmarkEvent *benchmarkEvent;
+    BOOL completed;
 }
 
 -(id) initWithBenchmarkEvent:(BenchmarkEvent *)event {
@@ -59,13 +60,19 @@
     
     [task setResponseSerializer:[DCJSONResponseSerializer new] forContentType:@"application/json"];
     
+    
     task.then(^(DCHTTPResponse *response){
+        completed = YES;
         //NSString *str = [[NSString alloc] initWithData:response.responseObject encoding:NSUTF8StringEncoding];
         //NSLog(str);
     }).catch(^(NSError *error){
         NSLog(@"failed to upload file: %@",[error localizedDescription]);
     });
     [task start];
+    
+    while (completed == NO) {
+        sleep(arc4random_uniform(3));
+    }
 
 }
 @end

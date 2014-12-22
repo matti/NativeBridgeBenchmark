@@ -35,7 +35,7 @@ static BenchmarkRecorder *instance;
     self = [ super init ];
     
     operationQueue = [NSOperationQueue new];
-    [operationQueue setMaxConcurrentOperationCount:3];
+    [operationQueue setMaxConcurrentOperationCount:100];
     [operationQueue setSuspended:YES];
     
     return self;
@@ -49,19 +49,26 @@ static BenchmarkRecorder *instance;
     [operationQueue waitUntilAllOperationsAreFinished ];
 
     [operationQueue setSuspended:YES];
-    
-    
+        
     SharedViewController *svc = (SharedViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
     
+    NSLog(@"Sleeping 3 seconds before signaling");
+    sleep(3);
+    
+    NSString *flushEndJS = @"bridgeHead('{\"type\":\"flush_end\"}\');";
+
     if (svc.webView) {
         dispatch_sync(dispatch_get_main_queue(), ^{
-            [svc.webView stringByEvaluatingJavaScriptFromString:@"bridgeHead('{\"type\":\"flush_end\"}\');"];
+            [svc.webView stringByEvaluatingJavaScriptFromString:flushEndJS];
         });
-        NSLog(@"Signaled flush_end");
     } else {
-        assert(NO);
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [svc.wkWebView evaluateJavaScript:flushEndJS completionHandler:nil];
+        });
     }
     
+    NSLog(@"Signaled flush_end");
+
     return amountFlushed;
 }
 
