@@ -76,8 +76,9 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 
 
     if ([NativeBridgeURLProtocol isNativeBridgeURLProtocol: navigationAction.request ]) {
-        NSLog(@"cancel this %@", [navigationAction.request.URL absoluteString]);
-
+        // huge debug outputs
+        //NSLog(@"cancel this %@", [navigationAction.request.URL absoluteString]);
+        
         [NativeBridgeURLProtocol canInitWithRequest: navigationAction.request ];
 
         decisionHandler(WKNavigationActionPolicyCancel);

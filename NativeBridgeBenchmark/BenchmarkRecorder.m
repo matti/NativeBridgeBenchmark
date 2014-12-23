@@ -52,8 +52,8 @@ static BenchmarkRecorder *instance;
         
     SharedViewController *svc = (SharedViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
     
-    NSLog(@"Sleeping 3 seconds before signaling");
-    sleep(3);
+    NSLog(@"Sleeping 1 second before signaling");
+    sleep(1);
     
     NSString *flushEndJS = @"bridgeHead('{\"type\":\"flush_end\"}\');";
 
@@ -78,7 +78,7 @@ static BenchmarkRecorder *instance;
     SharedViewController *svc = (SharedViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
     
     NSURL *url;
-    
+
     if (svc.webView) {
         url = svc.webView.request.URL;
     } else {

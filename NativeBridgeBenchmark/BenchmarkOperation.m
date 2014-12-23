@@ -51,7 +51,7 @@
                                       };
 
     NSString *responseURLString = [NSString stringWithFormat:@"%@.json", benchmarkEvent.targetURL];
-    NSLog(@"posting to %@", responseURLString);
+    //NSLog(@"posting to %@", responseURLString);
 
     
     DCHTTPTask *task = [DCHTTPTask POST: responseURLString
@@ -71,7 +71,7 @@
     [task start];
     
     while (completed == NO) {
-        sleep(arc4random_uniform(3));
+        sleep(arc4random_uniform(2));
     }
 
 }
