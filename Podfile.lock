@@ -1,5 +1,5 @@
 PODS:
-  - CocoaAsyncSocket (7.3.5)
+  - CocoaAsyncSocket (7.4.1)
   - CocoaHTTPServer (2.3):
     - CocoaAsyncSocket
     - CocoaLumberjack
@@ -32,7 +32,7 @@ EXTERNAL SOURCES:
     :podspec: https://raw.githubusercontent.com/matti/Specs/master/Specs/CocoaHTTPServer/2.3/CocoaHTTPServer.podspec.json
 
 SPEC CHECKSUMS:
-  CocoaAsyncSocket: 45bdbbc1c0a5ed0640ff4c42af325ba43a2f099a
+  CocoaAsyncSocket: b0a1a89e7ea4c1c0ea4ec83f57d55117d3cdae06
   CocoaHTTPServer: 6e82df824451eece7676f223c31b4b82ec901f67
   CocoaLumberjack: 6186e27827fc574b50b16c10102fcc591437f06c
   ConcurrentKit: 06f0a42b6a2617a777eb80655a31a3f0704356f8
