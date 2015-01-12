@@ -83,7 +83,7 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 
         decisionHandler(WKNavigationActionPolicyCancel);
     } else {
-        NSLog(@"allow this %@", [navigationAction.request.URL absoluteString]);
+        NSLog(@"allow nav");
 
         decisionHandler(WKNavigationActionPolicyAllow);
     }

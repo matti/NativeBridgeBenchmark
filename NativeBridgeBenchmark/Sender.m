@@ -13,6 +13,7 @@
 #import "MemUsage.h"
 
 #import "UIWebViewViewController.h"
+#import "WKWebViewController.h"
 
 @implementation Sender {
     NSTimer *timer;
@@ -23,6 +24,7 @@
     NSString *method;
     
     UIWebViewViewController *currentUIWebViewController;
+    WKWebViewController *currentWKWebViewController;
     
     MyWebSocket *webSocket;
 }
@@ -40,7 +42,7 @@ static Sender *instance;
     NSString *letters = @"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     
     NSMutableString *randomString = [NSMutableString stringWithCapacity: len];
-        
+    
     for (int i=0; i<len; i++) {
         [randomString appendFormat: @"%C", [letters characterAtIndex: arc4random_uniform([letters length])]];
     }
@@ -56,9 +58,18 @@ static Sender *instance;
 }
 
 -(void) send:(NSString *)configurationMessage withWebSocket:(MyWebSocket *)ws {
-
-    currentUIWebViewController = (UIWebViewViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
-
+    
+    SharedViewController *currentRootVC = (SharedViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
+    currentWKWebViewController = nil;
+    currentUIWebViewController = nil;
+    
+    if (currentRootVC.webView) {
+        NSLog(@"sender: uiwebview");
+        currentUIWebViewController = (UIWebViewViewController*)currentRootVC;
+    } else {
+        NSLog(@"sender: wkwebview");
+        currentWKWebViewController = (WKWebViewController*)currentRootVC;
+    }
     
     webSocket = ws;
     
@@ -125,50 +136,85 @@ static Sender *instance;
                                                        options: 0
                                                          error: nil];
     
-    if ( [method isEqualToString: @"http.websockets"] ) {
-        
-        [webSocket sendData: jsonData ];
-        
-    } else if ( [ method isEqualToString: @"jscore.sync" ]) {
-        
-        NSString *jsonString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        NSString *evalString = [ NSString stringWithFormat:@"bridgeHead('%@');", jsonString ];
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [currentUIWebViewController.jsContext evaluateScript:evalString];
-        });
-        
-    } else if ( [ method isEqualToString:@"webview.eval" ]) {
-        
-        NSString *jsonString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        NSString *evalString = [ NSString stringWithFormat:@"bridgeHead('%@');", jsonString ];
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
+    if ( currentUIWebViewController ) {
+        if ( [method isEqualToString: @"http.websockets"] ) {
             
-            [currentUIWebViewController.webView stringByEvaluatingJavaScriptFromString:evalString];
+            [webSocket sendData: jsonData ];
             
-        });
-        
-        
-    } else if ( [ method isEqualToString: @"location.hash"]) {
-        
-        NSURLComponents *urlComponents = [ NSURLComponents componentsWithString: [currentUIWebViewController.webView.request.URL absoluteString ]];
-        
-        NSString *jsonString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
-        
-        urlComponents.fragment = [ NSString stringWithFormat:@"#webviewbridge:%@", jsonString];
-        
-        NSURL *newURL = [urlComponents URL];
-        NSURLRequest *newRequest = [[ NSURLRequest alloc ] initWithURL: newURL ];
-        
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            [currentUIWebViewController.webView loadRequest:newRequest];
-        });
-        
+        } else if ( [ method isEqualToString: @"jscore.sync" ]) {
+            
+            NSString *jsonString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            NSString *evalString = [ NSString stringWithFormat:@"bridgeHead('%@');", jsonString ];
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [currentUIWebViewController.jsContext evaluateScript:evalString];
+            });
+            
+        } else if ( [ method isEqualToString:@"webview.eval" ]) {
+            
+            NSString *jsonString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            NSString *evalString = [ NSString stringWithFormat:@"bridgeHead('%@');", jsonString ];
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                
+                [currentUIWebViewController.webView stringByEvaluatingJavaScriptFromString:evalString];
+                
+            });
+            
+        } else if ( [ method isEqualToString: @"location.hash"]) {
+            
+            NSURLComponents *urlComponents = [ NSURLComponents componentsWithString: [currentUIWebViewController.webView.request.URL absoluteString ]];
+            
+            NSString *jsonString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            
+            urlComponents.fragment = [ NSString stringWithFormat:@"#webviewbridge:%@", jsonString];
+            
+            NSURL *newURL = [urlComponents URL];
+            NSURLRequest *newRequest = [[ NSURLRequest alloc ] initWithURL: newURL ];
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [currentUIWebViewController.webView loadRequest:newRequest];
+            });
+            
+        }
+    } else if (currentWKWebViewController) {
+
+        if ( [method isEqualToString: @"http.websockets"] ) {
+            
+            [webSocket sendData: jsonData ];
+            
+        } else if ( [ method isEqualToString:@"webview.eval" ]) {
+            
+            NSString *jsonString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            NSString *evalString = [ NSString stringWithFormat:@"bridgeHead('%@');", jsonString ];
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [currentWKWebViewController.wkWebView evaluateJavaScript:evalString completionHandler:nil];
+            });
+            
+        } else if ( [ method isEqualToString: @"location.hash"]) {
+            
+            NSURLComponents *urlComponents = [ NSURLComponents componentsWithString: [currentWKWebViewController.wkWebView.URL absoluteString ]];
+            
+            NSString *jsonString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
+            
+            urlComponents.fragment = [ NSString stringWithFormat:@"#webviewbridge:%@", jsonString];
+            
+            NSURL *newURL = [urlComponents URL];
+            NSURLRequest *newRequest = [[ NSURLRequest alloc ] initWithURL: newURL ];
+            
+            dispatch_sync(dispatch_get_main_queue(), ^{
+                [currentWKWebViewController.wkWebView loadRequest:newRequest];
+            });
+            
+        }
+
+    } else {
+        NSAssert(false, @"no webview active, wat");
     }
     
     messages--;
-
+    
     NSLog(@"sent");
 }
 
