@@ -41,6 +41,19 @@ static BenchmarkRecorder *instance;
     return self;
 }
 
+void runOnMainQueueWithoutDeadlocking(void (^block)(void))
+{
+    if ([NSThread isMainThread])
+    {
+        block();
+    }
+    else
+    {
+        dispatch_sync(dispatch_get_main_queue(), block);
+    }
+}
+
+
 -(NSInteger) flush {
     [operationQueue setSuspended:NO];
     
@@ -54,15 +67,21 @@ static BenchmarkRecorder *instance;
     
     NSLog(@"Sleeping 1 second before signaling");
     sleep(1);
-    
+    NSLog(@"Signaling");
+
     NSString *flushEndJS = @"bridgeHead('{\"type\":\"flush_end\"}\');";
 
+    
     if (svc.webView) {
-        dispatch_sync(dispatch_get_main_queue(), ^{
+        NSLog(@"UIWebView");
+
+        runOnMainQueueWithoutDeadlocking(^{
             [svc.webView stringByEvaluatingJavaScriptFromString:flushEndJS];
         });
     } else {
-        dispatch_sync(dispatch_get_main_queue(), ^{
+        NSLog(@"WKWebView");
+
+        runOnMainQueueWithoutDeadlocking(^{
             [svc.wkWebView evaluateJavaScript:flushEndJS completionHandler:nil];
         });
     }
