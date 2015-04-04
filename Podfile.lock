@@ -3,13 +3,13 @@ PODS:
   - CocoaHTTPServer (2.3):
     - CocoaAsyncSocket
     - CocoaLumberjack
-  - CocoaLumberjack (2.0.0-rc):
+  - CocoaLumberjack (2.0.0):
     - CocoaLumberjack/Default
     - CocoaLumberjack/Extensions
-  - CocoaLumberjack/Core (2.0.0-rc)
-  - CocoaLumberjack/Default (2.0.0-rc):
+  - CocoaLumberjack/Core (2.0.0)
+  - CocoaLumberjack/Default (2.0.0):
     - CocoaLumberjack/Core
-  - CocoaLumberjack/Extensions (2.0.0-rc):
+  - CocoaLumberjack/Extensions (2.0.0):
     - CocoaLumberjack/Default
   - ConcurrentKit (0.1.0)
   - FMDB (2.4):
@@ -32,12 +32,12 @@ EXTERNAL SOURCES:
     :podspec: https://raw.githubusercontent.com/matti/Specs/master/Specs/CocoaHTTPServer/2.3/CocoaHTTPServer.podspec.json
 
 SPEC CHECKSUMS:
-  CocoaAsyncSocket: b0a1a89e7ea4c1c0ea4ec83f57d55117d3cdae06
+  CocoaAsyncSocket: 7cbf214b27f8e7f7574db6a3fd96352ffaed433d
   CocoaHTTPServer: 6e82df824451eece7676f223c31b4b82ec901f67
-  CocoaLumberjack: 6186e27827fc574b50b16c10102fcc591437f06c
-  ConcurrentKit: 06f0a42b6a2617a777eb80655a31a3f0704356f8
-  FMDB: 0b2fa25e5264ef177973c0cb8c02c711107979aa
-  HTTPKit: 61e41215f424f11a2e30ca8077ece5879706eb67
-  RequestUtils: 82b66f926bc11ef761fedc6dcc3613d6f74f4f3a
+  CocoaLumberjack: a6f77d987d65dc7ba86b0f84db7d0b9084f77bcb
+  ConcurrentKit: 9aa3e630d2e026b1865789b0bd5f1a9ace1c44bc
+  FMDB: d274d9ff773415735022ac57bfba9f6002f9fed8
+  HTTPKit: a3d8e6d9ccbeddcd3974ca14a380e2183677c486
+  RequestUtils: c7c8c10755b94e657be15a2207726caef6f9d710
 
 COCOAPODS: 0.33.1
