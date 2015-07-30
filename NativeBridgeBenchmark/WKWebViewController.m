@@ -13,6 +13,8 @@
 #import "BenchmarkRecorder.h"
 #import "NativeBridgeURLProtocol.h"
 
+#import "BridgeHead.h"
+
 @interface WKWebViewController ()
 @end
 
@@ -38,6 +40,7 @@
 
     
     [ self.wkWebView setNavigationDelegate: self ];
+    [ self.wkWebView setUIDelegate: self ]; // alert, prompt, confirm
     
     [ self.wkWebView setContentScaleFactor:2.0];
     
@@ -88,6 +91,45 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
         decisionHandler(WKNavigationActionPolicyAllow);
     }
 }
+
+-(void)webView:(WKWebView *)webView runJavaScriptAlertPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)())completionHandler {
+
+    
+    if ( [NativeBridgeURLProtocol canInitWith:message] ) {
+        completionHandler();
+        BridgeHead *bridgeHead = [BridgeHead new];
+        [bridgeHead perform:message];
+    } else {
+        completionHandler();
+    }
+
+
+}
+
+-(void)webView:(WKWebView *)webView runJavaScriptConfirmPanelWithMessage:(NSString *)message initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(BOOL))completionHandler {
+
+    if ( [NativeBridgeURLProtocol canInitWith:message] ) {
+        completionHandler(false);
+        BridgeHead *bridgeHead = [BridgeHead new];
+        [bridgeHead perform:message];
+    } else {
+        completionHandler(false);
+    }
+    
+}
+
+
+-(void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)message defaultText:(NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString *))completionHandler {
+
+    if ( [NativeBridgeURLProtocol canInitWith:message] ) {
+        completionHandler(false);
+        BridgeHead *bridgeHead = [BridgeHead new];
+        [bridgeHead perform:message];
+    } else {
+        completionHandler(false);
+    }
+}
+
 
 
 @end

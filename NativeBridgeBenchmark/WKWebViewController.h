@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SharedViewController.h"
 
-@interface WKWebViewController : SharedViewController<WKNavigationDelegate, WKScriptMessageHandler>
+@interface WKWebViewController : SharedViewController<WKNavigationDelegate, WKScriptMessageHandler, WKUIDelegate>
 @property(nonatomic, retain) WKWebView* wkWebView;
 @end
