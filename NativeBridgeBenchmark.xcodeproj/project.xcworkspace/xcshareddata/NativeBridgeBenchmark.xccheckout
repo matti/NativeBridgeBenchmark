@@ -10,29 +10,29 @@
 	<string>NativeBridgeBenchmark</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>2A6B1073-7733-4FDE-BF18-517F1EABBEB9</key>
-		<string>ssh://github.com/matti/NativeBridgeBenchmark.git</string>
+		<key>0FAAFF638335C01BBCF8D56AA2EC9668D5CCE939</key>
+		<string>github.com:matti/NativeBridgeBenchmark.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>NativeBridgeBenchmark.xcodeproj/project.xcworkspace</string>
+	<string>NativeBridgeBenchmark.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>2A6B1073-7733-4FDE-BF18-517F1EABBEB9</key>
+		<key>0FAAFF638335C01BBCF8D56AA2EC9668D5CCE939</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/matti/NativeBridgeBenchmark.git</string>
+	<string>github.com:matti/NativeBridgeBenchmark.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>2A6B1073-7733-4FDE-BF18-517F1EABBEB9</string>
+	<string>0FAAFF638335C01BBCF8D56AA2EC9668D5CCE939</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>2A6B1073-7733-4FDE-BF18-517F1EABBEB9</string>
+			<string>0FAAFF638335C01BBCF8D56AA2EC9668D5CCE939</string>
 			<key>IDESourceControlWCCName</key>
 			<string>NativeBridgeBenchmark</string>
 		</dict>
