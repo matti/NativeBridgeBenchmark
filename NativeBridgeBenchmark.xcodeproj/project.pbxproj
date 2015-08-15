@@ -29,6 +29,7 @@
 		ED249E2B193A4D2B0021B269 /* Web in Resources */ = {isa = PBXBuildFile; fileRef = ED249E2A193A4D2B0021B269 /* Web */; };
 		ED24FABC19F13FC900DC09DB /* NBHTTPService.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24FABB19F13FC900DC09DB /* NBHTTPService.m */; };
 		ED24FAC019F1422500DC09DB /* NBCookieObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24FABF19F1422500DC09DB /* NBCookieObserver.m */; };
+		ED2D1E5D1B7F8C2900E26B8C /* UIWebView+Prompt.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1E5C1B7F8C2900E26B8C /* UIWebView+Prompt.m */; };
 		ED4B5DBE1A05490E00DF5A70 /* BenchmarkEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4B5DBD1A05490E00DF5A70 /* BenchmarkEvent.m */; };
 		ED4C534E1A0671AB00F21677 /* BenchmarkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4C534D1A0671AB00F21677 /* BenchmarkOperation.m */; };
 		ED4C53511A069CE500F21677 /* Sender.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4C53501A069CE500F21677 /* Sender.m */; };
@@ -88,6 +89,8 @@
 		ED24FABB19F13FC900DC09DB /* NBHTTPService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBHTTPService.m; sourceTree = "<group>"; };
 		ED24FABE19F1422500DC09DB /* NBCookieObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBCookieObserver.h; sourceTree = "<group>"; };
 		ED24FABF19F1422500DC09DB /* NBCookieObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBCookieObserver.m; sourceTree = "<group>"; };
+		ED2D1E5B1B7F8C2900E26B8C /* UIWebView+Prompt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+Prompt.h"; sourceTree = "<group>"; };
+		ED2D1E5C1B7F8C2900E26B8C /* UIWebView+Prompt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+Prompt.m"; sourceTree = "<group>"; };
 		ED4B5DBC1A05490E00DF5A70 /* BenchmarkEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BenchmarkEvent.h; sourceTree = "<group>"; };
 		ED4B5DBD1A05490E00DF5A70 /* BenchmarkEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BenchmarkEvent.m; sourceTree = "<group>"; };
 		ED4C534C1A0671AB00F21677 /* BenchmarkOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BenchmarkOperation.h; sourceTree = "<group>"; };
@@ -264,6 +267,8 @@
 				ED07A5B81932023600792C4C /* NSDictionary+Merge.m */,
 				ED038BDC193A3D8500FB88B2 /* UIWebView+TS_JavaScriptContext.h */,
 				ED038BDD193A3D8500FB88B2 /* UIWebView+TS_JavaScriptContext.m */,
+				ED2D1E5B1B7F8C2900E26B8C /* UIWebView+Prompt.h */,
+				ED2D1E5C1B7F8C2900E26B8C /* UIWebView+Prompt.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -470,6 +475,7 @@
 				ED038BDE193A3D8500FB88B2 /* UIWebView+TS_JavaScriptContext.m in Sources */,
 				ED4C53511A069CE500F21677 /* Sender.m in Sources */,
 				EDAAA19819F3E769003DE61C /* BridgeHead.m in Sources */,
+				ED2D1E5D1B7F8C2900E26B8C /* UIWebView+Prompt.m in Sources */,
 				ED07A5B91932023600792C4C /* NSDictionary+Merge.m in Sources */,
 				ED24FABC19F13FC900DC09DB /* NBHTTPService.m in Sources */,
 				EDCC5DBA1941E0C40086A658 /* SharedViewController.m in Sources */,

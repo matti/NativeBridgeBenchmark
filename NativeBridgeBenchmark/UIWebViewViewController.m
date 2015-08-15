@@ -12,6 +12,8 @@
 
 #import "BridgeHead.h"
 
+#import "UIWebView+Prompt.h"
+
 // JScore
 @protocol JS_TSViewController <JSExport>
 - (void) nativeBridge:(NSString *)msg;
@@ -20,8 +22,6 @@
 
 @interface UIWebViewViewController () <TSWebViewDelegate, JS_TSViewController>
 @end
-
-
 
 
 @implementation UIWebViewViewController

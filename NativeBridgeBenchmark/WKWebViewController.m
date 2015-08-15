@@ -102,6 +102,12 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 //        BridgeHead *bridgeHead = [BridgeHead new];
 //        [bridgeHead perform:message];
     } else {
+        UIAlertView *alertView = [[UIAlertView alloc ] initWithTitle:@"Alert" message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        
+        [alertView show];
+        [alertView dismissWithClickedButtonIndex:0 animated:YES];
+        
+        
         completionHandler();
     }
 
@@ -116,7 +122,12 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
         //        BridgeHead *bridgeHead = [BridgeHead new];
 //        [bridgeHead perform:message];
     } else {
-        completionHandler(false);
+        UIAlertView *alertView = [[UIAlertView alloc ] initWithTitle:@"Confirm autoyes" message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        
+        [alertView show];
+        [alertView dismissWithClickedButtonIndex:0 animated:YES];
+        
+        completionHandler(true);
     }
     
 }
@@ -125,11 +136,18 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 -(void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)message defaultText:(NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString *))completionHandler {
 
     if ( [NativeBridgeURLProtocol canInitWith:message] ) {
-        completionHandler(false);
-        BridgeHead *bridgeHead = [BridgeHead new];
-        [bridgeHead perform:message];
+        completionHandler(nil);
+//        BridgeHead *bridgeHead = [BridgeHead new];
+//        [bridgeHead perform:message];
+    } else if ( [ message containsString:@"lel" ] ) {
+        completionHandler(@"lul");
     } else {
-        completionHandler(false);
+        UIAlertView *alertView = [[UIAlertView alloc ] initWithTitle:@"Textinput" message:message delegate:nil cancelButtonTitle:nil otherButtonTitles:nil, nil];
+        
+        [alertView show];
+        [alertView dismissWithClickedButtonIndex:0 animated:YES];
+        
+        completionHandler(nil);
     }
 }
 
