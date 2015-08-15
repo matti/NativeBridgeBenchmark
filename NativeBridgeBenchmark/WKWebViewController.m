@@ -41,6 +41,7 @@
     
     [ self.wkWebView setNavigationDelegate: self ];
     [ self.wkWebView setUIDelegate: self ]; // alert, prompt, confirm
+    [ self.wkWebView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:NULL]; // title
     
     [ self.wkWebView setContentScaleFactor:2.0];
     
@@ -97,8 +98,9 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     
     if ( [NativeBridgeURLProtocol canInitWith:message] ) {
         completionHandler();
-        BridgeHead *bridgeHead = [BridgeHead new];
-        [bridgeHead perform:message];
+// TODO: can init already performs..
+//        BridgeHead *bridgeHead = [BridgeHead new];
+//        [bridgeHead perform:message];
     } else {
         completionHandler();
     }
@@ -110,8 +112,9 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 
     if ( [NativeBridgeURLProtocol canInitWith:message] ) {
         completionHandler(false);
-        BridgeHead *bridgeHead = [BridgeHead new];
-        [bridgeHead perform:message];
+// TODO: can init already performs..
+        //        BridgeHead *bridgeHead = [BridgeHead new];
+//        [bridgeHead perform:message];
     } else {
         completionHandler(false);
     }
@@ -130,6 +133,20 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
     }
 }
 
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+
+    if (object == self.wkWebView && [keyPath isEqualToString:@"title"]) {
+
+        NSString *message = change[NSKeyValueChangeNewKey];
+        
+        if ( [NativeBridgeURLProtocol canInitWith:message] ) {
+            //BridgeHead *bridgeHead = [BridgeHead new];
+            //[bridgeHead perform:message];
+        } else {
+            // wuz not message
+        }
+    }
+}
 
 
 @end
