@@ -58,9 +58,9 @@ void runOnMainQueueWithoutDeadlocking(void (^block)(void))
     [operationQueue setSuspended:NO];
     
     NSInteger amountFlushed = operationQueue.operationCount;
-
+    
     [operationQueue waitUntilAllOperationsAreFinished ];
-
+    
     [operationQueue setSuspended:YES];
         
     SharedViewController *svc = (SharedViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];

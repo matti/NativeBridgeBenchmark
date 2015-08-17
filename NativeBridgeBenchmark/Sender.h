@@ -19,6 +19,8 @@
 
 -(void) showAlert: (NSString*) message;
 
+-(NSDictionary*) parseConfigurationMessage: (NSString *) configurationMessage;
+
 -(NSString*) randomStringWithLength: (NSInteger) len;
 
 

@@ -14,6 +14,10 @@
 #import "NativeBridgeURLProtocol.h"
 
 #import "BridgeHead.h"
+#import "WKNativeBridgeScriptMessageHandler.h"
+#import <RequestUtils/RequestUtils.h>
+#import "NativeEvent.h"
+
 
 @interface WKWebViewController ()
 @end
@@ -23,8 +27,11 @@
 - (void)loadView
 {
     WKWebViewConfiguration *wkConfiguration = [WKWebViewConfiguration new];
-    [wkConfiguration.userContentController addScriptMessageHandler:self name:@"nativeBridge"];
-
+    
+    WKNativeBridgeScriptMessageHandler *nativeBridgeScriptMessageHandler = [WKNativeBridgeScriptMessageHandler new];
+    
+    [wkConfiguration.userContentController addScriptMessageHandler: nativeBridgeScriptMessageHandler name:@"nativeBridge"];
+    
     // TODO: wat, pitäiskö oll addSubView paradigmalla sittenki...? vähän epäilyttää cgrectzero
     self.wkWebView = [[ WKWebView alloc] initWithFrame:CGRectZero configuration:wkConfiguration];
 
@@ -63,14 +70,6 @@
     [self.wkWebView loadRequest: self.startingRequest];
 }
 
-
-# pragma mark - WKScriptMessageHandler
-
--(void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
-    NSString *msg = (NSString*) message.body;
-    
-    [ NativeBridgeURLProtocol canInitWith: msg ];
-}
 
 # pragma mark - WKNavigationDelegate
 
@@ -135,7 +134,14 @@ decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 
 -(void)webView:(WKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)message defaultText:(NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString *))completionHandler {
 
-    if ( [NativeBridgeURLProtocol canInitWith:message] ) {
+    NSURLRequest* request = nil;
+    if ( (request = [NativeBridgeURLProtocol parseRequestFromNativeBridgeURLProtocolPongWith:message]) ) {
+        NSDictionary *params = [ request GETParameters ];
+        
+        NativeEvent *nativeEvent = [[NativeEvent alloc] initWithPayload:@"" andMethod:[params valueForKey:@"method_name"] andWebviewStartedAt:[params valueForKey:@"webview_started_at"]];
+        
+        completionHandler([nativeEvent asJSON]);
+    } else if ( [NativeBridgeURLProtocol canInitWith:message] ) {
         completionHandler(nil);
 //        BridgeHead *bridgeHead = [BridgeHead new];
 //        [bridgeHead perform:message];

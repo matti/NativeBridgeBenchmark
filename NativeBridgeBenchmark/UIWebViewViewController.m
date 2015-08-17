@@ -13,10 +13,13 @@
 #import "BridgeHead.h"
 
 #import "UIWebView+Prompt.h"
+#import "NativeEvent.h"
+#import <RequestUtils/RequestUtils.h>
 
 // JScore
 @protocol JS_TSViewController <JSExport>
 - (void) nativeBridge:(NSString *)msg;
+- (NSString*) nativeBridgePong:(NSString *)msg;
 @end
 
 
@@ -66,8 +69,20 @@
 }
 
 
+-(NSString*) nativeBridgePong:(NSString *)msg {
+    
+    NSURLRequest *request = [NativeBridgeURLProtocol parseRequestFromNativeBridgeURLProtocolPongWith:msg];
+    
+    NSDictionary *params = [ request GETParameters ];
+    
+    NativeEvent *nativeEvent = [[ NativeEvent alloc ] initWithPayload:@"" andMethod:[params valueForKey:@"method_name"] andWebviewStartedAt:[params valueForKey:@"webview_started_at"]];
+    
+    return [nativeEvent asJSON];
+}
+
 - (void) nativeBridge:(NSString *)msg
 {
+    
     dispatch_async(dispatch_get_main_queue(), ^{
 
         NSURL *url = [NSURL URLWithString:msg];

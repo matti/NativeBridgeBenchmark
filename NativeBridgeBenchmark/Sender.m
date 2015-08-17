@@ -7,13 +7,13 @@
 //
 
 #import "Sender.h"
-
-#import "GreatDate.h"
-#import "CpuUsage.h"
-#import "MemUsage.h"
+#import "NativeEvent.h"
 
 #import "UIWebViewViewController.h"
 #import "WKWebViewController.h"
+
+#import "BridgeHead.h"
+
 
 @implementation Sender {
     NSTimer *timer;
@@ -57,6 +57,16 @@ static Sender *instance;
     [alertView dismissWithClickedButtonIndex:0 animated:YES];
 }
 
+-(NSDictionary*) parseConfigurationMessage:(NSString *)configurationMessage {
+
+    NSData *json = [configurationMessage dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSDictionary *configuration = [NSJSONSerialization JSONObjectWithData:json options:kNilOptions error:nil];
+    
+    return configuration;
+    
+}
+
 -(void) send:(NSString *)configurationMessage withWebSocket:(MyWebSocket *)ws {
     
     SharedViewController *currentRootVC = (SharedViewController*)[[[[UIApplication sharedApplication ] delegate] window ] rootViewController];
@@ -72,10 +82,10 @@ static Sender *instance;
     }
     
     webSocket = ws;
+
     
-    NSData *json = [configurationMessage dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *configuration = [ self parseConfigurationMessage:configurationMessage];
     
-    NSDictionary *configuration = [NSJSONSerialization JSONObjectWithData:json options:kNilOptions error:nil];
     
     interval = [[configuration valueForKey:@"interval" ] integerValue];
     messages = [[configuration valueForKey:@"messages" ] integerValue];
@@ -108,6 +118,7 @@ static Sender *instance;
     
 }
 
+
 -(void) sender {
     if (messages == 0) {
         [timer invalidate];
@@ -124,27 +135,16 @@ static Sender *instance;
         return;
     }
     
-    NSDictionary *response = @{
-                               @"payload": payload,
-                               @"native_started_at": [[GreatDate new] format: [ NSDate new ]],
-                               @"method": method,
-                               @"cpu": [[ CpuUsage new ] cpuUsageString],
-                               @"mem": [[ MemUsage new ] memUsageString]
-                               };
-    
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject: response
-                                                       options: 0
-                                                         error: nil];
+    NativeEvent *nativeEvent = [[ NativeEvent alloc ] initWithPayload:payload andMethod:method];
     
     if ( currentUIWebViewController ) {
         if ( [method isEqualToString: @"http.websockets"] ) {
             
-            [webSocket sendData: jsonData ];
+            [webSocket sendData: [ nativeEvent asData ]];
             
         } else if ( [ method isEqualToString: @"jscore.sync" ]) {
-            
-            NSString *jsonString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
-            NSString *evalString = [ NSString stringWithFormat:@"bridgeHead('%@');", jsonString ];
+      
+            NSString *evalString = [ NSString stringWithFormat:@"bridgeHead('%@');", [nativeEvent asJSON]];
             
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [currentUIWebViewController.jsContext evaluateScript:evalString];
@@ -152,8 +152,7 @@ static Sender *instance;
             
         } else if ( [ method isEqualToString:@"webview.eval" ]) {
             
-            NSString *jsonString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
-            NSString *evalString = [ NSString stringWithFormat:@"bridgeHead('%@');", jsonString ];
+            NSString *evalString = [ NSString stringWithFormat:@"bridgeHead('%@');", [nativeEvent asJSON] ];
             
             dispatch_sync(dispatch_get_main_queue(), ^{
                 
@@ -161,13 +160,15 @@ static Sender *instance;
                 
             });
             
+        } else if ( [ method isEqualToString:@"webview.evalpong" ]) {
+            
+            // TODO: maybe someday
+            
         } else if ( [ method isEqualToString: @"location.hash"]) {
             
             NSURLComponents *urlComponents = [ NSURLComponents componentsWithString: [currentUIWebViewController.webView.request.URL absoluteString ]];
             
-            NSString *jsonString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
-            
-            urlComponents.fragment = [ NSString stringWithFormat:@"#webviewbridge:%@", jsonString];
+            urlComponents.fragment = [ NSString stringWithFormat:@"#webviewbridge:%@", [nativeEvent asJSON]];
             
             NSURL *newURL = [urlComponents URL];
             NSURLRequest *newRequest = [[ NSURLRequest alloc ] initWithURL: newURL ];
@@ -181,12 +182,11 @@ static Sender *instance;
 
         if ( [method isEqualToString: @"http.websockets"] ) {
             
-            [webSocket sendData: jsonData ];
+            [webSocket sendData: [nativeEvent asData] ];
             
         } else if ( [ method isEqualToString:@"webview.eval" ]) {
             
-            NSString *jsonString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
-            NSString *evalString = [ NSString stringWithFormat:@"bridgeHead('%@');", jsonString ];
+            NSString *evalString = [ NSString stringWithFormat:@"bridgeHead('%@');", [nativeEvent asJSON] ];
             
             dispatch_sync(dispatch_get_main_queue(), ^{
                 [currentWKWebViewController.wkWebView evaluateJavaScript:evalString completionHandler:nil];
@@ -196,9 +196,7 @@ static Sender *instance;
             
             NSURLComponents *urlComponents = [ NSURLComponents componentsWithString: [currentWKWebViewController.wkWebView.URL absoluteString ]];
             
-            NSString *jsonString = [[ NSString alloc ] initWithData:jsonData encoding:NSUTF8StringEncoding];
-            
-            urlComponents.fragment = [ NSString stringWithFormat:@"#webviewbridge:%@", jsonString];
+            urlComponents.fragment = [ NSString stringWithFormat:@"#webviewbridge:%@", [nativeEvent asJSON]];
             
             NSURL *newURL = [urlComponents URL];
             NSURLRequest *newRequest = [[ NSURLRequest alloc ] initWithURL: newURL ];

@@ -8,6 +8,8 @@
 
 #import "NativeBridgeURLProtocol.h"
 #import "BridgeHead.h"
+#import "NativeEvent.h"
+#import <RequestUtils/RequestUtils.h>
 
 @implementation NativeBridgeURLProtocol
 
@@ -73,13 +75,35 @@
     
 }
 
+
++(NSURLRequest*) parseRequestFromNativeBridgeURLProtocolPongWith:(NSString *)messageURLString {
+    if ( [messageURLString containsString:@".pongweb"] ) {
+        NSURL *url = [NSURL URLWithString:messageURLString];
+        return [NSURLRequest requestWithURL:url];
+    }
+
+    return nil;
+}
+
+
 + (NSURLRequest*) canonicalRequestForRequest:(NSURLRequest*)request {
     return request;
 }
 
 -(void) startLoading {
-
-    NSData *body = [@"{}" dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSData *body;
+    NSDictionary *params = [[ self request ] GETParameters];
+    
+    // xhr.pong
+    if ( [[ params valueForKey:@"method_name" ] isEqualToString: @"xhr.pongweb"] ) {
+        NativeEvent *nativeEvent = [[NativeEvent alloc] initWithPayload:@"" andMethod:[params valueForKey:@"method_name" ] andWebviewStartedAt: [params valueForKey:@"webview_started_at"]];
+        
+        body = [nativeEvent asData];
+        
+    } else {
+        body = [@"{}" dataUsingEncoding:NSUTF8StringEncoding];
+    }
     
     NSHTTPURLResponse *lolsponse = [NSHTTPURLResponse alloc];
     

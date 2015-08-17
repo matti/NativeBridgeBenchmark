@@ -30,6 +30,8 @@
 		ED24FABC19F13FC900DC09DB /* NBHTTPService.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24FABB19F13FC900DC09DB /* NBHTTPService.m */; };
 		ED24FAC019F1422500DC09DB /* NBCookieObserver.m in Sources */ = {isa = PBXBuildFile; fileRef = ED24FABF19F1422500DC09DB /* NBCookieObserver.m */; };
 		ED2D1E5D1B7F8C2900E26B8C /* UIWebView+Prompt.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1E5C1B7F8C2900E26B8C /* UIWebView+Prompt.m */; };
+		ED2D1E601B8242F600E26B8C /* NativeEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1E5F1B8242F600E26B8C /* NativeEvent.m */; };
+		ED2D1E631B825F4300E26B8C /* WKNativeBridgeScriptMessageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = ED2D1E621B825F4300E26B8C /* WKNativeBridgeScriptMessageHandler.m */; };
 		ED4B5DBE1A05490E00DF5A70 /* BenchmarkEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4B5DBD1A05490E00DF5A70 /* BenchmarkEvent.m */; };
 		ED4C534E1A0671AB00F21677 /* BenchmarkOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4C534D1A0671AB00F21677 /* BenchmarkOperation.m */; };
 		ED4C53511A069CE500F21677 /* Sender.m in Sources */ = {isa = PBXBuildFile; fileRef = ED4C53501A069CE500F21677 /* Sender.m */; };
@@ -91,6 +93,10 @@
 		ED24FABF19F1422500DC09DB /* NBCookieObserver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBCookieObserver.m; sourceTree = "<group>"; };
 		ED2D1E5B1B7F8C2900E26B8C /* UIWebView+Prompt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+Prompt.h"; sourceTree = "<group>"; };
 		ED2D1E5C1B7F8C2900E26B8C /* UIWebView+Prompt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+Prompt.m"; sourceTree = "<group>"; };
+		ED2D1E5E1B8242F600E26B8C /* NativeEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NativeEvent.h; sourceTree = "<group>"; };
+		ED2D1E5F1B8242F600E26B8C /* NativeEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NativeEvent.m; sourceTree = "<group>"; };
+		ED2D1E611B825F4300E26B8C /* WKNativeBridgeScriptMessageHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WKNativeBridgeScriptMessageHandler.h; sourceTree = "<group>"; };
+		ED2D1E621B825F4300E26B8C /* WKNativeBridgeScriptMessageHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WKNativeBridgeScriptMessageHandler.m; sourceTree = "<group>"; };
 		ED4B5DBC1A05490E00DF5A70 /* BenchmarkEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BenchmarkEvent.h; sourceTree = "<group>"; };
 		ED4B5DBD1A05490E00DF5A70 /* BenchmarkEvent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BenchmarkEvent.m; sourceTree = "<group>"; };
 		ED4C534C1A0671AB00F21677 /* BenchmarkOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BenchmarkOperation.h; sourceTree = "<group>"; };
@@ -309,6 +315,10 @@
 				ED4C53501A069CE500F21677 /* Sender.m */,
 				ED4C53521A06A85700F21677 /* GreatDate.h */,
 				ED4C53531A06A85700F21677 /* GreatDate.m */,
+				ED2D1E5E1B8242F600E26B8C /* NativeEvent.h */,
+				ED2D1E5F1B8242F600E26B8C /* NativeEvent.m */,
+				ED2D1E611B825F4300E26B8C /* WKNativeBridgeScriptMessageHandler.h */,
+				ED2D1E621B825F4300E26B8C /* WKNativeBridgeScriptMessageHandler.m */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -478,6 +488,7 @@
 				ED2D1E5D1B7F8C2900E26B8C /* UIWebView+Prompt.m in Sources */,
 				ED07A5B91932023600792C4C /* NSDictionary+Merge.m in Sources */,
 				ED24FABC19F13FC900DC09DB /* NBHTTPService.m in Sources */,
+				ED2D1E601B8242F600E26B8C /* NativeEvent.m in Sources */,
 				EDCC5DBA1941E0C40086A658 /* SharedViewController.m in Sources */,
 				ED4C53541A06A85700F21677 /* GreatDate.m in Sources */,
 				ED1E683519D86A86004753B2 /* BenchmarkRecorder.m in Sources */,
@@ -487,6 +498,7 @@
 				ED249E21193A47CC0021B269 /* MyHTTPConnection.m in Sources */,
 				EDB93A7A193C8DFD00371959 /* CpuUsage.m in Sources */,
 				ED0E98B4192772D200669AB6 /* main.m in Sources */,
+				ED2D1E631B825F4300E26B8C /* WKNativeBridgeScriptMessageHandler.m in Sources */,
 				ED9241AC192A6B0E004164FE /* UIWebViewViewController.m in Sources */,
 				ED4C534E1A0671AB00F21677 /* BenchmarkOperation.m in Sources */,
 				ED4B5DBE1A05490E00DF5A70 /* BenchmarkEvent.m in Sources */,

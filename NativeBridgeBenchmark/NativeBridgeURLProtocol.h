@@ -11,8 +11,11 @@
 @interface NativeBridgeURLProtocol : NSURLProtocol
 
 +(BOOL) isNativeBridgeURLProtocol: (NSURLRequest *) request;
++(BOOL) isNativeBridgeURLProtocolWithPong: (NSURLRequest *)request;
++(NSURLRequest*) parseRequestFromNativeBridgeURLProtocolPongWith: (NSString *)messageURLString;
 
 +(NSString*)extractNativeBridgeMessageWith: (NSURLRequest *) request;
 
 +(BOOL) canInitWith: (NSString*) messageURLString;
+
 @end
