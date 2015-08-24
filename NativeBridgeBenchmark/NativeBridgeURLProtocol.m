@@ -95,7 +95,7 @@
     NSData *body;
     NSDictionary *params = [[ self request ] GETParameters];
     
-    // xhr.pong
+    // xhr.pongWeb
     if ( [[ params valueForKey:@"method_name" ] isEqualToString: @"xhr.pongweb"] ) {
         NativeEvent *nativeEvent = [[NativeEvent alloc] initWithPayload:@"" andMethod:[params valueForKey:@"method_name" ] andWebviewStartedAt: [params valueForKey:@"webview_started_at"]];
         

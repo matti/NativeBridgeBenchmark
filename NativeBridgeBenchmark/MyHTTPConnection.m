@@ -6,6 +6,13 @@
 #import "MyWebSocket.h"
 #import "HTTPLogging.h"
 
+#import "BridgeHead.h"
+#import "NativeBridgeURLProtocol.h"
+#import <RequestUtils/RequestUtils.h>
+#import "NativeEvent.h"
+
+#import "BetterHTTPDataResponse.h"
+
 // Log levels: off, error, warn, info, verbose
 // Other flags: trace
 static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
@@ -15,6 +22,40 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
 
 - (NSObject<HTTPResponse> *)httpResponseForMethod:(NSString *)method URI:(NSString *)path
 {
+    
+    // xhrlocal.async and xhrlocal.sync + xhrlocal.pongweb
+    if ([path hasPrefix:@"/nativebridge://"]) {
+        
+        NSString *messageURLString = [path substringFromIndex:1];
+        
+        if ( [NativeBridgeURLProtocol parseRequestFromNativeBridgeURLProtocolPongWith:messageURLString]) {
+            
+            NSURL *tempURL = [[NSURL alloc ] initWithScheme:@"http" host:@"localhost" path:path];
+            
+            NSURLRequest *tempURLRequest = [[NSURLRequest alloc ] initWithURL:tempURL];
+            NSDictionary *params = [ tempURLRequest GETParameters ];
+            
+            NativeEvent *nativeEvent = [[NativeEvent alloc] initWithPayload:@"" andMethod:[params valueForKey:@"method_name"] andWebviewStartedAt:[params valueForKey:@"webview_started_at"]];
+            
+            
+            NSDictionary *headers = @{
+                                      @"Connection": @"keep-alive",
+                                      @"Cache-Control": @"public, max-age=0",
+                                      @"Content-Type": @"application/javascript",
+                                      @"Access-Control-Allow-Origin": @"*"
+                                      };
+            
+            BetterHTTPDataResponse *lolsponse = [[BetterHTTPDataResponse alloc ] initWithData:[nativeEvent asData] andHeaders:headers];
+            
+            return lolsponse;
+            
+        } else {
+            BridgeHead *bridgeHead = [BridgeHead new];
+            [bridgeHead perform: messageURLString ];
+        
+            return [super httpResponseForMethod:method URI:path];
+        }
+    }
 
 	if ([path isEqualToString:@"/WebSocketTest2.js"]) {
 		// The socket.js file contains a URL template that needs to be completed:
