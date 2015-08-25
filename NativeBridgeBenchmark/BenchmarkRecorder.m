@@ -35,7 +35,7 @@ static BenchmarkRecorder *instance;
     self = [ super init ];
     
     operationQueue = [NSOperationQueue new];
-    [operationQueue setMaxConcurrentOperationCount:100];
+    [operationQueue setMaxConcurrentOperationCount:10];
     [operationQueue setSuspended:YES];
     
     return self;
@@ -59,6 +59,9 @@ void runOnMainQueueWithoutDeadlocking(void (^block)(void))
     
     NSInteger amountFlushed = operationQueue.operationCount;
     
+    NSLog(@"Flushing %@ results concurrently", [@(operationQueue.maxConcurrentOperationCount) stringValue]);
+    
+    NSLog(@"Starting blocking wait, if this hangs you know where to find me");
     [operationQueue waitUntilAllOperationsAreFinished ];
     
     [operationQueue setSuspended:YES];
