@@ -25,36 +25,41 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
     
     // xhrlocal.async and xhrlocal.sync + xhrlocal.pongweb
     if ([path hasPrefix:@"/nativebridge://"]) {
+    
+        NativeEvent *nativeEvent = nil;
         
         NSString *messageURLString = [path substringFromIndex:1];
         
         if ( [NativeBridgeURLProtocol parseRequestFromNativeBridgeURLProtocolPongWith:messageURLString]) {
-            
-            NSURL *tempURL = [[NSURL alloc ] initWithScheme:@"http" host:@"localhost" path:path];
-            
-            NSURLRequest *tempURLRequest = [[NSURLRequest alloc ] initWithURL:tempURL];
-            NSDictionary *params = [ tempURLRequest GETParameters ];
-            
-            NativeEvent *nativeEvent = [[NativeEvent alloc] initWithPayload:@"" andMethod:[params valueForKey:@"method_name"] andWebviewStartedAt:[params valueForKey:@"webview_started_at"]];
-            
-            
-            NSDictionary *headers = @{
-                                      @"Connection": @"keep-alive",
-                                      @"Cache-Control": @"public, max-age=0",
-                                      @"Content-Type": @"application/javascript",
-                                      @"Access-Control-Allow-Origin": @"*"
-                                      };
-            
-            BetterHTTPDataResponse *lolsponse = [[BetterHTTPDataResponse alloc ] initWithData:[nativeEvent asData] andHeaders:headers];
-            
-            return lolsponse;
+    
+            // moved lolsponse below for all cases as iOS9 was more stricter with CORS
             
         } else {
+            
             BridgeHead *bridgeHead = [BridgeHead new];
             [bridgeHead perform: messageURLString ];
         
-            return [super httpResponseForMethod:method URI:path];
+            // return [super httpResponseForMethod:method URI:path];
         }
+        
+        
+        NSURL *tempURL = [[NSURL alloc ] initWithScheme:@"http" host:@"localhost" path:path];
+        
+        NSURLRequest *tempURLRequest = [[NSURLRequest alloc ] initWithURL:tempURL];
+        NSDictionary *params = [ tempURLRequest GETParameters ];
+        
+        nativeEvent = [[NativeEvent alloc] initWithPayload:@"" andMethod:[params valueForKey:@"method_name"] andWebviewStartedAt:[params valueForKey:@"webview_started_at"]];
+        
+        NSDictionary *headers = @{
+                                  @"Connection": @"keep-alive",
+                                  @"Cache-Control": @"public, max-age=0",
+                                  @"Content-Type": @"application/javascript",
+                                  @"Access-Control-Allow-Origin": @"*"
+                                  };
+        
+        BetterHTTPDataResponse *lolsponse = [[BetterHTTPDataResponse alloc ] initWithData:[nativeEvent asData] andHeaders:headers];
+        
+        return lolsponse;
     }
 
 	if ([path isEqualToString:@"/WebSocketTest2.js"]) {
