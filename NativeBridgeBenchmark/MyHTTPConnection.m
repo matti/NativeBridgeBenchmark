@@ -58,6 +58,11 @@ static const int httpLogLevel = HTTP_LOG_LEVEL_WARN; // | HTTP_LOG_FLAG_TRACE;
     // xhrget.* and xhrpost.*
     if ([path hasPrefix:@"/nativebridge://"]) {
     
+//        NSLog(@"body length %@",[NSByteCountFormatter stringFromByteCount:[[request body ]length] countStyle:NSByteCountFormatterCountStyleFile]);
+//        NSString* newStr = [[NSString alloc] initWithData:[request body] encoding:NSUTF8StringEncoding];
+//        
+//        NSLog(newStr);
+        
         NativeEvent *nativeEvent = nil;
         
         NSString *messageURLString = [path substringFromIndex:1];
