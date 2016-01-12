@@ -104,6 +104,9 @@ static Sender *instance;
                                             userInfo:nil
                                              repeats:YES ];
     
+    // lol-fix to prevent bad fps due alert shown
+    sleep(3);
+    
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     
     // pump the run loop until someone tells us to stop
