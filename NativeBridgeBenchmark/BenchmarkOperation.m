@@ -47,7 +47,8 @@
                                       @"fps": [params valueForKey:@"fps"],
                                       @"cpu": benchmarkEvent.cpuUsageString,
                                       @"mem": benchmarkEvent.memUsageString,
-                                      @"render_paused":[ params valueForKey:@"render_paused"]
+                                      @"render_paused":[ params valueForKey:@"render_paused"],
+                                      @"agent": [ params valueForKey:@"agent"]
                                       };
 
     NSString *responseURLString = [NSString stringWithFormat:@"%@.json", benchmarkEvent.targetURL];
