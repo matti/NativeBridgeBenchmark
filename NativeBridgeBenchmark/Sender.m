@@ -116,9 +116,24 @@ static Sender *instance;
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:2.0]];
         
     }
-
-
     
+    NSLog(@"done sending, stopping loop pump and sleeping 2 seconds before requesting a flush");
+    
+    sleep(2);
+    
+    NSString *evalStringFlush = @"document.querySelector('button#flush').click();";
+    
+    if (currentUIWebViewController) {
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [currentUIWebViewController.jsContext evaluateScript:evalStringFlush];
+        });
+    } else {
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [currentWKWebViewController.wkWebView evaluateJavaScript:evalStringFlush completionHandler:nil];
+        });
+    }
+    
+    NSLog(@"flush requested from webview");
 }
 
 
@@ -216,7 +231,7 @@ static Sender *instance;
     
     messages--;
     
-    NSLog(@"sent");
+    NSLog(@"sent, %d remaining", messages);
 }
 
 
