@@ -105,7 +105,23 @@ static Sender *instance;
                                              repeats:YES ];
     
     // lol-fix to prevent bad fps due alert shown
+    
     sleep(3);
+    
+    NSString *evalStringResetRenderLoop = @"window.renderloopHighest = 0;";
+    
+    if (currentUIWebViewController) {
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [currentUIWebViewController.jsContext evaluateScript:evalStringResetRenderLoop];
+        });
+    } else {
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [currentWKWebViewController.wkWebView evaluateJavaScript:evalStringResetRenderLoop completionHandler:nil];
+        });
+    }
+    
+    sleep(1);
+    
     
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     
