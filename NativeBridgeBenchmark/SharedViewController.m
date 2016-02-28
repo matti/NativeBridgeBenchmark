@@ -17,10 +17,12 @@
 #import "BenchmarkRecorder.h"
 
 
+#include <sys/utsname.h>
+
+
 @implementation SharedViewController
 
 -(void)loadView {
-    
     [self addNavigationBar];
     [self restart];
 }
@@ -98,6 +100,11 @@
 
 +(void)toggleAndSetWebView {
     
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    NSString* platform =  [NSString stringWithCString:systemInfo.machine encoding:NSUTF8StringEncoding];
+    
+    
     UIWindow *window = [[ [ UIApplication sharedApplication ] delegate ] window ];
     
     SharedViewController *currentRootVC = (SharedViewController*)window.rootViewController;
@@ -113,8 +120,12 @@
         newVC = [WKWebViewController new];
         currentRootVC.webView.delegate = nil;
         currentRootVC.webView = nil;
+        newVC.wkWebView.customUserAgent = platform;
     } else {
         newVC = [UIWebViewViewController new];
+        
+        NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:platform, @"UserAgent", nil];
+        [[NSUserDefaults standardUserDefaults] registerDefaults:dictionary];
     }
     
     
